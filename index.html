@@ -341,7 +341,7 @@
                             <div class="flex justify-between items-center mb-6">
                                 <div class="text-lg font-bold text-stone-600 flex items-center gap-2">
                                     <i data-lucide="search" class="text-blue-500 w-5 h-5"></i>
-                                    任务：在盲盒中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-xl shadow-sm border border-rose-200">90</span>
+                                    任务：在盲盒中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-xl shadow-sm border border-rose-200">89</span>
                                 </div>
                                 <div class="text-sm font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
                                     当前比对次数：<span id="seq-step-count" class="text-blue-600 text-xl font-black ml-1">0</span>
@@ -456,7 +456,7 @@
                             
                             <div class="flex items-center gap-2 lg:gap-3 bg-white/90 px-4 py-2 rounded-xl border border-stone-200 shadow-sm">
                                 <span class="text-stone-500 font-bold text-xs lg:text-sm">初始数据规模 (n):</span>
-                                <input type="number" id="math-initial-n" value="1000000" class="w-24 lg:w-28 font-mono font-black text-indigo-600 text-center border-b-2 border-indigo-200 focus:outline-none focus:border-indigo-500 bg-transparent">
+                                <input type="number" id="math-initial-n" value="1000" class="w-24 lg:w-28 font-mono font-black text-indigo-600 text-center border-b-2 border-indigo-200 focus:outline-none focus:border-indigo-500 bg-transparent">
                                 <button onclick="initMathGame()" class="p-1.5 lg:p-2 bg-stone-100 hover:bg-stone-200 rounded-lg text-stone-600 transition-colors active:scale-95" title="重置模拟器">
                                     <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                                 </button>
@@ -473,7 +473,7 @@
                                 
                                 <div id="math-data-block" class="w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform">
                                     <div class="text-xs lg:text-sm font-bold opacity-70 mb-1 lg:mb-2 uppercase tracking-widest">规模 N</div>
-                                    <div id="math-current-n" class="text-3xl lg:text-5xl font-black font-mono drop-shadow-md transition-all duration-300">1000000</div>
+                                    <div id="math-current-n" class="text-3xl lg:text-5xl font-black font-mono drop-shadow-md transition-all duration-300">1000</div>
                                     <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[2rem] lg:rounded-[2.5rem] pointer-events-none transition-opacity duration-100"></div>
                                 </div>
 
@@ -1566,7 +1566,7 @@
 
         // ================= 课程回顾：顺序查找模拟器 =================
         const seqArrayData = [11, 12, 23, 34, 45, 56, 67, 78, 89, 90]; // 顺序排列
-        const SEQ_TARGET = 90;
+        const SEQ_TARGET = 89;
         let seqCurrentIndex = 0;
         let seqGameWon = false;
 
