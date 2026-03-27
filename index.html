@@ -1594,6 +1594,7 @@
     renderSeqArray();
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
+        
         function renderSeqArray() {
             const container = document.getElementById('seq-array-container');
             if (!container) return;
@@ -1626,7 +1627,8 @@
                 let pointer = "";
                 if (idx === seqCurrentIndex && !seqGameWon) {
                     boxStyles = "bg-blue-100 border-blue-400 text-blue-600 scale-105 shadow-md border-dashed z-10";
-                    pointer = `<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-blue-500 animate-bounce"><i data-lucide="arrow-up" class="w-5 h-5"></i></div>`;
+                    // 移除了 animate-bounce，避免学生误以为需要点击
+                    pointer = `<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-blue-500"><i data-lucide="arrow-up" class="w-5 h-5"></i></div>`;
                 }
 
                 return `
@@ -1931,47 +1933,58 @@
             
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
+        
+        // ================= 算法推演：对数切割模拟器逻辑 =================
+        
+        // 初始化变量，将默认数据量改为 1000
+        let mathInitialN = 1000;
+        let mathCurrentN = 1000;
+        let mathCutsK = 0;
+        let mathGameWon = false;
+
         function initMathGame() {
-    const inputVal = parseInt(document.getElementById('math-initial-n').value);
-    if(isNaN(inputVal) || inputVal <= 1) {
-        alert("请输入一个大于1的有效数字！");
-        document.getElementById('math-initial-n').value = 1000000;
-        mathInitialN = 1000000;
-    } else {
-        mathInitialN = inputVal;
-    }
-    
-    mathCurrentN = mathInitialN;
-    mathCutsK = 0;
-    mathGameWon = false;
+            const inputVal = parseInt(document.getElementById('math-initial-n').value);
+            if(isNaN(inputVal) || inputVal <= 1) {
+                alert("请输入一个大于1的有效数字！");
+                // 输入无效时，恢复默认值为 1000
+                document.getElementById('math-initial-n').value = 1000;
+                mathInitialN = 1000;
+            } else {
+                mathInitialN = inputVal;
+            }
+            
+            mathCurrentN = mathInitialN;
+            mathCutsK = 0;
+            mathGameWon = false;
 
-    // UI 重置
-    document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
-    document.getElementById('math-k-count').innerText = "0";
-    
-    const logsContainer = document.getElementById('math-logs');
-    logsContainer.innerHTML = `
-        <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70" id="math-empty-state">
-            <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>
-            等待执行第一次劈砍...
-        </div>
-    `;
-    
-    const btn = document.getElementById('btn-halve-strike');
-    btn.disabled = false;
-    // 增加 breathing-light
-    btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light";
-    btn.innerHTML = `<div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scissors" class="w-7 h-7"></i> 折半劈砍！`;
+            // UI 重置
+            document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
+            document.getElementById('math-k-count').innerText = "0";
+            
+            const logsContainer = document.getElementById('math-logs');
+            logsContainer.innerHTML = `
+                <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70" id="math-empty-state">
+                    <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>
+                    等待执行第一次劈砍...
+                </div>
+            `;
+            
+            const btn = document.getElementById('btn-halve-strike');
+            btn.disabled = false;
+            // 增加 breathing-light
+            btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light";
+            btn.innerHTML = `<div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scissors" class="w-7 h-7"></i> 折半劈砍！`;
 
-    const dataBlock = document.getElementById('math-data-block');
-    dataBlock.className = "w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform";
+            const dataBlock = document.getElementById('math-data-block');
+            dataBlock.className = "w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform";
 
-    const conclusion = document.getElementById('math-conclusion');
-    conclusion.classList.add('translate-y-full', 'opacity-0');
-    conclusion.classList.remove('translate-y-0', 'opacity-100');
+            const conclusion = document.getElementById('math-conclusion');
+            conclusion.classList.add('translate-y-full', 'opacity-0');
+            conclusion.classList.remove('translate-y-0', 'opacity-100');
 
-    if(typeof lucide !== 'undefined') lucide.createIcons();
-}
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
         function executeHalve() {
             if (mathGameWon) return;
 
@@ -2037,7 +2050,7 @@
                 }, 500);
             }
         }
-
+        
         // ================= 算法模拟：手动接管指针逻辑 =================
         const gameArray = [2, 5, 8, 12, 16, 23, 38, 45, 56, 67, 89, 100];
         const GAME_TARGET = 45;
