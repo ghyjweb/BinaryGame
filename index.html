@@ -2523,37 +2523,46 @@
         const AI_TARGET_LR = 45; // 故意设定为前一页找到的目标值 45，形成闭环彩蛋
         let aiEpochs = 0;
         let aiGameWon = false;
+        // 新增：动态记录参数的剩余有效范围
+        let aiLeftBound = 1;
+        let aiRightBound = 100;
 
         function resetAIGame() {
-    aiEpochs = 0;
-    aiGameWon = false;
-    
-    document.getElementById('ai-epoch-count').innerText = "0";
-    
-    const input = document.getElementById('ai-lr-input');
-    input.value = '';
-    input.disabled = false;
-    
-    const btn = document.getElementById('btn-ai-train');
-    btn.disabled = false;
-    // 增加 breathing-light
-    btn.className = "px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 hover:shadow-[0_6px_20px_rgba(217,70,239,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light";
-    btn.innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个 Epoch`;
+            aiEpochs = 0;
+            aiGameWon = false;
+            aiLeftBound = 1;
+            aiRightBound = 100;
+            
+            document.getElementById('ai-epoch-count').innerText = "0";
+            
+            const input = document.getElementById('ai-lr-input');
+            input.value = '';
+            input.disabled = false;
+            
+            const btn = document.getElementById('btn-ai-train');
+            btn.disabled = false;
+            // 增加 breathing-light
+            btn.className = "px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 hover:shadow-[0_6px_20px_rgba(217,70,239,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light";
+            btn.innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个 Epoch`;
 
-    const ball = document.getElementById('ai-model-ball');
-    ball.style.transition = 'all 0.5s ease';
-    ball.style.left = '5%';
-    ball.style.top = '15%';
-    ball.className = "absolute w-6 h-6 bg-white rounded-full border-4 border-fuchsia-500 shadow-[0_0_20px_#d946ef] z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]";
-    
-    document.getElementById('ai-explosion').style.opacity = '0';
+            const ball = document.getElementById('ai-model-ball');
+            ball.style.transition = 'all 0.5s ease';
+            ball.style.left = '5%';
+            ball.style.top = '15%';
+            ball.className = "absolute w-6 h-6 bg-white rounded-full border-4 border-fuchsia-500 shadow-[0_0_20px_#d946ef] z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]";
+            
+            document.getElementById('ai-explosion').style.opacity = '0';
 
-    const feedback = document.getElementById('ai-feedback');
-    feedback.className = "mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all duration-300 text-center";
-    feedback.innerHTML = `<i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型已重置。寻找极小值，建议使用折半思想！`;
+            const feedback = document.getElementById('ai-feedback');
+            feedback.className = "mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all duration-300 text-center";
+            feedback.innerHTML = `<i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型已重置。寻找极小值，建议使用折半思想！`;
 
-    if(typeof lucide !== 'undefined') lucide.createIcons();
-}
+            // 初始化范围动画条
+            updateAIRangeVisual();
+
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
         function trainAIModel() {
             if (aiGameWon) return;
 
@@ -2563,9 +2572,12 @@
             const ball = document.getElementById('ai-model-ball');
             const explosion = document.getElementById('ai-explosion');
 
-            if(isNaN(lr) || lr <= 0 || lr > 100) {
-                feedback.innerHTML = `<span class="text-rose-500"><i data-lucide="alert-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> 哎呀！请输入 1 到 100 之间的有效参数。</span>`;
+            // 动态校验输入区间
+            if(isNaN(lr) || lr < aiLeftBound || lr > aiRightBound) {
+                feedback.innerHTML = `<span class="text-rose-500"><i data-lucide="alert-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> 哎呀！请输入 ${aiLeftBound} 到 ${aiRightBound} 之间的有效参数。</span>`;
                 if(typeof lucide !== 'undefined') lucide.createIcons();
+                input.value = '';
+                input.focus();
                 return;
             }
 
@@ -2586,6 +2598,9 @@
             if (lr === AI_TARGET_LR) {
                 // 完美收敛
                 aiGameWon = true;
+                aiLeftBound = lr;
+                aiRightBound = lr;
+
                 ball.style.left = '48.5%';
                 ball.style.top = '82%';
                 ball.className = "absolute w-6 h-6 bg-emerald-400 rounded-full border-4 border-white shadow-[0_0_30px_#10b981] z-30 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] scale-125 animate-bounce";
@@ -2600,20 +2615,23 @@
                 btn.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> 训练完成`;
 
             } else if (lr < AI_TARGET_LR) {
-                // 学习率太小，欠拟合 (小球只滚了一点点)
-                // 映射到一个安全的左侧半山腰：left 从 10% 到 40%
+                // 学习率太小，欠拟合 (更新左边界)
+                aiLeftBound = Math.max(aiLeftBound, lr);
+
                 const progress = lr / AI_TARGET_LR; 
                 const newLeft = 5 + (40 * progress);
-                const newTop = 15 + (60 * progress); // 简单的线性映射模拟抛物线下滑
+                const newTop = 15 + (60 * progress); 
                 
                 ball.style.left = `${newLeft}%`;
                 ball.style.top = `${newTop}%`;
                 
                 feedback.className = "mt-4 w-full p-3 bg-amber-50 border border-amber-200 rounded-xl text-lg font-bold text-amber-700 flex items-center justify-center transition-all shadow-sm";
-                feedback.innerHTML = `参数 ${lr} 太小：学习缓慢，陷入<b class="ml-1 text-amber-600">欠拟合 (Underfitting)</b>。参数需调大。`;
+                feedback.innerHTML = `参数 ${lr} 太小：学习缓慢，陷入<b class="ml-1 text-amber-600">欠拟合</b>。范围缩小至 ${aiLeftBound}~${aiRightBound}。`;
                 
             } else {
-                // 学习率太大，梯度爆炸 (小球飞出右侧屏幕)
+                // 学习率太大，梯度爆炸 (更新右边界)
+                aiRightBound = Math.min(aiRightBound, lr);
+
                 ball.style.left = '120%';
                 ball.style.top = '-20%';
                 
@@ -2622,8 +2640,11 @@
                 setTimeout(() => { explosion.style.opacity = '0'; }, 1000);
                 
                 feedback.className = "mt-4 w-full p-3 bg-rose-50 border border-rose-200 rounded-xl text-lg font-bold text-rose-600 flex items-center justify-center transition-all shadow-sm";
-                feedback.innerHTML = `参数 ${lr} 太大：步子跨太大，导致<b class="ml-1 text-rose-600">梯度爆炸 (Gradient Exploding)</b>！参数需调小。`;
+                feedback.innerHTML = `参数 ${lr} 太大：引发<b class="ml-1 text-rose-600">梯度爆炸</b>！范围缩小至 ${aiLeftBound}~${aiRightBound}。`;
             }
+
+            // 同步渲染范围动画条
+            updateAIRangeVisual();
 
             // 自动清空输入框并聚焦
             setTimeout(() => {
@@ -2636,6 +2657,47 @@
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
 
+        // 新增：动态绘制下方范围进度条的函数
+        function updateAIRangeVisual() {
+            const ball = document.getElementById('ai-model-ball');
+            if (!ball) return;
+            const container = ball.parentElement; // 获取 svg 和小球所在的区域容器
+            
+            let rangeEl = document.getElementById('ai-active-range');
+            if (!rangeEl) {
+                // 如果还不存在，就动态插入一个用来显示剩余范围的进度条
+                rangeEl = document.createElement('div');
+                rangeEl.id = 'ai-active-range';
+                
+                // 添加文字标签
+                const label = document.createElement('div');
+                label.id = 'ai-active-range-label';
+                rangeEl.appendChild(label);
+                
+                container.appendChild(rangeEl);
+            }
+
+            // 计算百分比以实现动画位移
+            const leftPercent = (aiLeftBound / 100) * 100;
+            const widthPercent = ((aiRightBound - aiLeftBound) / 100) * 100;
+            
+            rangeEl.style.left = `${leftPercent}%`;
+            rangeEl.style.width = `${widthPercent}%`;
+            
+            const label = document.getElementById('ai-active-range-label');
+            if (aiLeftBound === aiRightBound) {
+                // 锁定时变为绿色
+                rangeEl.className = 'absolute bottom-0 h-1.5 bg-emerald-400 rounded-full transition-all duration-700 z-10 shadow-[0_0_15px_rgba(16,185,129,0.8)] border-y border-emerald-300';
+                label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-emerald-100 bg-emerald-700/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700 scale-110';
+                label.innerText = `锁定: ${aiLeftBound}`;
+            } else {
+                // 搜索中为紫色
+                rangeEl.className = 'absolute bottom-0 h-1.5 bg-fuchsia-500/60 rounded-full transition-all duration-700 z-10 shadow-[0_0_10px_rgba(217,70,239,0.8)] border-y border-fuchsia-400';
+                label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-fuchsia-300 bg-fuchsia-900/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700';
+                label.innerText = `[${aiLeftBound}, ${aiRightBound}]`;
+            }
+        }
+
         // 回车键快捷提交
         document.addEventListener('DOMContentLoaded', () => {
             const inputLR = document.getElementById('ai-lr-input');
@@ -2646,6 +2708,7 @@
             }
         });
         // ================= AI 模拟器逻辑结束 =================
+
 
         // 监听回车键，提升游戏体验
         document.addEventListener('DOMContentLoaded', () => {
