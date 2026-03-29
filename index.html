@@ -2890,32 +2890,97 @@
         let dictL = 1;
         let dictR = 1000;
         let dictMid = 0;
+        let dictSteps = 0; // 记录已查找的次数
         const DICT_TARGET_PAGE = 682; // 设定“淼”在 682 页
         let dictState = 'FIND_MID';
         let currentDictInfo = null;
 
+        // 动态注入计分板 UI：在原有的范围框旁边插入一个“查找次数”框
+        document.addEventListener('DOMContentLoaded', () => {
+            const rangePanel = document.getElementById('dict-l-val');
+            if (rangePanel) {
+                const rangeBox = rangePanel.parentElement.parentElement;
+                
+                // 创建一个 Flex 容器把两个状态框包起来
+                const statusContainer = document.createElement('div');
+                statusContainer.className = "flex items-center gap-2 shrink-0 ml-2";
+                
+                // 把原有范围框的 ml-2 去掉，避免间距重复
+                rangeBox.classList.remove('ml-2');
+                
+                // 创建全新的次数面板
+                const stepBox = document.createElement('div');
+                stepBox.id = 'dict-step-counter';
+                stepBox.className = "px-3 py-1.5 bg-rose-50 rounded-xl border border-rose-200 shadow-inner flex flex-col items-center gap-0.5 transition-all duration-300";
+                stepBox.innerHTML = `<span class="text-[9px] lg:text-[10px] font-black tracking-widest text-rose-400 uppercase">已翻开次数</span><span class="text-sm lg:text-base font-black text-rose-600 font-mono" id="dict-step-val">0</span>`;
+                
+                // 安全插入 DOM
+                rangeBox.parentNode.insertBefore(statusContainer, rangeBox);
+                statusContainer.appendChild(stepBox);
+                statusContainer.appendChild(rangeBox);
+            }
+        });
+
         // 模拟字典数据：映射页码到拼音和汉字
         function getDictPageData(p) {
             if (p === DICT_TARGET_PAGE) return { char: "淼", pinyin: "miǎo", cmp: 0 };
-            
-            // 为了教学直观，生成目标前后的拼音字母
+
+            // 越靠近目标页，展示的字越逼近“miǎo”，解决之前一直卡在同一个字的错觉
             if (p < DICT_TARGET_PAGE) {
+                const diff = DICT_TARGET_PAGE - p;
+                if (diff === 1) return { char: "庙", pinyin: "miào", cmp: -1 };
+                if (diff === 2) return { char: "妙", pinyin: "miào", cmp: -1 };
+                if (diff === 3) return { char: "藐", pinyin: "miǎo", cmp: -1 };
+                if (diff === 4) return { char: "渺", pinyin: "miǎo", cmp: -1 };
+                if (diff === 5) return { char: "秒", pinyin: "miǎo", cmp: -1 };
+                if (diff === 6) return { char: "鹋", pinyin: "miáo", cmp: -1 };
+                if (diff === 7) return { char: "描", pinyin: "miáo", cmp: -1 };
+                if (diff <= 15) return { char: "喵", pinyin: "miāo", cmp: -1 };
+                if (diff <= 30) return { char: "面", pinyin: "mian", cmp: -1 };
+                if (diff <= 50) return { char: "门", pinyin: "men", cmp: -1 };
+                if (diff <= 80) return { char: "毛", pinyin: "mao", cmp: -1 };
+                if (diff <= 120) return { char: "马", pinyin: "ma", cmp: -1 };
+                
+                // 距离较远时，按比例映射
                 const chars = ["啊(a)", "波(b)", "吃(c)", "得(d)", "佛(f)", "哥(g)", "哈(h)", "机(j)", "科(k)", "拉(l)"];
-                let idx = Math.floor((p / DICT_TARGET_PAGE) * chars.length);
-                if(idx >= chars.length) idx = chars.length - 1;
+                let idx = Math.floor((p / (DICT_TARGET_PAGE - 120)) * chars.length);
+                if (idx < 0) idx = 0;
+                if (idx >= chars.length) idx = chars.length - 1;
                 let split = chars[idx].split('(');
-                return { char: split[0], pinyin: split[1].replace(')',''), cmp: -1 }; // -1 表示当前页拼音小，目标在右
+                return { char: split[0], pinyin: split[1].replace(')',''), cmp: -1 };
+
             } else {
+                const diff = p - DICT_TARGET_PAGE;
+                if (diff === 1) return { char: "乜", pinyin: "miē", cmp: 1 };
+                if (diff === 2) return { char: "灭", pinyin: "miè", cmp: 1 };
+                if (diff <= 5) return { char: "民", pinyin: "min", cmp: 1 };
+                if (diff <= 15) return { char: "明", pinyin: "ming", cmp: 1 };
+                if (diff <= 30) return { char: "摸", pinyin: "mo", cmp: 1 };
+                if (diff <= 80) return { char: "木", pinyin: "mu", cmp: 1 };
+
+                // 距离较远时，按比例映射
                 const chars = ["那(n)", "欧(o)", "坡(p)", "七(q)", "日(r)", "思(s)", "特(t)", "乌(w)", "西(x)", "呀(y)", "字(z)"];
-                let idx = Math.floor(((p - DICT_TARGET_PAGE) / (1000 - DICT_TARGET_PAGE)) * chars.length);
-                if(idx >= chars.length) idx = chars.length - 1;
+                let idx = Math.floor(((p - (DICT_TARGET_PAGE + 80)) / (1000 - (DICT_TARGET_PAGE + 80))) * chars.length);
+                if (idx < 0) idx = 0;
+                if (idx >= chars.length) idx = chars.length - 1;
                 let split = chars[idx].split('(');
-                return { char: split[0], pinyin: split[1].replace(')',''), cmp: 1 }; // 1 表示当前页拼音大，目标在左
+                return { char: split[0], pinyin: split[1].replace(')',''), cmp: 1 };
             }
         }
 
         function calculateDictMid() {
             if (dictState === 'WON') return;
+            
+            // 每次执行计算中点，说明翻开了一次字典，查找次数 +1
+            dictSteps++;
+            const stepValEl = document.getElementById('dict-step-val');
+            if (stepValEl) {
+                stepValEl.innerText = dictSteps;
+                // 给 UI 加上动态的放大闪烁特效
+                const stepBox = stepValEl.parentElement;
+                stepBox.classList.add('scale-110', 'bg-rose-100', 'border-rose-300');
+                setTimeout(() => stepBox.classList.remove('scale-110', 'bg-rose-100', 'border-rose-300'), 300);
+            }
             
             // 书本翻页动画特效
             const book = document.getElementById('dict-book-container');
@@ -2933,7 +2998,11 @@
                 
                 document.getElementById('ui-char-left').innerText = currentDictInfo.char;
                 document.getElementById('ui-pinyin-left').innerText = currentDictInfo.pinyin;
-                document.getElementById('ui-cmp-current').innerText = currentDictInfo.pinyin.charAt(0);
+                
+                // 更新提示语
+                const cmpTextContainer = document.getElementById('ui-cmp-current').parentNode;
+                cmpTextContainer.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4 text-rose-500 shrink-0"></i> 当前查到 <span id="ui-cmp-current" class="text-rose-600 font-black text-base lg:text-lg underline decoration-rose-300">${currentDictInfo.char}(${currentDictInfo.pinyin})</span>，目标是 <span class="text-blue-600 font-black text-base lg:text-lg underline decoration-blue-300">淼(miǎo)</span>。接下来撕哪半本？`;
+                if(typeof lucide !== 'undefined') lucide.createIcons();
 
                 const contentLeft = document.getElementById('dict-content-left');
                 contentLeft.classList.remove('scale-0', 'opacity-0');
@@ -2943,9 +3012,11 @@
                 if (currentDictInfo.cmp === 0) {
                     dictState = 'WON';
                     document.getElementById('dict-step-1').classList.add('hidden');
+                    
                     const success = document.getElementById('dict-success-msg');
                     success.classList.remove('hidden');
                     success.classList.add('animate-bounce');
+                    success.innerHTML = `<i data-lucide="party-popper" class="w-5 h-5 inline mr-1 -mt-1 text-emerald-500"></i> 太棒了！用二分法，面对 1000 页的字典，你仅需 <b>${dictSteps}</b> 次就成功锁定了目标！`;
                     
                     // 目标特效
                     document.getElementById('dict-page-left').classList.add('bg-emerald-50');
@@ -2963,9 +3034,9 @@
 
         function chooseDictHalf(choice) {
             let isCorrect = false;
-            // 目标是 m。
-            // cmp === -1 表示当前拼音 < m（比如 j），目标在右侧（保留后半本）
-            // cmp === 1 表示当前拼音 > m（比如 s），目标在左侧（保留前半本）
+            // 目标是 miao。
+            // cmp === -1 表示当前拼音排在 miao 前面，目标在右侧（保留后半本）
+            // cmp === 1 表示当前拼音排在 miao 后面，目标在左侧（保留前半本）
             if (currentDictInfo.cmp === -1 && choice === 'RIGHT') isCorrect = true;
             if (currentDictInfo.cmp === 1 && choice === 'LEFT') isCorrect = true;
 
