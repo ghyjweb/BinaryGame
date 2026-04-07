@@ -448,17 +448,42 @@
                                 </button>
                             </div>
 
-                            <div class="relative w-full h-12 bg-slate-100 rounded-full shadow-inner border border-slate-300 mb-8 flex items-center px-6">
+                            <div class="relative w-full h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-8 flex items-center px-6 group cursor-crosshair" 
+                                 onclick="
+                                    const core = document.getElementById('cable-core');
+                                    const rect = core.getBoundingClientRect();
+                                    let clickX = event.clientX - rect.left;
+                                    let percent = Math.round((clickX / rect.width) * 100);
+                                    percent = Math.max(1, Math.min(99, percent));
+                                    document.getElementById('guess-input').value = percent;
+                                    if(typeof makeGuess === 'function') makeGuess();
+                                 ">
                                 <div class="absolute left-2 -top-6 text-xs lg:text-sm font-black text-slate-500">东莞 (0km)</div>
                                 <div class="absolute right-2 -top-6 text-xs lg:text-sm font-black text-slate-500">广州 (100km)</div>
                                 
-                                <div class="w-full h-2.5 bg-slate-300 rounded-full relative" id="cable-core">
+                                <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
+                                    <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速检测
+                                </div>
+                                
+                                <div class="w-full h-3 bg-slate-300 rounded-full relative" id="cable-core">
                                     <div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>
+                                    
+                                    <div class="absolute inset-0 w-full h-full pointer-events-none flex justify-between items-center" style="padding: 0 10%;">
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">10</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">20</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">30</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">40</span></div>
+                                        <div class="w-[3px] h-4 bg-slate-500/90 relative -mt-0.5"><span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-slate-600 font-black">50</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">60</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">70</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">80</span></div>
+                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">90</span></div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="flex items-center gap-4 bg-gradient-to-r from-slate-50 to-blue-50 p-5 rounded-2xl border border-blue-100 w-full justify-center shadow-inner">
-                                <span class="font-black text-slate-700 text-lg">输入检测点：</span>
+                                <span class="font-black text-slate-700 text-lg">输入或点击检测：</span>
                                 <input type="number" id="guess-input" min="0" max="100" class="w-28 text-center font-black text-2xl text-blue-600 border-2 border-blue-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 py-2 shadow-sm transition-all" placeholder="km">
                                 <button onclick="makeGuess()" id="guess-btn" class="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.4)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light">
                                     <i data-lucide="satellite" class="w-5 h-5"></i> 派遣检测
@@ -466,7 +491,7 @@
                             </div>
 
                             <div id="game-feedback" class="mt-6 w-full h-14 text-lg font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed">
-                                <i data-lucide="activity" class="w-5 h-5 mr-2"></i> 游戏已就绪，请输入数字开始排查
+                                <i data-lucide="activity" class="w-5 h-5 mr-2"></i> 游戏已就绪，请输入或点击坐标开始排查
                             </div>
                         </div>
                     </div>
