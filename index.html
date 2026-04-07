@@ -720,53 +720,78 @@
             </div>
 
             <div id="slide-8" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
-                        <div class="flex items-center justify-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-2 bg-fuchsia-50 border border-fuchsia-100 rounded-xl text-fuchsia-600 shadow-sm"><i data-lucide="brain-circuit" class="w-8 h-8"></i></div>
-                            <h2 class="text-3xl lg:text-4xl font-black tracking-widest text-stone-800 uppercase m-0">拓展：AI “调参师”模拟</h2>
-                        </div>
-                        <div class="bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-xl backdrop-blur-md w-full max-w-4xl transition-all duration-500 relative overflow-hidden flex flex-col items-center">
-                            <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-fuchsia-100/40 rounded-full blur-[60px] pointer-events-none"></div>
-                            <div class="w-full flex justify-between items-end mb-4 relative z-10">
-                                <div class="text-left">
-                                    <h3 class="text-xl lg:text-2xl font-black text-stone-800 flex items-center gap-2 mb-2"><i data-lucide="target" class="text-fuchsia-500 w-6 h-6"></i> 寻找最佳 Learning Rate (学习率)</h3>
-                                    <p class="text-stone-500 font-bold text-sm">任务：输入 1-100 之间的参数。太大导致梯度爆炸，太小导致学习停滞。用折半法找出完美参数！</p>
-                                </div>
-                                <div class="px-4 py-2 bg-slate-100 rounded-xl border border-slate-200 shadow-inner flex items-center gap-2 text-slate-500 font-bold text-sm">
-                                    <i data-lucide="activity" class="w-4 h-4"></i> 训练次数：<span id="ai-epoch-count" class="text-fuchsia-600 font-black text-lg">0</span>
-                                </div>
-                            </div>
-                            <div class="relative w-full h-48 lg:h-56 bg-slate-900 rounded-2xl border-[4px] border-slate-800 shadow-[inset_0_20px_40px_rgba(0,0,0,0.6)] mb-6 overflow-hidden flex items-end justify-center">
-                                <div class="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                                <span class="absolute top-2 left-4 text-xs font-mono font-black text-slate-500 tracking-widest uppercase z-0">Loss Function (误差代价)</span>
-                                <svg class="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-                                    <path d="M -10 10 Q 50 160 110 10" stroke="rgba(217, 70, 239, 0.4)" stroke-width="2" fill="none" stroke-dasharray="4 4" />
-                                    <path d="M 50 85 L 50 100" stroke="rgba(16, 185, 129, 0.5)" stroke-width="1" stroke-dasharray="2 2" />
-                                    <text x="50" y="98" fill="rgba(16, 185, 129, 0.8)" font-size="5" text-anchor="middle" font-family="monospace" font-weight="bold">极小值 (目标)</text>
-                                </svg>
-                                <div id="ai-model-ball" class="absolute w-6 h-6 bg-white rounded-full border-4 border-fuchsia-500 shadow-[0_0_20px_#d946ef] z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" style="left: 5%; top: 15%;">
-                                    <div class="absolute inset-0 bg-fuchsia-400 rounded-full animate-ping opacity-50"></div>
-                                </div>
-                                <div id="ai-explosion" class="absolute inset-0 bg-rose-500/20 opacity-0 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
-                                    <span class="text-4xl lg:text-5xl font-black text-rose-500 tracking-widest rotate-12 drop-shadow-[0_0_15px_#ef4444]">梯度爆炸!</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 bg-fuchsia-50/50 p-4 lg:p-5 rounded-2xl border border-fuchsia-100 w-full justify-center shadow-inner relative z-10">
-                                <span class="font-black text-fuchsia-900 text-base lg:text-lg">输入 LR 参数：</span>
-                                <input type="number" id="ai-lr-input" min="1" max="100" class="w-24 lg:w-32 text-center font-black text-2xl text-fuchsia-600 border-2 border-fuchsia-300 rounded-xl focus:outline-none focus:border-fuchsia-600 focus:ring-4 focus:ring-fuchsia-100 py-2 shadow-sm transition-all bg-white" placeholder="1-100">
-                                <button onclick="trainAIModel()" id="btn-ai-train" class="px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 hover:shadow-[0_6px_20px_rgba(217,70,239,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light">
-                                    <i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个 Epoch
-                                </button>
-                                <button onclick="resetAIGame()" class="px-4 py-3 bg-white border border-stone-200 text-stone-500 hover:bg-stone-50 rounded-xl font-bold transition-all active:scale-95 shadow-sm">重置</button>
-                            </div>
-                            <div id="ai-feedback" class="mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all duration-300 text-center">
-                                <i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型尚未启动。请设定学习率开始训练。
-                            </div>
+    <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
+        <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
+            <div class="flex items-center justify-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
+                <div class="p-2 bg-fuchsia-50 border border-fuchsia-100 rounded-xl text-fuchsia-600 shadow-sm"><i data-lucide="brain-circuit" class="w-8 h-8"></i></div>
+                <h2 class="text-3xl lg:text-4xl font-black tracking-widest text-stone-800 uppercase m-0">拓展：AI “调参师”模拟</h2>
+            </div>
+            <div class="bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-xl backdrop-blur-md w-full max-w-4xl transition-all duration-500 relative overflow-hidden flex flex-col items-center">
+                <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-fuchsia-100/40 rounded-full blur-[60px] pointer-events-none"></div>
+                <div class="w-full flex justify-between items-end mb-4 relative z-10">
+                    <div class="text-left">
+                        <h3 class="text-xl lg:text-2xl font-black text-stone-800 flex items-center gap-2 mb-2"><i data-lucide="target" class="text-fuchsia-500 w-6 h-6"></i> 寻找最佳 Learning Rate (学习率)</h3>
+                        <p class="text-stone-500 font-bold text-sm">任务：输入 1-100 之间的参数。太大导致梯度爆炸，太小导致学习停滞。用折半法找出完美参数！</p>
+                    </div>
+                    <div class="px-4 py-2 bg-slate-100 rounded-xl border border-slate-200 shadow-inner flex items-center gap-2 text-slate-500 font-bold text-sm shrink-0">
+                        <i data-lucide="activity" class="w-4 h-4"></i> 训练次数：<span id="ai-epoch-count" class="text-fuchsia-600 font-black text-lg">0</span>
+                    </div>
+                </div>
+                
+                <div class="relative w-full h-40 lg:h-48 bg-slate-900 rounded-2xl border-[4px] border-slate-800 shadow-[inset_0_20px_40px_rgba(0,0,0,0.6)] mb-5 overflow-hidden flex items-end justify-center">
+                    <div class="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                    <span class="absolute top-2 left-4 text-xs font-mono font-black text-slate-500 tracking-widest uppercase z-0">Loss Function (误差代价)</span>
+                    <svg class="absolute bottom-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
+                        <path d="M -10 10 Q 50 160 110 10" stroke="rgba(217, 70, 239, 0.4)" stroke-width="2" fill="none" stroke-dasharray="4 4" />
+                        <path d="M 50 85 L 50 100" stroke="rgba(16, 185, 129, 0.5)" stroke-width="1" stroke-dasharray="2 2" />
+                        <text x="50" y="98" fill="rgba(16, 185, 129, 0.8)" font-size="5" text-anchor="middle" font-family="monospace" font-weight="bold">极小值 (目标)</text>
+                    </svg>
+                    <div id="ai-model-ball" class="absolute w-6 h-6 bg-white rounded-full border-4 border-fuchsia-500 shadow-[0_0_20px_#d946ef] z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]" style="left: 5%; top: 15%;">
+                        <div class="absolute inset-0 bg-fuchsia-400 rounded-full animate-ping opacity-50"></div>
+                    </div>
+                    <div id="ai-explosion" class="absolute inset-0 bg-rose-500/20 opacity-0 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
+                        <span class="text-4xl lg:text-5xl font-black text-rose-500 tracking-widest rotate-12 drop-shadow-[0_0_15px_#ef4444]">梯度爆炸!</span>
+                    </div>
+                </div>
+
+                <div class="relative w-full h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-5 flex items-center px-6 group cursor-crosshair z-10" 
+                     onclick="const core = document.getElementById('ai-lr-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(100, percent)); document.getElementById('ai-lr-input').value = percent; if(typeof trainAIModel === 'function') trainAIModel();">
+                    <div class="absolute left-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=1</div>
+                    <div class="absolute right-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=100</div>
+                    <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
+                        <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速输入并训练
+                    </div>
+                    <div class="w-full h-3 bg-slate-300 rounded-full relative" id="ai-lr-core">
+                        <div id="ai-interactive-range" class="absolute h-full bg-fuchsia-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(217,70,239,0.5)]" style="left: 0%; width: 100%;"></div>
+                        <div class="absolute inset-0 w-full h-full pointer-events-none flex justify-between items-center" style="padding: 0 10%;">
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">10</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">20</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">30</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">40</span></div>
+                            <div class="w-[3px] h-4 bg-slate-500/90 relative -mt-0.5"><span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-slate-600 font-black">50</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">60</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">70</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">80</span></div>
+                            <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">90</span></div>
                         </div>
                     </div>
                 </div>
+
+                <div class="flex items-center gap-4 bg-fuchsia-50/50 p-4 lg:p-5 rounded-2xl border border-fuchsia-100 w-full justify-center shadow-inner relative z-10">
+                    <span class="font-black text-fuchsia-900 text-base lg:text-lg">输入 LR 参数：</span>
+                    <input type="number" id="ai-lr-input" min="1" max="100" class="w-24 lg:w-32 text-center font-black text-2xl text-fuchsia-600 border-2 border-fuchsia-300 rounded-xl focus:outline-none focus:border-fuchsia-600 focus:ring-4 focus:ring-fuchsia-100 py-2 shadow-sm transition-all bg-white" placeholder="1-100">
+                    <button onclick="trainAIModel()" id="btn-ai-train" class="px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 hover:shadow-[0_6px_20px_rgba(217,70,239,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light">
+                        <i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个 Epoch
+                    </button>
+                    <button onclick="resetAIGame()" class="px-4 py-3 bg-white border border-stone-200 text-stone-500 hover:bg-stone-50 rounded-xl font-bold transition-all active:scale-95 shadow-sm">重置</button>
+                </div>
+                <div id="ai-feedback" class="mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all duration-300 text-center">
+                    <i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型尚未启动。请设定学习率或点击上方坐标轴开始训练。
+                </div>
+            </div>
+        </div>
+    </div>
             </div>
 
             <div id="slide-9" class="slide inactive-right absolute inset-0"> 
@@ -2105,28 +2130,46 @@
         }
 
         function updateAIRangeVisual() {
-            const ball = document.getElementById('ai-model-ball');
-            if (!ball) return;
-            const container = ball.parentElement;
-            let rangeEl = document.getElementById('ai-active-range');
-            if (!rangeEl) {
-                rangeEl = document.createElement('div'); rangeEl.id = 'ai-active-range';
-                const label = document.createElement('div'); label.id = 'ai-active-range-label';
-                rangeEl.appendChild(label); container.appendChild(rangeEl);
-            }
-            rangeEl.style.left = `${(aiLeftBound / 100) * 100}%`;
-            rangeEl.style.width = `${((aiRightBound - aiLeftBound) / 100) * 100}%`;
-            const label = document.getElementById('ai-active-range-label');
-            if (aiLeftBound === aiRightBound) {
-                rangeEl.className = 'absolute bottom-0 h-1.5 bg-emerald-400 rounded-full transition-all duration-700 z-10 shadow-[0_0_15px_rgba(16,185,129,0.8)] border-y border-emerald-300';
-                label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-emerald-100 bg-emerald-700/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700 scale-110';
-                label.innerText = `锁定: ${aiLeftBound}`;
-            } else {
-                rangeEl.className = 'absolute bottom-0 h-1.5 bg-fuchsia-500/60 rounded-full transition-all duration-700 z-10 shadow-[0_0_10px_rgba(217,70,239,0.8)] border-y border-fuchsia-400';
-                label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-fuchsia-300 bg-fuchsia-900/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700';
-                label.innerText = `[${aiLeftBound}, ${aiRightBound}]`;
-            }
+    const ball = document.getElementById('ai-model-ball');
+    if (!ball) return;
+    const container = ball.parentElement;
+    let rangeEl = document.getElementById('ai-active-range');
+    if (!rangeEl) {
+        rangeEl = document.createElement('div'); rangeEl.id = 'ai-active-range';
+        const label = document.createElement('div'); label.id = 'ai-active-range-label';
+        rangeEl.appendChild(label); container.appendChild(rangeEl);
+    }
+    
+    // 计算百分比范围
+    const leftPercent = (aiLeftBound / 100) * 100;
+    const widthPercent = ((aiRightBound - aiLeftBound) / 100) * 100;
+
+    // 1. 更新原图表底部的发光线条
+    rangeEl.style.left = `${leftPercent}%`;
+    rangeEl.style.width = `${widthPercent}%`;
+    const label = document.getElementById('ai-active-range-label');
+    if (aiLeftBound === aiRightBound) {
+        rangeEl.className = 'absolute bottom-0 h-1.5 bg-emerald-400 rounded-full transition-all duration-700 z-10 shadow-[0_0_15px_rgba(16,185,129,0.8)] border-y border-emerald-300';
+        label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-emerald-100 bg-emerald-700/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700 scale-110';
+        label.innerText = `锁定: ${aiLeftBound}`;
+    } else {
+        rangeEl.className = 'absolute bottom-0 h-1.5 bg-fuchsia-500/60 rounded-full transition-all duration-700 z-10 shadow-[0_0_10px_rgba(217,70,239,0.8)] border-y border-fuchsia-400';
+        label.className = 'absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-mono font-black text-fuchsia-300 bg-fuchsia-900/80 px-2 py-0.5 rounded backdrop-blur-sm whitespace-nowrap transition-all duration-700';
+        label.innerText = `[${aiLeftBound}, ${aiRightBound}]`;
+    }
+
+    // 2. 【新增】同步更新交互式坐标轴的背景范围高亮
+    const interactiveRange = document.getElementById('ai-interactive-range');
+    if (interactiveRange) {
+        interactiveRange.style.left = `${leftPercent}%`;
+        interactiveRange.style.width = `${widthPercent}%`;
+        if (aiLeftBound === aiRightBound) {
+            interactiveRange.className = 'absolute h-full bg-emerald-400/60 rounded-full z-0 transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.6)]';
+        } else {
+            interactiveRange.className = 'absolute h-full bg-fuchsia-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(217,70,239,0.5)]';
         }
+    }
+}
 
         // 数学求零点模块
         let mathRootL = 1.000; let mathRootR = 2.000; let mathRootMid = null; let mathRootVal = null; let mathRootState = 'IDLE';
