@@ -12,7 +12,6 @@
     <script>window.lucide || document.write('<script src="./lucide.js"><\\/script>')</script>
     
     <style>
-        /* [等待任务二注入：所有清洗和重组后的 CSS 样式将统一放在这里] */
         /* ==========================================================================
         全局样式层 (CSS Styles)
         按功能模块解耦，统一管理所有视觉与动画规则
@@ -1220,7 +1219,6 @@
     <script>
         /**
          * 【全局配置】点击屏幕两侧翻页防误触拦截
-         * （注：从原 <head> 中提取至此，后续将与任务四的核心系统逻辑整合）
          */
         document.addEventListener('click', (e) => {
             // 拦截点击事件：保护所有交互控件和代码区，防止误触触发翻页
@@ -1231,7 +1229,11 @@
                 e.target.closest('select') || 
                 e.target.tagName === 'OPTION' ||
                 e.target.tagName === 'INPUT' ||
-                e.target.closest('#ide-window')) return; 
+                e.target.closest('#ide-window') ||
+                e.target.closest('.cursor-crosshair') || 
+                e.target.closest('.bg-slate-900') ||     
+                e.target.closest('[onclick]')            
+            ) return; 
 
             const clickX = e.clientX;
             const screenWidth = window.innerWidth;
@@ -1244,7 +1246,6 @@
             }
         });
 
-        /* [等待任务四注入：按教学环节拆分的所有 JS 逻辑] */
         // ==========================================================================
         // 交互逻辑与教学模块 (JavaScript Scripts)
         // 按教学环节解耦，统一状态机管理
@@ -2158,7 +2159,6 @@
         label.innerText = `[${aiLeftBound}, ${aiRightBound}]`;
     }
 
-    // 2. 【新增】同步更新交互式坐标轴的背景范围高亮
     const interactiveRange = document.getElementById('ai-interactive-range');
     if (interactiveRange) {
         interactiveRange.style.left = `${leftPercent}%`;
