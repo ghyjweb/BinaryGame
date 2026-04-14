@@ -37,10 +37,46 @@
         .task-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .task-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
 
+/* --------------------------------------------------------------------------
+        1. 基础元素与滚动条重置 (Base & Resets)
+        -------------------------------------------------------------------------- */
+        
+        html {
+            font-size: clamp(12px, 0.8vw + 0.5vh, 18px) !important; 
+        }
+
+        .slide > div:not(.absolute.inset-0.z-0) {
+            padding: 4% 5% !important; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%; 
+            overflow: hidden;
+        }
+
+        .slide > div:not(.absolute.inset-0.z-0) > div[class*="max-w-"] {
+            width: 100%;
+            max-height: 100%; 
+            height: fit-content;
+            overflow-y: auto; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide > div:not(.absolute.inset-0.z-0) > div[class*="max-w-"]::-webkit-scrollbar { width: 0px; background: transparent; }
+
         /* --------------------------------------------------------------------------
         2. 核心布局与组件 (Layout & Components)
         -------------------------------------------------------------------------- */
-        /* 幻灯片转场控制器 */
+
+        #slides-wrapper {
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         .slide { 
             transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
         }
@@ -293,11 +329,13 @@
         <div id="slides-wrapper" class="relative w-full flex-1 overflow-hidden z-10">
 
             <div id="slide-0" class="slide active absolute inset-0">
+                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./fengmian.jpg');"></div>
+                
                 <div class="absolute inset-0 z-0 opacity-20 bg-[linear-gradient(rgba(79,70,229,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(79,70,229,0.1)_1px,transparent_1px)] bg-[size:30px_30px] pointer-events-none"></div>
                 <div class="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-indigo-400/20 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
                 <div class="absolute bottom-1/4 right-1/4 translate-x-1/4 translate-y-1/4 w-[25rem] h-[25rem] bg-emerald-400/20 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
 
-                <div class="h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto relative">
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
                     <div class="bg-white/80 p-10 lg:p-16 rounded-[3rem] border border-white/60 shadow-[0_20px_60px_rgba(0,0,0,0.05)] backdrop-blur-xl w-full max-w-5xl text-center relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"></div>
                         <div class="absolute top-8 right-8 text-indigo-200 opacity-50 group-hover:animate-spin transition-all duration-700">
@@ -339,110 +377,124 @@
 
             <div id="slide-1" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-seq.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col h-full justify-center">
-                        <div class="flex items-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
-                            <div class="p-3 bg-blue-50 rounded-2xl text-blue-600 border border-blue-100 shadow-sm"><i data-lucide="history" class="w-8 h-8"></i></div>
-                            <h2 class="text-3xl lg:text-4xl font-black text-stone-800">1. 课程回顾：感受顺序查找的“痛”</h2>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
+                            <div class="p-2 bg-blue-50 rounded-2xl text-blue-600 border border-blue-100 shadow-sm"><i data-lucide="history" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">1. 课程回顾：感受顺序查找的“痛”</h2>
                         </div>
-                        <div class="bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-100 shadow-xl mb-6 relative z-20 overflow-hidden">
+                        
+                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-100 shadow-xl mb-5 relative z-20 overflow-hidden">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-300 to-blue-400"></div>
+                            
                             <div class="flex justify-between items-center mb-6">
-                                <div class="text-lg font-bold text-stone-600 flex items-center gap-2">
+                                <div class="text-base lg:text-lg font-bold text-stone-600 flex items-center gap-2">
                                     <i data-lucide="search" class="text-blue-500 w-5 h-5"></i>
-                                    任务：在盲盒中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-xl shadow-sm border border-rose-200">89</span>
+                                    任务：在盲盒中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-lg lg:text-xl shadow-sm border border-rose-200">89</span>
                                 </div>
                                 <div class="text-sm font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
-                                    当前比对次数：<span id="seq-step-count" class="text-blue-600 text-xl font-black ml-1">0</span>
+                                    当前比对次数：<span id="seq-step-count" class="text-blue-600 text-lg lg:text-xl font-black ml-1">0</span>
                                 </div>
                             </div>
-                            <div id="seq-array-container" class="flex flex-wrap gap-2 lg:gap-3 justify-center mb-8 min-h-[100px] items-center"></div>
-                            <div class="flex flex-col items-center justify-center gap-4">
-                                <button id="btn-inspect-next" onclick="inspectNextSeq()" class="group relative px-8 py-4 bg-slate-800 text-white rounded-2xl font-black text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light">
-                                    <div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
-                                    <i data-lucide="scan-line" class="w-6 h-6 text-blue-400 group-hover:animate-pulse"></i> 
-                                    <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>
-                                </button>
-                                <p id="seq-feedback-text" class="text-stone-400 font-medium text-sm transition-all">规则：从左到右，按顺序逐个开箱比对</p>
-                            </div>
+                            
+                            <div id="seq-array-container" class="flex flex-wrap gap-x-2 gap-y-10 lg:gap-3 justify-center min-h-[90px] items-center"></div>
                         </div>
-                        <div id="review-efficiency" class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 transition-all duration-700 transform opacity-0 translate-y-8 scale-95 pointer-events-none">
-                            <div class="bg-white/90 p-5 lg:p-6 rounded-3xl border border-blue-100 shadow-lg flex items-start gap-4 backdrop-blur-sm">
+
+                        <div class="shrink-0 flex flex-row flex-wrap items-center justify-center gap-4 mb-4 relative z-20">
+                            <button id="btn-inspect-next" onclick="inspectNextSeq()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0">
+                                <div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
+                                <i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> 
+                                <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>
+                            </button>
+                            <p id="seq-feedback-text" class="text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white shadow-sm transition-all shrink-0">规则：从左到右，按顺序逐个开箱比对</p>
+                        </div>
+
+                        <div id="review-efficiency" class="shrink-0 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5 transition-all duration-700 transform opacity-0 translate-y-8 scale-95 pointer-events-none">
+                            <div class="bg-white/90 p-4 lg:p-5 rounded-3xl border border-blue-100 shadow-lg flex items-start gap-4 backdrop-blur-sm">
                                 <div class="p-3 bg-blue-50 rounded-2xl shrink-0"><i data-lucide="frown" class="w-6 h-6 text-blue-500"></i></div>
                                 <div>
-                                    <h3 class="font-black text-xl text-stone-800 mb-2">低效的本质</h3>
-                                    <p class="text-stone-600 font-medium leading-relaxed">哪怕目标近在眼前，只要它排在后面，计算机也只能“死脑筋”地从头开始一个一个问。步进永远为 1。</p>
+                                    <h3 class="font-black text-xl text-stone-800 mb-1">低效的本质</h3>
+                                    <p class="text-stone-600 font-medium leading-relaxed text-sm lg:text-base">哪怕目标近在眼前，只要它排在后面，计算机也只能“死脑筋”地从头开始一个一个问。步进永远为 1。</p>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-5 lg:p-6 rounded-3xl shadow-lg border border-slate-700 text-slate-300 flex items-center gap-6">
+                            <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-4 lg:p-5 rounded-3xl shadow-lg border border-slate-700 text-slate-300 flex items-center gap-4 lg:gap-6">
                                 <div class="flex-1">
                                     <div class="text-xs font-black tracking-widest text-slate-500 uppercase mb-1">Time Complexity</div>
-                                    <div class="text-2xl font-black text-white flex items-center gap-2">时间复杂度：<span class="text-rose-400 bg-rose-500/10 px-2 py-1 rounded border border-rose-500/30">O(n)</span></div>
+                                    <div class="text-xl lg:text-2xl font-black text-white flex items-center gap-2">时间复杂度：<span class="text-rose-400 bg-rose-500/10 px-2 py-1 rounded border border-rose-500/30">O(n)</span></div>
                                 </div>
-                                <div class="w-16 h-16 rounded-full bg-slate-800 border-4 border-rose-500/50 flex flex-col items-center justify-center shrink-0 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
-                                    <span class="text-[10px] font-bold text-slate-400">最坏情况</span><span class="text-xl font-black text-rose-400">n次</span>
+                                <div class="w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-slate-800 border-4 border-rose-500/50 flex flex-col items-center justify-center shrink-0 shadow-[0_0_15px_rgba(244,63,94,0.3)]">
+                                    <span class="text-[10px] font-bold text-slate-400">最坏情况</span><span class="text-lg lg:text-xl font-black text-rose-400 leading-tight">n次</span>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
 
             <div id="slide-2" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-cable.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col h-full justify-center">
-                        <div class="flex items-center justify-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-8 py-4 rounded-3xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-3 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-8 h-8"></i></div>
-                            <h2 class="text-4xl lg:text-5xl font-black text-stone-800">2. 情境探究：光缆维修模拟</h2>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
+                            <div class="p-2 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">2. 情境探究：光缆维修模拟</h2>
                         </div>
-                        <div class="mb-4 p-4 lg:p-5 bg-white/90 border border-stone-200 rounded-2xl text-base text-stone-600 font-medium flex items-start gap-4 shadow-md backdrop-blur-sm">
-                            <div class="p-2 bg-blue-50 rounded-full shrink-0 border border-blue-100 mt-1"><i data-lucide="info" class="w-6 h-6 text-blue-500"></i></div>
-                            <p class="leading-relaxed">
-                                <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连。系统已生成一个随机断点。<br>
-                                请派遣无人机前往指定公里数进行检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。请尝试用<b>最少的次数</b>锁定断点！
-                            </p>
-                        </div>
-                        <div class="bg-white/95 p-6 lg:p-8 rounded-3xl border border-stone-100 shadow-xl relative flex flex-col items-center z-20">
-                            <div class="flex justify-between items-center w-full mb-8 px-4">
-                                <div class="text-lg font-bold text-stone-600 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
-                                    当前排查次数：<span id="game-attempts" class="text-blue-600 text-3xl font-black ml-2 transition-all">0</span>
+                        
+                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-100 shadow-xl relative flex flex-col items-center z-20 overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-amber-500"></div>
+
+                            <div class="w-full mb-5 p-3 lg:p-4 bg-slate-50/80 border border-slate-200 rounded-2xl text-sm lg:text-base text-stone-600 font-medium flex items-start gap-3 shadow-inner shrink-0">
+                                <div class="p-1.5 bg-blue-50 rounded-full shrink-0 border border-blue-100 mt-0.5"><i data-lucide="info" class="w-5 h-5 text-blue-500"></i></div>
+                                <p class="leading-relaxed m-0">
+                                    <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连，系统已生成一个随机断点。请派遣无人机前往指定公里数检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。请用<b>最少的次数</b>锁定它！
+                                </p>
+                            </div>
+
+                            <div class="flex justify-between items-center w-full mb-6 px-2 lg:px-4 shrink-0">
+                                <div class="text-base lg:text-lg font-bold text-stone-600 bg-slate-50 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                                    当前排查次数：<span id="game-attempts" class="text-blue-600 text-2xl lg:text-3xl font-black transition-all">0</span>
                                 </div>
-                                <button onclick="initGame()" class="px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95">
-                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> 重新生成断点
+                                <button onclick="initGame()" class="px-3 lg:px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-bold text-sm lg:text-base transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新生成断点</span><span class="sm:hidden">重置</span>
                                 </button>
                             </div>
-                            <div class="relative w-full h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-8 flex items-center px-6 group cursor-crosshair" 
+
+                            <div class="relative w-full h-12 lg:h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-6 flex items-center px-6 group cursor-crosshair shrink-0" 
                                 onclick="const core = document.getElementById('cable-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(99, percent)); document.getElementById('guess-input').value = percent; if(typeof makeGuess === 'function') makeGuess();">
-                                <div class="absolute left-2 -top-6 text-xs lg:text-sm font-black text-slate-500">东莞 (0km)</div>
-                                <div class="absolute right-2 -top-6 text-xs lg:text-sm font-black text-slate-500">广州 (100km)</div>
-                                <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
-                                    <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速检测
+                                <div class="absolute left-2 -top-5 text-xs font-black text-slate-500">东莞(0km)</div>
+                                <div class="absolute right-2 -top-5 text-xs font-black text-slate-500">广州(100km)</div>
+                                <div class="absolute left-1/2 -top-5 -translate-x-1/2 text-[10px] lg:text-xs font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
+                                    <i data-lucide="mouse-pointer-click" class="w-3 h-3 lg:w-4 lg:h-4"></i> 点击坐标快速检测
                                 </div>
-                                <div class="w-full h-3 bg-slate-300 rounded-full relative" id="cable-core">
+                                <div class="w-full h-2.5 lg:h-3 bg-slate-300 rounded-full relative" id="cable-core">
                                     <div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>
                                     <div class="absolute inset-0 w-full h-full pointer-events-none flex justify-between items-center" style="padding: 0 10%;">
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">10</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">20</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">30</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">40</span></div>
-                                        <div class="w-[3px] h-4 bg-slate-500/90 relative -mt-0.5"><span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[11px] text-slate-600 font-black">50</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">60</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">70</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">80</span></div>
-                                        <div class="w-[2px] h-3 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-400 font-bold">90</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">10</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">20</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">30</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">40</span></div>
+                                        <div class="w-[3px] h-3.5 bg-slate-500/90 relative -mt-0.5"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-600 font-black">50</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">60</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">70</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">80</span></div>
+                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">90</span></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-4 bg-gradient-to-r from-slate-50 to-blue-50 p-5 rounded-2xl border border-blue-100 w-full justify-center shadow-inner">
-                                <span class="font-black text-slate-700 text-lg">输入或点击检测：</span>
-                                <input type="number" id="guess-input" min="0" max="100" class="w-28 text-center font-black text-2xl text-blue-600 border-2 border-blue-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 py-2 shadow-sm transition-all" placeholder="km">
-                                <button onclick="makeGuess()" id="guess-btn" class="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.4)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light">
+
+                            <div class="flex flex-wrap items-center gap-3 lg:gap-4 bg-gradient-to-r from-slate-50 to-blue-50 p-4 rounded-2xl border border-blue-100 w-full justify-center shadow-inner shrink-0">
+                                <span class="font-black text-slate-700 text-base lg:text-lg hidden sm:inline">输入或点击检测：</span>
+                                <input type="number" id="guess-input" min="0" max="100" class="w-24 lg:w-28 text-center font-black text-xl lg:text-2xl text-blue-600 border-2 border-blue-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 py-1.5 shadow-sm transition-all" placeholder="km">
+                                <button onclick="makeGuess()" id="guess-btn" class="px-5 py-2.5 lg:px-6 lg:py-3 bg-blue-600 text-white rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.4)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.6)] transition-all font-black text-base lg:text-lg active:scale-95 flex items-center gap-2 breathing-light shrink-0">
                                     <i data-lucide="satellite" class="w-5 h-5"></i> 派遣检测
                                 </button>
                             </div>
-                            <div id="game-feedback" class="mt-6 w-full h-14 text-lg font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed">
-                                <i data-lucide="activity" class="w-5 h-5 mr-2"></i> 游戏已就绪，请输入或点击坐标开始排查
+
+                            <div id="game-feedback" class="mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0">
+                                <i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已就绪，请输入或点击坐标开始排查
                             </div>
                         </div>
                     </div>
@@ -452,7 +504,7 @@
             <div id="slide-3" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl h-full flex flex-col">
+                    <div class="w-full max-w-5xl h-[90%] lg:h-[85%] flex flex-col">
                         <div class="flex justify-between items-center mb-4 lg:mb-6 shrink-0">
                             <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/50 shadow-sm w-fit">
                                 <div class="p-2 lg:p-3 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="calculator" class="w-6 h-6 lg:w-8 lg:h-8"></i></div>
@@ -513,135 +565,153 @@
 
             <div id="slide-4" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-log.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col h-full justify-center">
-                        <div class="flex items-center justify-center gap-4 mb-6 lg:mb-10 bg-white/80 backdrop-blur-md px-8 py-4 rounded-3xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-8 h-8"></i></div>
-                            <h2 class="text-4xl lg:text-5xl font-black text-stone-800">3. 算法原理：对数级的飞跃</h2>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
+                            <div class="p-2 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">3. 算法原理：对数级的飞跃</h2>
                         </div>
-                        <div class="bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-xl mb-8 relative z-20 transition-all duration-300 hover:shadow-2xl">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-xl lg:text-2xl font-black text-stone-700 flex items-center gap-2">
-                                    <i data-lucide="sliders-horizontal" class="text-indigo-500 w-6 h-6"></i> 拖动滑块，感受数据爆炸
+
+                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-200 shadow-xl mb-5 relative z-20 transition-all duration-300 hover:shadow-2xl">
+                            <div class="flex justify-between items-center mb-4 lg:mb-5">
+                                <h3 class="text-lg lg:text-xl font-black text-stone-700 flex items-center gap-2">
+                                    <i data-lucide="sliders-horizontal" class="text-indigo-500 w-5 h-5"></i> 拖动滑块，感受数据爆炸
                                 </h3>
-                                <div class="px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-sm shadow-sm">
-                                    当前数据量 (n)：<span id="slider-n-display" class="text-indigo-600 font-black text-lg ml-1">1,000,000</span>
+                                <div class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-xs lg:text-sm shadow-sm">
+                                    当前数据量(n)：<span id="slider-n-display" class="text-indigo-600 font-black text-base lg:text-lg ml-1">1,000,000</span>
                                 </div>
                             </div>
-                            <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-4 shadow-inner" oninput="updateLogScale()">
-                            <div class="flex justify-between text-xs lg:text-sm font-bold text-slate-400 px-2 mt-2">
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班 (50)</span>
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校 (3,000)</span>
+                            <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-3 lg:h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-3 shadow-inner" oninput="updateLogScale()">
+                            <div class="flex justify-between text-[10px] lg:text-xs font-bold text-slate-400 px-2 mt-2">
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班(50)</span>
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校(3千)</span>
                                 <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(3)">东莞人口<br>(1千万)</span>
                                 <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(4)">全国人口<br>(14亿)</span>
                                 <span class="cursor-pointer hover:text-indigo-500 transition-colors text-right" onclick="setSliderValue(5)">全球IP数<br>(42亿)</span>
                             </div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-xl italic z-30 shadow-xl border-4 border-white/50">VS</div>
-                            <div class="bg-white/90 border border-stone-200 p-8 rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
+
+                        <div class="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 relative">
+                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-sm lg:text-base italic z-30 shadow-xl border-4 border-white/50">VS</div>
+                            
+                            <div class="bg-white/90 border border-stone-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
                                 <div class="absolute top-0 left-0 w-full h-1.5 bg-rose-400"></div>
-                                <div class="text-stone-500 text-sm font-black mb-3 uppercase tracking-widest flex items-center gap-2">
-                                    <i data-lucide="footprints" class="w-5 h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
+                                <div class="text-stone-500 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5">
+                                    <i data-lucide="footprints" class="w-4 h-4 lg:w-5 lg:h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
                                 </div>
-                                <div class="text-xl font-bold text-stone-600 mb-1">最坏需要比较：</div>
+                                <div class="text-base lg:text-lg font-bold text-stone-600 mb-1">最坏需要比较：</div>
                                 <div class="flex items-baseline gap-2">
-                                    <div id="val-seq" class="text-5xl lg:text-6xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
-                                    <span class="text-xl font-bold text-stone-400">次</span>
+                                    <div id="val-seq" class="text-3xl lg:text-5xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
+                                    <span class="text-base lg:text-lg font-bold text-stone-400">次</span>
                                 </div>
                             </div>
-                            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-8 rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
+                            
+                            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
                                 <div class="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
-                                <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none"></div>
-                                <div class="text-indigo-600 text-sm font-black mb-3 uppercase tracking-widest flex items-center gap-2 relative z-10">
-                                    <i data-lucide="zap" class="w-5 h-5"></i> 降维打击：二分查找 O(log_2 n)
+                                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-200/40 rounded-full blur-2xl pointer-events-none"></div>
+                                <div class="text-indigo-600 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5 relative z-10">
+                                    <i data-lucide="zap" class="w-4 h-4 lg:w-5 lg:h-5"></i> 降维打击：二分查找 O(log₂n)
                                 </div>
-                                <div class="text-xl font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
+                                <div class="text-base lg:text-lg font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
                                 <div class="flex items-baseline gap-2 relative z-10">
-                                    <div id="val-bin" class="text-5xl lg:text-[5rem] font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
-                                    <span class="text-xl font-bold text-indigo-400">次</span>
+                                    <div id="val-bin" class="text-4xl lg:text-6xl font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
+                                    <span class="text-base lg:text-lg font-bold text-indigo-400">次</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-8 text-center relative z-20">
-                            <p class="text-stone-600 text-lg lg:text-xl italic tracking-wide font-sans font-bold bg-white/80 inline-block px-8 py-3 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm">
+
+                        <div class="shrink-0 mt-5 text-center relative z-20">
+                            <p class="text-stone-600 text-sm lg:text-base italic tracking-wide font-sans font-bold bg-white/80 inline-block px-6 py-2.5 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm m-0">
                                 “即使数据如星辰般浩瀚，二分法也能在屈指可数的次数内锁定目标。”
                             </p>
                         </div>
+
                     </div>
                 </div>
             </div>
 
             <div id="slide-5" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-sim.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl h-full flex flex-col justify-center">
-                        <div class="flex justify-between items-center mb-6 shrink-0">
-                            <div class="flex items-center gap-4 bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/50 shadow-sm w-fit">
-                                <div class="p-3 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-600 shadow-sm"><i data-lucide="gamepad" class="w-8 h-8"></i></div>
-                                <h2 class="text-3xl lg:text-4xl font-black text-stone-800 m-0">4. 算法模拟：手动接管指针寻值 <span class="text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-xl shadow-sm">45</span></h2>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex justify-between items-center mb-4">
+                            <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit">
+                                <div class="p-2 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-600 shadow-sm"><i data-lucide="gamepad" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                                <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">4. 算法模拟：手动接管指针寻值 <span class="text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg shadow-sm">45</span></h2>
                             </div>
-                            <button onclick="initInteractiveSim()" class="px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95">
-                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> 重新开始
+                            <button onclick="initInteractiveSim()" class="px-3 lg:px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0 text-sm lg:text-base">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新开始</span><span class="sm:hidden">重置</span>
                             </button>
                         </div>
-                        <div id="interactive-array-container" class="flex flex-wrap gap-2 lg:gap-3 justify-center mb-6 bg-white/90 p-6 lg:p-10 rounded-[2.5rem] border border-white shadow-xl backdrop-blur-md min-h-[200px] items-center relative z-20 transition-all duration-500"></div>
-                        <div class="bg-slate-900 p-6 lg:p-8 rounded-[2rem] border-[4px] border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
+                        
+                        <div id="interactive-array-container" class="shrink-0 flex flex-wrap gap-2 lg:gap-3 justify-center mb-4 bg-white/90 p-4 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-white shadow-xl backdrop-blur-md min-h-[160px] items-center relative z-20 transition-all duration-500"></div>
+                        
+                        <div class="shrink-0 bg-slate-900 p-5 lg:p-6 rounded-[2rem] border-[4px] border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
                             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-blue-500"></div>
                             <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center relative z-10">
-                                <div class="flex flex-col gap-3 shrink-0 bg-slate-800/80 p-4 rounded-2xl border border-slate-700 min-w-[140px]">
-                                    <div class="text-xs text-slate-400 font-black tracking-widest uppercase mb-1">系统变量</div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-lg"><span class="text-blue-400">L (Left)</span> <span id="ui-val-l" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">0</span></div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-lg"><span class="text-blue-400">R (Right)</span> <span id="ui-val-r" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">11</span></div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-lg"><span class="text-amber-400">M (Mid)</span> <span id="ui-val-m" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">-</span></div>
+                            
+                            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-center relative z-10 w-full">
+                                <div class="flex flex-col gap-2 shrink-0 bg-slate-800/80 p-3 lg:p-4 rounded-2xl border border-slate-700 min-w-[120px] lg:min-w-[140px]">
+                                    <div class="text-[10px] lg:text-xs text-slate-400 font-black tracking-widest uppercase mb-0.5">系统变量</div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">L (Left)</span> <span id="ui-val-l" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">0</span></div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">R (Right)</span> <span id="ui-val-r" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">11</span></div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-amber-400">M (Mid)</span> <span id="ui-val-m" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">-</span></div>
                                 </div>
-                                <div class="flex-1 w-full">
-                                    <h3 class="text-emerald-400 font-black text-sm tracking-widest uppercase mb-2 flex items-center gap-2"><i data-lucide="terminal-square" class="w-4 h-4"></i> 任务指令</h3>
-                                    <div class="min-h-[120px]">
-                                        <p id="ui-prompt-text" class="text-white text-xl lg:text-2xl font-bold leading-relaxed mb-6 transition-all">
-                                            初始化完成。请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-2 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 border-b-2 border-emerald-400 border-dashed pb-0.5 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。
+                                
+                                <div class="flex-1 w-full flex flex-col justify-center">
+                                    <h3 class="text-emerald-400 font-black text-xs tracking-widest uppercase mb-2 flex items-center gap-1.5"><i data-lucide="terminal-square" class="w-4 h-4"></i> 任务指令</h3>
+                                    <div class="min-h-[70px] lg:min-h-[80px] flex flex-col justify-center">
+                                        <p id="ui-prompt-text" class="text-white text-base lg:text-lg font-bold leading-relaxed m-0 transition-all">
+                                            初始化完成。请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-1.5 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 border-b-2 border-emerald-400 border-dashed pb-0.5 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。
                                         </p>
                                     </div>
-                                    <div id="ui-action-buttons" class="flex flex-wrap gap-3 hidden">
-                                        <button onclick="handleCompare('<')" class="px-5 py-3 bg-slate-800 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-lg transition-all active:scale-95 shadow-lg flex items-center gap-2 breathing-light">
-                                            <i data-lucide="chevron-left" class="w-5 h-5 text-emerald-400"></i> 小于 45 (在右侧)
+                                    <div id="ui-action-buttons" class="flex flex-wrap gap-2 lg:gap-3 hidden mt-3">
+                                        <button onclick="handleCompare('<')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                            <i data-lucide="chevron-left" class="w-4 h-4 text-emerald-400"></i> 小于 45 (在右侧)
                                         </button>
-                                        <button onclick="handleCompare('==')" class="px-5 py-3 bg-slate-800 border-2 border-slate-600 hover:border-amber-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-lg transition-all active:scale-95 shadow-lg flex items-center gap-2 breathing-light">
-                                            <i data-lucide="check" class="w-5 h-5 text-amber-400"></i> 等于 45 (找到了!)
+                                        <button onclick="handleCompare('==')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-amber-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                            <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> 等于 45 (找到了!)
                                         </button>
-                                        <button onclick="handleCompare('>')" class="px-5 py-3 bg-slate-800 border-2 border-slate-600 hover:border-rose-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-lg transition-all active:scale-95 shadow-lg flex items-center gap-2 breathing-light">
-                                            大于 45 (在左侧) <i data-lucide="chevron-right" class="w-5 h-5 text-rose-400"></i>
+                                        <button onclick="handleCompare('>')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-rose-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                            大于 45 (在左侧) <i data-lucide="chevron-right" class="w-4 h-4 text-rose-400"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
 
             <div id="slide-6" class="slide inactive-right absolute inset-0">
-                <div class="h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col h-full justify-center">
-                        <div class="flex justify-between items-center mb-4 shrink-0">
-                            <div class="flex items-center gap-4 bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/50 shadow-sm w-fit">
-                                <div class="p-3 bg-sky-50 border border-sky-100 rounded-2xl text-sky-600 shadow-sm"><i data-lucide="wrench" class="w-8 h-8"></i></div>
-                                <h2 class="text-3xl lg:text-4xl font-black text-stone-800 m-0">5. 核心构建：修复搜索模块</h2>
-                            </div>
-                            <button onclick="compileCode()" id="btn-compile" class="px-6 py-3 bg-sky-500 text-white rounded-xl font-black hover:bg-sky-600 shadow-[0_0_20px_rgba(14,165,233,0.4)] transition-all active:scale-95 flex items-center gap-2 breathing-light">
-                                <i data-lucide="play" class="w-5 h-5"></i> 执行编译 (Run)
-                            </button>
-                        </div>
-                        <div class="flex flex-col flex-1 min-h-0 gap-4">
-                            <div id="ide-window" class="bg-[#0f172a] rounded-3xl p-4 lg:p-6 text-slate-300 font-mono shadow-2xl border-2 border-slate-700 w-full relative transition-all duration-500 flex-1 overflow-y-auto task-scrollbar">
-                                <div class="absolute top-4 left-5 flex gap-2">
-                                    <div class="w-3.5 h-3.5 rounded-full bg-red-500 shadow-sm"></div>
-                                    <div class="w-3.5 h-3.5 rounded-full bg-yellow-500 shadow-sm"></div>
-                                    <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 shadow-sm"></div>
-                                </div>
-                                <div class="absolute top-3 right-5 text-slate-500 text-xs font-bold flex items-center gap-2"><i data-lucide="file-code" class="w-4 h-4"></i> binarySearch.cpp</div>
-                                <div class="pt-8 whitespace-pre text-[13px] lg:text-[16px] leading-loose w-full font-medium">
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./daima.jpg');"></div>
+    
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+        <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+            
+            <div class="shrink-0 flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit shrink-0">
+                    <div class="p-2 bg-sky-50 border border-sky-100 rounded-2xl text-sky-600 shadow-sm"><i data-lucide="wrench" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                    <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">5. 核心构建：修复搜索模块</h2>
+                </div>
+                
+                <button onclick="compileCode()" id="btn-compile" class="px-4 py-2 lg:px-6 lg:py-3 bg-sky-500 text-white rounded-xl font-black hover:bg-sky-600 shadow-[0_0_20px_rgba(14,165,233,0.4)] transition-all active:scale-95 flex items-center gap-2 breathing-light text-sm lg:text-base shrink-0">
+                    <i data-lucide="play" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span class="hidden sm:inline">执行编译 (Run)</span><span class="sm:hidden">编译</span>
+                </button>
+            </div>
+
+            <div class="flex flex-col flex-1 min-h-0 gap-4">
+                <div id="ide-window" class="bg-[#0f172a] rounded-3xl p-4 lg:p-6 text-slate-300 font-mono shadow-2xl border-2 border-slate-700 w-full relative transition-all duration-500 flex-1 overflow-y-auto overflow-x-auto task-scrollbar">
+                    <div class="absolute top-4 left-5 flex gap-2">
+                        <div class="w-3.5 h-3.5 rounded-full bg-red-500 shadow-sm"></div>
+                        <div class="w-3.5 h-3.5 rounded-full bg-yellow-500 shadow-sm"></div>
+                        <div class="w-3.5 h-3.5 rounded-full bg-emerald-500 shadow-sm"></div>
+                    </div>
+                    <div class="absolute top-3 right-5 text-slate-500 text-xs font-bold flex items-center gap-2"><i data-lucide="file-code" class="w-4 h-4"></i> binarySearch.cpp</div>
+                    <div class="pt-8 whitespace-pre text-[13px] lg:text-[16px] leading-loose w-full font-medium">
     <span class="text-sky-400 font-bold">int</span> <span class="text-blue-300">binarySearch</span>(<span class="text-sky-400 font-bold">int</span> arr[], <span class="text-sky-400 font-bold">int</span> size, <span class="text-sky-400 font-bold">int</span> target) {
         <span class="text-sky-400 font-bold">int</span> left = <span class="text-orange-300">0</span>, right = size - <span class="text-orange-300">1</span>;
         <span class="text-pink-400 font-bold">while</span> ( <select id="code-q1" class="bg-slate-800 text-sky-300 border border-slate-600 rounded px-2 py-0.5 outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 cursor-pointer font-bold transition-colors"><option value="" disabled selected>【请选择循环条件】</option><option value="<">left &lt; right</option><option value="<=">left &lt;= right</option><option value="!=">left != right</option></select> ) {
@@ -660,18 +730,19 @@
         }
         <span class="text-pink-400 font-bold">return</span> <span class="text-orange-300">-1</span>; <span class="text-slate-500 italic">// 未找到</span>
     }</div>
-                            </div>
-                            <div class="bg-slate-900 rounded-2xl p-4 lg:p-5 border-2 border-slate-700 shadow-inner h-32 lg:h-40 flex flex-col relative overflow-hidden shrink-0">
-                                <div class="absolute top-0 left-0 w-full h-8 bg-slate-800/50 flex items-center px-4 border-b border-slate-700">
-                                    <span class="text-slate-400 text-xs font-black tracking-widest uppercase flex items-center gap-2"><i data-lucide="terminal" class="w-4 h-4"></i> 编译器诊断终端 (Terminal)</span>
-                                </div>
-                                <div id="terminal-output" class="mt-8 font-mono text-sm lg:text-base text-slate-300 flex-1 overflow-y-auto task-scrollbar flex flex-col gap-2">
-                                    <div class="text-slate-500 flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-sky-500"></i> 系统已就绪，等待修复代码片段...</div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-4 lg:p-5 border-2 border-slate-700 shadow-inner h-24 lg:h-28 flex flex-col relative overflow-hidden shrink-0">
+                    <div class="absolute top-0 left-0 w-full h-8 bg-slate-800/50 flex items-center px-4 border-b border-slate-700">
+                        <span class="text-slate-400 text-xs font-black tracking-widest uppercase flex items-center gap-2"><i data-lucide="terminal" class="w-4 h-4"></i> 编译器诊断终端 (Terminal)</span>
+                    </div>
+                    <div id="terminal-output" class="mt-8 font-mono text-sm lg:text-base text-slate-300 flex-1 overflow-y-auto task-scrollbar flex flex-col gap-2">
+                        <div class="text-slate-500 flex items-center gap-2"><i data-lucide="chevron-right" class="w-4 h-4 text-sky-500"></i> 系统已就绪，等待修复代码片段...</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
             </div>
 
             <div id="slide-7" class="slide inactive-right absolute inset-0">
@@ -934,7 +1005,81 @@
             </div>
 
             <div id="slide-11" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-summary.jpg');"></div>
+                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-extension.jpg'); background-color: #f8fafc;"></div>
+                
+                <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
+                    <div class="w-full max-w-6xl flex flex-col h-[90%] lg:h-[85%] gap-4 relative z-20">
+                        
+                        <div class="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit shrink-0">
+                            <div class="w-10 h-10 rounded-xl overflow-hidden border border-blue-100 shadow-sm shrink-0 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div>
+                            <h2 class="text-2xl lg:text-3xl font-black text-stone-800 tracking-widest uppercase m-0">拓展题：借助 AI 破解“二分答案”</h2>
+                        </div>
+
+                        <div class="flex flex-col lg:flex-row flex-1 min-h-0 w-full bg-white/95 rounded-[2rem] border border-stone-200 shadow-xl overflow-hidden backdrop-blur-md">
+                            
+                            <div class="w-full lg:w-[28%] p-5 lg:p-6 border-b lg:border-b-0 lg:border-r border-stone-200 bg-stone-50/50 shrink-0 flex flex-col overflow-y-auto task-scrollbar">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="bg-stone-800 text-white text-xs font-black px-2 py-1 rounded shadow-sm tracking-widest uppercase shrink-0">题目背景</span>
+                                    <h3 class="text-lg lg:text-xl font-bold text-stone-700 leading-tight">放羊与柱子</h3>
+                                </div>
+                                <div class="text-stone-600 text-sm lg:text-base leading-relaxed space-y-3 font-medium">
+                                    <p>在一条直线上有 <span class="font-bold text-amber-600 font-mono">8</span> 只羊，它们的位置分别是 <span class="font-bold text-amber-600 font-mono">x = {1, 3, 5, 8, 12, 15, 17, 19}</span>。</p>
+                                    <p>现在你有 <span class="font-bold text-blue-600 font-mono">3</span> 根相同的柱子，每根柱子可以拴住<b class="text-rose-500 mx-1">距离它不超过 R 米</b>的所有羊（即覆盖一个长度为 2R 的区间）。柱子可以打在直线上的任意位置。</p>
+                                    <div class="flex flex-col gap-2 text-stone-800 bg-amber-50 p-3.5 rounded-xl border border-amber-200 mt-4 shadow-inner">
+                                        <div class="flex items-center gap-1.5 text-amber-600 font-bold mb-1">
+                                            <i data-lucide="help-circle" class="w-5 h-5 shrink-0"></i> 请问：
+                                        </div>
+                                        <p class="font-bold text-sm lg:text-base leading-relaxed text-amber-900">要保证这 8 只羊都被至少一根柱子覆盖，最小的 R 是多少？</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col flex-1 min-w-0 bg-slate-50 relative">
+                                <div class="flex items-center justify-between px-5 py-3 border-b border-slate-200 bg-white shrink-0 shadow-sm">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 bg-white">
+                                            <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                                        </div>
+                                        <span class="font-black text-slate-700 text-sm">豆包 AI Assistant</span>
+                                    </div>
+                                    <div class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">在线 (Idle)</div>
+                                </div>
+
+                                <div id="ai-chat-history" class="flex-1 overflow-y-auto p-4 lg:p-5 space-y-4 lg:space-y-5 task-scrollbar relative">
+                                    <div class="flex gap-3 max-w-[90%]">
+                                        <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                                            <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm text-xs lg:text-sm text-slate-700 leading-relaxed">
+                                            你好！这道题非常有意思。发现传统的数组查找逻辑行不通了吗？输入问题，让我一步步带你破局吧！                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white border-t border-slate-200 shrink-0 flex flex-col relative z-10 p-3 lg:p-4">
+                                    <div class="w-full bg-white border border-blue-300 rounded-2xl p-1.5 pl-3 flex items-center gap-2 text-slate-700 shadow-sm focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                                        <div class="text-slate-400 hover:text-blue-500 transition-colors shrink-0 cursor-pointer">
+                                            <i data-lucide="paperclip" class="w-4 h-4"></i>
+                                        </div>
+                                        <div id="ai-fake-input" class="flex-1 text-xs lg:text-sm font-medium outline-none truncate text-slate-700">
+                                            请给我示意图帮助我理解题目
+                                        </div>
+                                        <button id="btn-ask-ai" onclick="startAIAnalysis(event)" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 hover:bg-blue-700 active:scale-95 transition-all shadow-sm group">
+                                            <i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="slide-12" class="slide inactive-right absolute inset-0">
+                <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./conclusion.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
                     <div class="w-full max-w-5xl flex flex-col h-full justify-center items-center">
                         <div class="flex items-center justify-center gap-3 mb-3 lg:mb-5 bg-white/80 backdrop-blur-md px-6 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
@@ -989,63 +1134,73 @@
                 </div>
             </div>
 
-            <div id="slide-12" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-quiz.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col h-full justify-center">
-                        <div class="flex items-center justify-center gap-4 mb-8 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-2 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 shadow-sm"><i data-lucide="swords" class="w-8 h-8"></i></div>
-                            <h2 class="text-3xl lg:text-4xl font-black tracking-widest text-stone-800 m-0 uppercase">6. 终极考核：解锁知识金库</h2>
+            <div id="slide-13" class="slide inactive-right absolute inset-0">
+                <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./test.jpg');"></div>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 lg:mb-5 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
+                            <div class="p-2 bg-rose-50 border border-rose-100 rounded-xl text-rose-600 shadow-sm"><i data-lucide="swords" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                            <h2 class="text-xl lg:text-3xl font-black tracking-widest text-stone-800 m-0 uppercase">终极考核：解锁知识金库</h2>
                         </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 relative z-10">
-                            <div class="col-span-1 lg:col-span-3 bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-2xl backdrop-blur-md flex flex-col justify-center relative overflow-hidden">
+                        
+                        <div class="shrink-0 grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6 relative z-10">
+                            
+                            <div class="col-span-1 lg:col-span-3 bg-white/95 p-5 lg:p-6 rounded-[2rem] border border-stone-200 shadow-2xl backdrop-blur-md flex flex-col justify-center relative overflow-hidden">
                                 <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-rose-400 to-orange-400"></div>
-                                <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl mb-6 shadow-inner">
-                                    <div class="flex items-center gap-2 text-rose-500 font-black text-sm tracking-widest uppercase mb-3"><i data-lucide="terminal-square" class="w-5 h-5"></i> 核心系统提问</div>
-                                    <p class="text-xl lg:text-2xl font-bold text-stone-700 leading-relaxed">
+                                <div class="bg-slate-50 border border-slate-200 p-4 lg:p-5 rounded-2xl mb-4 lg:mb-5 shadow-inner">
+                                    <div class="flex items-center gap-2 text-rose-500 font-black text-xs lg:text-sm tracking-widest uppercase mb-2"><i data-lucide="terminal-square" class="w-4 h-4 lg:w-5 lg:h-5"></i> 核心系统提问</div>
+                                    <p class="text-base lg:text-xl font-bold text-stone-700 leading-relaxed">
                                         在一个包含 <span class="bg-rose-100 text-rose-600 px-2 rounded-md font-black mx-1 shadow-sm border border-rose-200">15</span> 个元素的有序数组中，使用二分查找法寻找一个不存在的目标元素。
                                         <br>请问：<b class="text-stone-800 underline decoration-rose-400 decoration-4 underline-offset-4">最坏情况</b>下需要进行几次比较？
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="quiz-options-container">
-                                    <button onclick="checkFinalQuiz('A', this)" class="quiz-btn group relative px-6 py-4 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-xl transition-all shadow-sm flex items-center gap-4 overflow-hidden breathing-light">
-                                        <span class="w-10 h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200">A</span> <span>3 次</span>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4" id="quiz-options-container">
+                                    <button onclick="checkFinalQuiz('A', this)" class="quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light">
+                                        <span class="w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0">A</span> <span>3 次</span>
                                     </button>
-                                    <button onclick="checkFinalQuiz('B', this)" class="quiz-btn group relative px-6 py-4 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-xl transition-all shadow-sm flex items-center gap-4 overflow-hidden breathing-light">
-                                        <span class="w-10 h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200">B</span> <span>4 次</span>
+                                    <button onclick="checkFinalQuiz('B', this)" class="quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light">
+                                        <span class="w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0">B</span> <span>4 次</span>
                                     </button>
-                                    <button onclick="checkFinalQuiz('C', this)" class="quiz-btn group relative px-6 py-4 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-xl transition-all shadow-sm flex items-center gap-4 overflow-hidden breathing-light">
-                                        <span class="w-10 h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200">C</span> <span>7 次</span>
+                                    <button onclick="checkFinalQuiz('C', this)" class="quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light">
+                                        <span class="w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0">C</span> <span>7 次</span>
                                     </button>
-                                    <button onclick="checkFinalQuiz('D', this)" class="quiz-btn group relative px-6 py-4 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-xl transition-all shadow-sm flex items-center gap-4 overflow-hidden breathing-light">
-                                        <span class="w-10 h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200">D</span> <span>15 次</span>
+                                    <button onclick="checkFinalQuiz('D', this)" class="quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light">
+                                        <span class="w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0">D</span> <span>15 次</span>
                                     </button>
                                 </div>
-                                <div id="quiz-feedback" class="mt-6 h-16 w-full rounded-xl flex items-center justify-center font-bold text-base lg:text-lg transition-all duration-300 opacity-0 bg-stone-100 text-stone-400 border border-stone-200">等待输入破译指令...</div>
+                                <div id="quiz-feedback" class="mt-4 lg:mt-5 h-12 lg:h-14 w-full rounded-xl flex items-center justify-center font-bold text-sm lg:text-base transition-all duration-300 opacity-0 bg-stone-100 text-stone-400 border border-stone-200">等待输入破译指令...</div>
                             </div>
-                            <div class="col-span-1 lg:col-span-2 bg-gradient-to-b from-slate-800 to-slate-900 p-6 lg:p-8 rounded-[2.5rem] border-[6px] border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center relative overflow-hidden">
-                                <div class="text-slate-400 font-black tracking-widest text-sm uppercase mb-8">算法大师认证金库</div>
-                                <div id="vault-lock-container" class="relative w-40 h-40 bg-slate-800 rounded-full flex items-center justify-center border-[8px] border-slate-600 shadow-[inset_0_0_30px_rgba(0,0,0,0.8)] transition-all duration-700">
+                            
+                            <div class="col-span-1 lg:col-span-2 bg-gradient-to-b from-slate-800 to-slate-900 p-5 lg:p-6 rounded-[2rem] border-[5px] lg:border-[6px] border-slate-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center relative overflow-hidden">
+                                <div class="text-slate-400 font-black tracking-widest text-xs lg:text-sm uppercase mb-6 lg:mb-8 text-center">算法大师认证金库</div>
+                                <div id="vault-lock-container" class="relative w-32 h-32 lg:w-36 lg:h-36 bg-slate-800 rounded-full flex items-center justify-center border-[6px] lg:border-[8px] border-slate-600 shadow-[inset_0_0_30px_rgba(0,0,0,0.8)] transition-all duration-700">
                                     <div id="vault-glow" class="absolute inset-0 rounded-full bg-rose-500/20 blur-xl transition-all duration-500"></div>
-                                    <i id="vault-icon" data-lucide="lock" class="w-16 h-16 text-slate-500 relative z-10 transition-all duration-500"></i>
+                                    <i id="vault-icon" data-lucide="lock" class="w-12 h-12 lg:w-14 lg:h-14 text-slate-500 relative z-10 transition-all duration-500"></i>
                                 </div>
-                                <div id="vault-status-text" class="mt-8 text-rose-400 font-bold text-xl tracking-widest uppercase transition-all duration-300">[ 锁定中 LOCKED ]</div>
+                                <div id="vault-status-text" class="mt-6 lg:mt-8 text-rose-400 font-bold text-lg lg:text-xl tracking-widest uppercase transition-all duration-300 text-center">[ 锁定中 LOCKED ]</div>
                                 <div id="vault-badge" class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-1000 scale-110 z-20">
-                                    <div class="relative"><div class="absolute inset-0 bg-amber-400 rounded-full blur-[40px] opacity-50 animate-pulse"></div><i data-lucide="award" class="w-32 h-32 text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.8)] relative z-10"></i></div>
-                                    <h3 class="text-3xl font-black text-white mt-6 drop-shadow-md tracking-widest">考核通过</h3>
-                                    <p class="text-amber-300 font-bold mt-2 bg-amber-900/50 px-4 py-1 rounded-full border border-amber-500/30">荣获：二分查找高级特工徽章</p>
+                                    <div class="relative"><div class="absolute inset-0 bg-amber-400 rounded-full blur-[40px] opacity-50 animate-pulse"></div><i data-lucide="award" class="w-24 h-24 lg:w-32 lg:h-32 text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.8)] relative z-10"></i></div>
+                                    <h3 class="text-2xl lg:text-3xl font-black text-white mt-4 lg:mt-6 drop-shadow-md tracking-widest">考核通过</h3>
+                                    <p class="text-amber-300 font-bold mt-2 bg-amber-900/50 px-3 lg:px-4 py-1 text-sm lg:text-base rounded-full border border-amber-500/30">荣获：高级特工徽章</p>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
 
-            <div id="slide-13" class="slide inactive-right absolute inset-0">
-                <div class="h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center">
-                    <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center pointer-events-auto">
-                        <div class="p-3 bg-cyan-50 border border-cyan-100 rounded-full text-cyan-600 shadow-sm mb-3"><i data-lucide="bar-chart-2" class="w-8 h-8 lg:w-10 lg:h-10"></i></div>
-                        <h2 class="text-3xl lg:text-5xl font-black mb-4 lg:mb-6 tracking-tight text-stone-800">课堂评价量表</h2>
+            <div id="slide-14" class="slide inactive-right absolute inset-0">
+                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./evaluation.jpg');"></div>
+                
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
+                    <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
+                        
+                        <div class="bg-white/90 backdrop-blur-md px-8 py-3 lg:px-12 lg:py-4 rounded-[2rem] border border-white/50 shadow-md mb-4 lg:mb-6 mx-auto w-fit">
+                            <h2 class="text-3xl lg:text-5xl font-black tracking-tight text-stone-800 m-0">课堂评价量表</h2>
+                        </div>
+                        
                         <div class="bg-white/90 p-5 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-xl backdrop-blur-md w-full text-left">
                             <p class="text-lg lg:text-xl text-cyan-700 font-bold mb-4 lg:mb-6 text-center tracking-wide">请根据本节课的学习情况，进行客观的自我评价</p>
                             <div class="flex flex-col gap-2 lg:gap-4">
@@ -1095,7 +1250,7 @@
                 </div>
             </div>
 
-            <div id="slide-14" class="slide inactive-right absolute inset-0">
+            <div id="slide-15" class="slide inactive-right absolute inset-0">
                 <div class="h-full w-full p-8 flex flex-col items-center justify-center">
                     <div class="text-center w-full flex flex-col items-center justify-center h-full space-y-12">
                         <div class="relative">
@@ -1252,7 +1407,7 @@
         // ==========================================================================
 
         // ================= [0. 核心状态与导航系统 (Core & Navigation)] =================
-        const totalSlides = 15; 
+        const totalSlides = 16; 
         let currentSlide = 0;
         let isDrawerOpen = false;
 
@@ -1340,8 +1495,8 @@
                 { title: "算法原理", slides: [3, 4] },
                 { title: "算法模拟", slides: [5] },
                 { title: "代码实现", slides: [6] },
-                { title: "拓展", slides: [7, 8, 9, 10] },
-                { title: "总结", slides: [11, 12, 13] }
+                { title: "拓展", slides: [7, 8, 9, 10, 11] }, 
+                { title: "总结", slides: [12, 13, 14] } 
             ];
 
             progressBar.innerHTML = progressSegments.map((segment, i) => {
@@ -1395,11 +1550,16 @@
             }
         }
 
-        // 键盘左右翻页监听
+        // 键盘左右翻页及翻页笔监听
         window.addEventListener('keydown', (e) => {
+            // 拦截输入框的按键，防止在输入文字时触发翻页
             if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
+            
+            // 适配翻页笔的“下一页”：右方向键、空格键、PageDown键
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+            
+            // 适配翻页笔的“上一页”：左方向键、PageUp键
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
         });
 
 
@@ -1408,21 +1568,23 @@
         const SEQ_TARGET = 89;
         let seqCurrentIndex = 0;
         let seqGameWon = false;
+        let isSeqAnimating = false;
 
         function initSeqGame() {
             seqCurrentIndex = 0;
             seqGameWon = false;
+            isSeqAnimating = false;
             document.getElementById('seq-step-count').innerText = "0";
             document.getElementById('seq-current-i').innerText = "0";
             
             const btn = document.getElementById('btn-inspect-next');
             btn.disabled = false;
-            btn.className = "group relative px-8 py-4 bg-slate-800 text-white rounded-2xl font-black text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light";
-            btn.innerHTML = `<div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scan-line" class="w-6 h-6 text-blue-400 group-hover:animate-pulse"></i> <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>`;
+            btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light";
+            btn.innerHTML = `<div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>`;
             
             const feedbackText = document.getElementById('seq-feedback-text');
             feedbackText.innerText = "规则：从左到右，按顺序逐个开箱比对";
-            feedbackText.className = "text-stone-400 font-medium text-sm transition-all";
+            feedbackText.className = "text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2 rounded-full backdrop-blur-md border border-white shadow-sm transition-all";
 
             const efficiencyPanel = document.getElementById('review-efficiency');
             efficiencyPanel.classList.add('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
@@ -1458,9 +1620,9 @@
                 }
 
                 return `
-                    <div id="seq-box-${idx}" class="relative transition-all duration-300">
+                    <div id="seq-box-${idx}" class="relative transition-all duration-300 shrink-0">
                         <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] text-stone-400 font-mono font-bold">${idx}</span>
-                        <div class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-2 font-black transition-all duration-300 text-xl relative ${boxStyles}">
+                        <div class="w-12 h-12 lg:w-16 lg:h-16 shrink-0 flex items-center justify-center rounded-2xl border-2 font-black transition-all duration-300 text-xl relative ${boxStyles}">
                             ${content} ${icon}
                         </div>
                         ${pointer}
@@ -1471,47 +1633,57 @@
         }
 
         function inspectNextSeq() {
-            if (seqGameWon || seqCurrentIndex >= seqArrayData.length) return;
+    if (seqGameWon || seqCurrentIndex >= seqArrayData.length || isSeqAnimating) return;
 
-            const currentStep = seqCurrentIndex + 1;
-            document.getElementById('seq-step-count').innerText = currentStep;
+    isSeqAnimating = true; 
+    
+    const currentStep = seqCurrentIndex + 1;
+    document.getElementById('seq-step-count').innerText = currentStep;
+    
+    const val = seqArrayData[seqCurrentIndex];
+    const feedbackText = document.getElementById('seq-feedback-text');
+    const box = document.getElementById(`seq-box-${seqCurrentIndex}`).children[1];
+
+    if (val === SEQ_TARGET) {
+        seqGameWon = true;
+        isSeqAnimating = false; 
+
+        renderSeqArray();
+        feedbackText.innerHTML = `<span class="text-rose-500 font-bold flex items-center gap-1"><i data-lucide="party-popper" class="w-4 h-4"></i> 终于找到了！耗费了 ${currentStep} 步。</span>`;
+        
+        const btn = document.getElementById('btn-inspect-next');
+        btn.disabled = true;
+        
+        btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-stone-200 text-stone-400 rounded-2xl font-black text-lg lg:text-xl shadow-inner transition-all flex items-center justify-center gap-3 cursor-not-allowed shrink-0";
+        btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> <span>搜索完成</span>`;
+
+        setTimeout(() => {
+            const efficiencyPanel = document.getElementById('review-efficiency');
+            efficiencyPanel.classList.remove('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
+            efficiencyPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+        }, 250);
+
+        if(typeof lucide !== 'undefined') lucide.createIcons();
+        
+    } else {
+        box.classList.remove('shake-error');
+        void box.offsetWidth;
+        box.classList.add('shake-error');
+        
+        feedbackText.innerHTML = `<span class="text-amber-500 font-bold">数值 ${val} 不是目标，继续检查下一个...</span>`;
+        
+        setTimeout(() => {
+            seqCurrentIndex++;
+            renderSeqArray();
+            document.getElementById('seq-current-i').innerText = seqCurrentIndex;
+            feedbackText.innerHTML = `准备检查 arr[${seqCurrentIndex}]`;
             
-            const val = seqArrayData[seqCurrentIndex];
-            const feedbackText = document.getElementById('seq-feedback-text');
-            const box = document.getElementById(`seq-box-${seqCurrentIndex}`).children[1];
+            isSeqAnimating = false; 
+        }, 200); 
+    }
+}
 
-            if (val === SEQ_TARGET) {
-                seqGameWon = true;
-                renderSeqArray();
-                feedbackText.innerHTML = `<span class="text-rose-500 font-bold flex items-center gap-1"><i data-lucide="party-popper" class="w-4 h-4"></i> 终于找到了！耗费了 ${currentStep} 步。</span>`;
-                
-                const btn = document.getElementById('btn-inspect-next');
-                btn.disabled = true;
-                btn.className = "group relative px-8 py-4 bg-stone-200 text-stone-400 rounded-2xl font-black text-xl shadow-inner transition-all flex items-center gap-3 cursor-not-allowed";
-                btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> 搜索完成`;
-
-                setTimeout(() => {
-                    const efficiencyPanel = document.getElementById('review-efficiency');
-                    efficiencyPanel.classList.remove('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
-                    efficiencyPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
-                }, 500);
-            } else {
-                box.classList.remove('shake-error');
-                void box.offsetWidth;
-                box.classList.add('shake-error');
-                
-                feedbackText.innerHTML = `<span class="text-amber-500 font-bold">数值 ${val} 不是目标，继续检查下一个...</span>`;
-                setTimeout(() => {
-                    seqCurrentIndex++;
-                    renderSeqArray();
-                    document.getElementById('seq-current-i').innerText = seqCurrentIndex;
-                    feedbackText.innerHTML = `准备检查 arr[${seqCurrentIndex}]`;
-                }, 400); 
-            }
-        }
-
-
-        // ================= [2. 情境探究：光缆维修模拟] =================
+    // ================= [2. 情境探究：光缆维修模拟] =================
         let secretFault = 0;
         let attempts = 0;
         let gameWon = false;
@@ -1530,8 +1702,8 @@
             document.getElementById('cable-core').innerHTML = '<div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>';
             
             const feedback = document.getElementById('game-feedback');
-            feedback.className = "mt-6 w-full h-14 text-lg font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed";
-            feedback.innerHTML = '<i data-lucide="activity" class="w-5 h-5 mr-2"></i> 游戏已刷新，请输入数字开始排查';
+            feedback.className = "mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0";
+            feedback.innerHTML = '<i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已刷新，请输入或点击坐标开始排查';
             
             updateCableVisual();
             if(typeof lucide !== 'undefined') lucide.createIcons();
@@ -1566,11 +1738,10 @@
             if (guess === secretFault) {
                 gameWon = true;
                 markerColor = "bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.6)] animate-pulse";
-                message = `<span class="text-rose-600 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6"></i> 故障点 ${guess}km 锁定！共耗费 ${attempts} 次排查。</span>`;
-                feedback.className = "mt-6 w-full p-4 bg-rose-50 border-2 border-rose-300 rounded-xl text-xl font-black flex items-center justify-center transition-all duration-300 shadow-md animate-bounce";
+                message = `<span class="text-rose-600 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 lg:w-6 lg:h-6"></i> 故障点 ${guess}km 锁定！共耗费 ${attempts} 次排查。</span>`;
+                feedback.className = "mt-4 w-full p-3 lg:p-4 bg-rose-50 border-2 border-rose-300 rounded-xl text-base lg:text-xl font-black flex items-center justify-center transition-all duration-300 shadow-md animate-bounce shrink-0";
                 input.disabled = true; document.getElementById('guess-btn').disabled = true;
                 
-                // 玻璃拟态揭秘卡片注入
                 setTimeout(() => {
                     const existingCard = document.getElementById('teaching-reveal-card');
                     if(existingCard) existingCard.remove();
@@ -1606,13 +1777,13 @@
 
             } else if (guess < secretFault) {
                 markerColor = "bg-emerald-500 border-white";
-                message = `<span class="text-emerald-700 flex items-center gap-2"><i data-lucide="check-circle" class="w-6 h-6"></i> ${guess}km 处信号正常。说明断点在 <b>右侧区间 (${guess}~${rightBound}km)</b>。</span>`;
-                feedback.className = "mt-6 w-full p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm";
+                message = `<span class="text-emerald-700 flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5"></i> ${guess}km 信号正常。断点在 <b>右侧 (${guess}~${rightBound}km)</b></span>`;
+                feedback.className = "mt-4 w-full p-2.5 lg:p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-sm lg:text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm shrink-0";
                 leftBound = Math.max(leftBound, guess);
             } else {
                 markerColor = "bg-amber-500 border-white";
-                message = `<span class="text-amber-700 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6"></i> ${guess}km 处无信号。说明断点在 <b>左侧区间 (${leftBound}~${guess}km)</b>。</span>`;
-                feedback.className = "mt-6 w-full p-3 bg-amber-50 border border-amber-200 rounded-xl text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm";
+                message = `<span class="text-amber-700 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-5 h-5"></i> ${guess}km 无信号。断点在 <b>左侧 (${leftBound}~${guess}km)</b></span>`;
+                feedback.className = "mt-4 w-full p-2.5 lg:p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm lg:text-lg font-bold flex items-center justify-center transition-all duration-300 shadow-sm shrink-0";
                 rightBound = Math.min(rightBound, guess);
             }
 
@@ -1789,35 +1960,30 @@
             const btnArea = document.getElementById('ui-action-buttons');
             
             if (simGameState === 'FIND_MID') {
-                promptEl.classList.remove('mb-0'); promptEl.classList.add('mb-6');
-                promptEl.innerHTML = `步骤 1：请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-2 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 border-b-2 border-emerald-400 border-dashed pb-0.5 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。`;
+                promptEl.innerHTML = `步骤 1：请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-1.5 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 border-b-2 border-emerald-400 border-dashed pb-0.5 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。`;
                 btnArea.classList.add('hidden');
             } else if (simGameState === 'COMPARE') {
-                promptEl.classList.remove('mb-0'); promptEl.classList.add('mb-6');
-                promptEl.innerHTML = `步骤 2：Mid 索引对应的值是 <span class="text-white font-black text-2xl bg-indigo-500 px-2 rounded shadow-md">${gameArray[currentM]}</span>。它和目标 <span class="text-white font-black text-2xl bg-rose-500 px-2 rounded shadow-md">${GAME_TARGET}</span> 相比，关系是什么？`;
+                promptEl.innerHTML = `步骤 2：Mid 对应的值是 <span class="text-white font-black text-lg lg:text-xl bg-indigo-500 px-2 py-0.5 rounded shadow-md">${gameArray[currentM]}</span>。它和目标 <span class="text-white font-black text-lg lg:text-xl bg-rose-500 px-2 py-0.5 rounded shadow-md">${GAME_TARGET}</span> 相比，关系是什么？`;
                 btnArea.classList.remove('hidden');
             } else if (simGameState === 'MOVE_POINTER') {
-                promptEl.classList.remove('mb-0'); promptEl.classList.add('mb-6');
                 btnArea.classList.add('hidden');
                 if (gameArray[currentM] < GAME_TARGET) {
-                    promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${gameArray[currentM]} < ${GAME_TARGET}</span>，说明目标在右侧半区。请计算新的 Left 位置 <span class="text-blue-400 font-mono bg-slate-800 px-2 rounded">Left = Mid + 1</span>，并点击该方块更新 L 指针。`;
+                    promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${gameArray[currentM]} &lt; ${GAME_TARGET}</span>，说明目标在右侧。请计算 <span class="text-blue-400 font-mono bg-slate-800 px-1.5 rounded">Left = Mid + 1</span>，并点击该方块更新 L。`;
                 } else {
-                    promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${gameArray[currentM]} > ${GAME_TARGET}</span>，说明目标在左侧半区。请计算新的 Right 位置 <span class="text-blue-400 font-mono bg-slate-800 px-2 rounded">Right = Mid - 1</span>，并点击该方块更新 R 指针。`;
+                    promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${gameArray[currentM]} &gt; ${GAME_TARGET}</span>，说明目标在左侧。请计算 <span class="text-blue-400 font-mono bg-slate-800 px-1.5 rounded">Right = Mid - 1</span>，并点击该方块更新 R。`;
                 }
             } else if (simGameState === 'WON') {
                 btnArea.classList.add('hidden');
-                promptEl.classList.remove('mb-6'); promptEl.classList.add('mb-0');
-                // 将原先散落在 HTML 底部的覆写代码合并到这里，保持状态清晰
                 promptEl.innerHTML = `
-                    <span class="text-emerald-400 font-black text-xl lg:text-2xl flex items-center gap-2">
-                        <i data-lucide="party-popper" class="w-6 h-6 lg:w-7 lg:h-7"></i> 恭喜！成功找到目标元素！
+                    <span class="text-emerald-400 font-black text-lg lg:text-xl flex items-center gap-2">
+                        <i data-lucide="party-popper" class="w-5 h-5 lg:w-6 lg:h-6"></i> 恭喜！成功找到目标元素！
                     </span>
-                    <div id="sim-mnemonic-box" class="mt-3 bg-slate-800/90 border border-emerald-500/40 p-3 lg:p-4 rounded-2xl shadow-[0_10px_30px_rgba(16,185,129,0.2)] relative overflow-hidden" style="animation: mnemonicSlideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;">
-                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none"></div>
-                        <h4 class="text-amber-400 font-black text-lg mb-2 flex items-center gap-2 relative z-10"><i data-lucide="book-open-check" class="w-5 h-5"></i> 核心口诀</h4>
-                        <div class="text-emerald-50 font-medium text-sm lg:text-base leading-relaxed space-y-2 relative z-10">
-                            <div class="flex items-center gap-2"><div class="p-1 bg-slate-700/80 rounded shadow-inner"><i data-lucide="chevron-right" class="w-4 h-4 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black text-lg mx-0.5">小</span>，目标在 <span class="text-amber-300 font-bold mx-0.5">右</span> 👉 <span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-0.5 rounded shadow-inner border border-slate-600">左界右移 (L = Mid + 1)</span></p></div>
-                            <div class="flex items-center gap-2"><div class="p-1 bg-slate-700/80 rounded shadow-inner"><i data-lucide="chevron-right" class="w-4 h-4 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black text-lg mx-0.5">大</span>，目标在 <span class="text-amber-300 font-bold mx-0.5">左</span> 👈 <span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-0.5 rounded shadow-inner border border-slate-600">右界左移 (R = Mid - 1)</span></p></div>
+                    <div id="sim-mnemonic-box" class="mt-2 bg-slate-800/90 border border-emerald-500/40 p-3 lg:p-4 rounded-xl shadow-[0_10px_30px_rgba(16,185,129,0.2)] relative overflow-hidden" style="animation: mnemonicSlideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;">
+                        <div class="absolute -right-8 -top-8 w-20 h-20 bg-emerald-500/20 rounded-full blur-xl pointer-events-none"></div>
+                        <h4 class="text-amber-400 font-black text-sm lg:text-base mb-1.5 flex items-center gap-1.5 relative z-10"><i data-lucide="book-open-check" class="w-4 h-4"></i> 核心口诀</h4>
+                        <div class="text-emerald-50 font-medium text-xs lg:text-sm leading-relaxed space-y-1 relative z-10">
+                            <div class="flex items-center gap-1.5"><div class="p-0.5 bg-slate-700/80 rounded"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black">小</span>，目标在 <span class="text-amber-300 font-bold">右</span> 👉 <span class="text-emerald-300 font-black bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-600">左界 L = Mid + 1</span></p></div>
+                            <div class="flex items-center gap-1.5"><div class="p-0.5 bg-slate-700/80 rounded"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black">大</span>，目标在 <span class="text-amber-300 font-bold">左</span> 👈 <span class="text-emerald-300 font-black bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-600">右界 R = Mid - 1</span></p></div>
                         </div>
                     </div>`;
             }
@@ -1981,8 +2147,8 @@
                         terminal.appendChild(log); terminal.scrollTop = terminal.scrollHeight;
                         if(typeof lucide !== 'undefined') lucide.createIcons();
                         if(index === successLogs.length - 1) {
-                            btnRun.innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> 核心已修复`;
-                            btnRun.className = "px-6 py-3 bg-emerald-500 text-white rounded-xl font-black shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all cursor-default flex items-center gap-2";
+                            btnRun.innerHTML = `<i data-lucide="check" class="w-4 h-4 lg:w-5 lg:h-5"></i> <span class="hidden sm:inline">核心已修复</span><span class="sm:hidden">已修复</span>`;
+                            btnRun.className = "px-4 py-2 lg:px-6 lg:py-3 bg-emerald-500 text-white rounded-xl font-black shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all cursor-default flex items-center gap-2 text-sm lg:text-base shrink-0";
                             btnRun.disabled = true;
                         }
                     }, delay);
@@ -1993,7 +2159,6 @@
                 setTimeout(() => ideWindow.classList.remove('border-rose-500'), 500);
             }
         }
-
 
         // ================= [6. 拓展：电工排障、AI 调参、数学求根、查字典] =================
         const TOTAL_NODES = 8;
@@ -2334,8 +2499,353 @@
             }, 500);
         }
 
+        // ================= [7. 拓展：模拟 AI 豆包交互分析] =================
+        let aiChatStep = 1; 
 
-        // ================= [7. 总结与考核模块] =================
+        function startAIAnalysis(event) {
+            if (event) event.stopPropagation();
+
+            const btn = document.getElementById('btn-ask-ai');
+            const fakeInput = document.getElementById('ai-fake-input');
+            const chatHistory = document.getElementById('ai-chat-history');
+            
+            const userPromptText = fakeInput.innerText;
+
+            // 如果输入框已经是默认占位符，则不执行操作（防止一直点空消息）
+            if (userPromptText === "给豆包发送消息..." || userPromptText === "对话已结束") return;
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i>`;
+            
+            fakeInput.innerText = "发消息给 豆包...";
+            fakeInput.classList.remove('text-slate-700');
+            fakeInput.classList.add('text-slate-400');
+
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+
+            const userMsg = document.createElement('div');
+            userMsg.className = "flex gap-3 max-w-[90%] ml-auto justify-end animate-[slideInRight_0.3s_ease-out] mt-3";
+            userMsg.innerHTML = `
+                <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm shadow-sm text-xs lg:text-sm font-medium">
+                    ${userPromptText}
+                </div>
+                <div class="w-7 h-7 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-600 shrink-0 mt-0.5">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                </div>
+            `;
+            chatHistory.appendChild(userMsg);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            setTimeout(() => {
+                const aiTypingId = 'ai-typing-' + Date.now();
+                const aiMsgBox = document.createElement('div');
+                aiMsgBox.id = aiTypingId;
+                aiMsgBox.className = "flex gap-3 max-w-[90%] animate-[slideInRight_0.3s_ease-out] mt-3";
+                aiMsgBox.innerHTML = `
+                    <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                        <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm text-slate-500 flex items-center gap-1">
+                        <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce"></div>
+                        <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                    </div>
+                `;
+                chatHistory.appendChild(aiMsgBox);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+
+                if (aiChatStep === 1) {
+                    setTimeout(() => {
+                        const typingEl = document.getElementById(aiTypingId);
+                        typingEl.innerHTML = `
+                            <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-white border border-slate-200 p-3.5 rounded-2xl rounded-tl-sm shadow-sm w-full max-w-xl overflow-hidden">
+                                <p class="text-xs lg:text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
+                                    <i data-lucide="cpu" class="w-4 h-4 text-blue-500"></i> 我为你生成了一个验算沙盒，拖动滑块验证二分策略：
+                                </p>
+                                
+                                <div class="relative w-full bg-slate-50 border border-slate-200 rounded-xl mt-2 flex flex-col overflow-hidden shadow-inner">
+                                    <div class="flex justify-between items-center px-4 py-2.5 bg-slate-100 border-b border-slate-200">
+                                        <label class="text-xs font-bold text-slate-600 flex items-center gap-2">
+                                            尝试半径 R: <span id="sheep-r-value" class="text-blue-600 font-mono text-sm lg:text-base">1.5</span>
+                                        </label>
+                                        <input type="range" id="sheep-slider-r" min="0.5" max="4.0" step="0.1" value="1.5" class="w-24 lg:w-32 h-1.5 bg-slate-300 rounded-full appearance-none cursor-pointer accent-blue-600">
+                                        <span id="sheep-status-badge" class="text-[10px] font-black px-2 py-1 rounded shadow-sm text-white transition-colors">计算中...</span>
+                                    </div>
+                                    <div class="relative h-[180px] w-full mt-3" id="sheep-canvas-wrapper">
+                                        <canvas id="sheepDemoCanvas" class="block w-full h-full"></canvas>
+                                    </div>
+                                </div>
+
+                                <p class="text-xs text-slate-500 mt-3 leading-relaxed">
+                                    <b class="text-slate-700">演示设定：</b>羊坐标 x={1, 3, 5, 8, 12, 15, 17, 19}，限用柱子 k=3。<br>
+                                    观察发现：当 R 过小时，需要的柱子数会超过 3 根（不合法）；我们的目标是用<b class="text-rose-500 mx-1">二分法</b>逼近那个恰好使得柱子数 ≤ 3 的<b class="text-blue-600 mx-1">最小合法 R 值</b>。
+                                </p>
+                            </div>
+                        `;
+                        chatHistory.scrollTop = chatHistory.scrollHeight;
+                        if(typeof lucide !== 'undefined') lucide.createIcons();
+
+                        initSheepCanvas();
+
+                        aiChatStep = 2;
+                        fakeInput.innerText = "请利用二分法帮我分析这道题的解题思路";
+                        fakeInput.classList.remove('text-slate-400');
+                        fakeInput.classList.add('text-slate-700');
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        btn.innerHTML = `<i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>`;
+                        if(typeof lucide !== 'undefined') lucide.createIcons();
+
+                    }, 1500);
+
+                } else if (aiChatStep === 2) {
+                    setTimeout(() => {
+                        const typingEl = document.getElementById(aiTypingId);
+                        typingEl.innerHTML = `
+                            <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div> 
+                            <div class="bg-amber-50 border border-amber-200 p-3.5 lg:p-4 rounded-2xl rounded-tl-sm shadow-sm w-full max-w-xl">
+                                <h4 class="font-black text-amber-800 mb-2 flex items-center gap-1.5 text-sm lg:text-base">
+                                    <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i> 思维跃迁指南：二分答案法
+                                </h4>
+                                <ul class="space-y-3 text-amber-900 font-medium text-xs lg:text-sm leading-relaxed">
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-700 px-1 py-0.5 rounded text-[10px] font-black shrink-0 mt-0.5">1</span>
+                                        <span><b>确定解空间（L 与 R）：</b>最小半径 <b>L = 0</b>，最大半径（只需覆盖头尾） <b>R = (19-1)/2 = 9</b>。我们要在这个连续区间里“猜”答案。</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-700 px-1 py-0.5 rounded text-[10px] font-black shrink-0 mt-0.5">2</span>
+                                        <span><b>猜中值与验证（Mid）：</b>取区间中点 <b>Mid</b> 作为假设的半径，然后验证：<br><span class="inline-block mt-1.5 bg-white/60 px-2 py-1 rounded shadow-inner border border-amber-100 text-amber-950 font-bold">“如果半径是 Mid，3 根柱子能否把所有羊罩住？”</span></span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="bg-amber-200 text-amber-700 px-1 py-0.5 rounded text-[10px] font-black shrink-0 mt-0.5">3</span>
+                                        <span><b>折半缩小范围：</b><br>
+                                        • 若 <b class="text-emerald-700">能</b> 罩住：说明当前 Mid 够用了，但或许能更小，于是让 <b>R = Mid</b>（缩小右界继续找）。<br>
+                                        • 若 <b class="text-rose-600">不能</b> 罩住：说明当前 Mid 太短了，于是让 <b>L = Mid + 精度</b>（增大左界继续找）。</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        `;
+                        chatHistory.scrollTop = chatHistory.scrollHeight;
+                        
+                        // 进入第三步：索要代码
+                        aiChatStep = 3;
+                        btn.innerHTML = `<i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>`;
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        
+                        fakeInput.innerText = "请给我最终的代码实现";
+                        fakeInput.classList.remove('text-slate-400');
+                        fakeInput.classList.add('text-slate-700');
+                        
+                        if(typeof lucide !== 'undefined') lucide.createIcons();
+                    }, 1500);
+                } else if (aiChatStep === 3) {
+                    setTimeout(() => {
+                        const typingEl = document.getElementById(aiTypingId);
+                        typingEl.innerHTML = `
+                            <div class="w-7 h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div> 
+                            <div class="bg-[#0f172a] border border-slate-700 p-4 rounded-2xl rounded-tl-sm shadow-xl w-full max-w-2xl overflow-hidden relative">
+                                <div class="flex items-center justify-between mb-3 border-b border-slate-700 pb-3">
+                                    <span class="text-xs font-black text-sky-400 flex items-center gap-2 uppercase tracking-widest"><i data-lucide="code-2" class="w-4 h-4"></i> C++ 核心代码实现</span>
+                                </div>
+                                <div class="text-[12px] lg:text-[14px] font-mono leading-loose overflow-x-auto task-scrollbar pr-2 whitespace-pre text-slate-300">
+<span class="text-pink-400 font-bold">#include</span> <span class="text-green-300">&lt;iostream&gt;</span>
+<span class="text-pink-400 font-bold">#include</span> <span class="text-green-300">&lt;vector&gt;</span>
+<span class="text-pink-400 font-bold">using namespace</span> <span class="text-blue-300">std</span>;
+
+<span class="text-slate-500 italic">// 核心验证模块：验证如果最大半径为 R，k 根柱子是否够用？</span>
+<span class="text-sky-400 font-bold">bool</span> <span class="text-blue-300">check</span>(<span class="text-sky-400 font-bold">double</span> R, <span class="text-pink-400 font-bold">const</span> vector&lt;<span class="text-sky-400 font-bold">double</span>&gt;& sheep, <span class="text-sky-400 font-bold">int</span> k) {
+    <span class="text-sky-400 font-bold">int</span> count = <span class="text-orange-300">1</span>; <span class="text-slate-500 italic">// 至少需要 1 根柱子</span>
+    <span class="text-sky-400 font-bold">double</span> limit = sheep[<span class="text-orange-300">0</span>] + <span class="text-orange-300">2</span> * R; <span class="text-slate-500 italic">// 当前柱子能覆盖的最远距离</span>
+
+    <span class="text-pink-400 font-bold">for</span> (<span class="text-sky-400 font-bold">int</span> i = <span class="text-orange-300">1</span>; i < sheep.size(); i++) {
+        <span class="text-pink-400 font-bold">if</span> (sheep[i] > limit) {
+            count++; <span class="text-slate-500 italic">// 超出当前柱子的覆盖范围，必须新加一根柱子</span>
+            limit = sheep[i] + <span class="text-orange-300">2</span> * R; <span class="text-slate-500 italic">// 更新新柱子的覆盖边界</span>
+        }
+    }
+    <span class="text-pink-400 font-bold">return</span> count <= k; <span class="text-slate-500 italic">// 最终使用的柱子数是否符合要求</span>
+}
+
+<span class="text-sky-400 font-bold">int</span> <span class="text-blue-300">main</span>() {
+    vector&lt;<span class="text-sky-400 font-bold">double</span>&gt; sheep = {<span class="text-orange-300">1, 3, 5, 8, 12, 15, 17, 19</span>};
+    <span class="text-sky-400 font-bold">int</span> k = <span class="text-orange-300">3</span>;
+
+    <span class="text-slate-500 italic">// 1. 确定二分答案的解空间 [L, R]</span>
+    <span class="text-sky-400 font-bold">double</span> L = <span class="text-orange-300">0</span>;
+    <span class="text-sky-400 font-bold">double</span> R = (sheep.back() - sheep.front()) / <span class="text-orange-300">2.0</span>; 
+    <span class="text-sky-400 font-bold">double</span> ans = R;
+
+    <span class="text-slate-500 italic">// 2. 浮点数二分模板：当区间长度大于精度要求时继续循环</span>
+    <span class="text-pink-400 font-bold">const double</span> EPS = <span class="text-orange-300">1e-6</span>; <span class="text-slate-500 italic">// 定义精度阈值</span>
+    <span class="text-pink-400 font-bold">while</span> (R - L > EPS) {
+        <span class="text-sky-400 font-bold">double</span> mid = L + (R - L) / <span class="text-orange-300">2.0</span>;
+        
+        <span class="text-pink-400 font-bold">if</span> (check(mid, sheep, k)) {
+            ans = mid; <span class="text-slate-500 italic">// 当前半径合法，记录下来</span>
+            R = mid;   <span class="text-slate-500 italic">// 尝试寻找更小的合法半径（缩小右界）</span>
+        } <span class="text-pink-400 font-bold">else</span> {
+            L = mid;   <span class="text-slate-500 italic">// 半径太小，不合法，必须增大半径（缩小左界）</span>
+        }
+    }
+
+    cout << <span class="text-green-300">"最小合法半径 R 为: "</span> << ans << endl;
+    <span class="text-pink-400 font-bold">return</span> <span class="text-orange-300">0</span>;
+}</div>
+                            </div>
+                        `;
+                        chatHistory.scrollTop = chatHistory.scrollHeight;
+                        
+                        btn.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-slate-500"></i>`;
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed', 'bg-slate-200');
+                        btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                        
+                        fakeInput.innerText = "对话已结束";
+                        fakeInput.classList.remove('text-slate-700');
+                        fakeInput.classList.add('text-slate-400');
+                        
+                        if(typeof lucide !== 'undefined') lucide.createIcons();
+                    }, 1500);
+                }
+            }, 500);
+        }        
+
+        function initSheepCanvas() {
+            const canvas = document.getElementById('sheepDemoCanvas');
+            const wrapper = document.getElementById('sheep-canvas-wrapper');
+            const slider = document.getElementById('sheep-slider-r');
+            const rValDisplay = document.getElementById('sheep-r-value');
+            const statusBadge = document.getElementById('sheep-status-badge');
+            
+            if (!canvas || !wrapper || !slider) return;
+            const ctx = canvas.getContext('2d');
+
+            const sheepPositions = [1, 3, 5, 8, 12, 15, 17, 19]; 
+            const maxK = 3; 
+            const minCoord = 0; 
+            const maxCoord = 28; 
+
+            function resizeCanvas() {
+                if (!document.getElementById('sheepDemoCanvas')) return; 
+                const rect = wrapper.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                draw();
+            }
+
+            function getXPixel(val, width) {
+                const marginX = 25; 
+                return marginX + ((val - minCoord) / (maxCoord - minCoord)) * (width - 2 * marginX);
+            }
+
+            function draw() {
+                const width = wrapper.clientWidth;
+                const height = wrapper.clientHeight;
+                const R = parseFloat(slider.value);
+                const axisY = height - 35; 
+
+                ctx.clearRect(0, 0, width, height);
+
+                let posts = []; let intervals = []; let i = 0;
+                while (i < sheepPositions.length) {
+                    let firstUncoveredSheep = sheepPositions[i];
+                    let postPosition = firstUncoveredSheep + R;
+                    let coverStart = firstUncoveredSheep;
+                    let coverEnd = postPosition + R; 
+                    
+                    posts.push(postPosition);
+                    intervals.push({ start: coverStart, end: coverEnd });
+
+                    while (i < sheepPositions.length && sheepPositions[i] <= coverEnd) i++;
+                }
+
+                const isSuccess = posts.length <= maxK;
+
+                // 画 X 轴基础线
+                ctx.beginPath();
+                ctx.moveTo(getXPixel(minCoord, width), axisY);
+                ctx.lineTo(getXPixel(maxCoord, width), axisY);
+                ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+
+                // 画 X 轴刻度和数字
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillStyle = '#64748b'; ctx.font = '11px monospace';
+                for (let val = minCoord; val <= maxCoord; val += 2) {
+                    const x = getXPixel(val, width);
+                    ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY + 5);
+                    ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1; ctx.stroke();
+                    ctx.fillText(val, x, axisY + 8);
+                }
+
+                const intervalColor = isSuccess ? 'rgba(52, 211, 153, 0.25)' : 'rgba(251, 113, 133, 0.25)'; 
+                const intervalBorderColor = isSuccess ? 'rgba(16, 185, 129, 0.8)' : 'rgba(225, 29, 72, 0.8)';
+
+                // 画覆盖区间（半透明方块）
+                intervals.forEach(inv => {
+                    const xStart = getXPixel(inv.start, width);
+                    const xEnd = getXPixel(inv.end, width);
+                    const rectWidth = Math.max(xEnd - xStart, 1); // 防止宽度为0
+                    
+                    const blockHeight = 55;
+                    const blockY = axisY - blockHeight - 25; // 悬浮在羊上方
+                    
+                    ctx.fillStyle = intervalColor;
+                    ctx.fillRect(xStart, blockY, rectWidth, blockHeight);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(xStart, blockY + 5); ctx.lineTo(xStart, blockY);
+                    ctx.lineTo(xEnd, blockY); ctx.lineTo(xEnd, blockY + 5);
+                    ctx.strokeStyle = intervalBorderColor; ctx.lineWidth = 2; ctx.stroke();
+                    
+                    ctx.fillStyle = intervalBorderColor; ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                    ctx.fillText(`${(2*R).toFixed(1)}`, (xStart + xEnd) / 2, blockY - 5);
+                });
+
+                // 画羊 🐑
+                ctx.font = '18px sans-serif'; ctx.textBaseline = 'bottom';
+                sheepPositions.forEach(pos => { ctx.fillText('🐑', getXPixel(pos, width), axisY - 2); });
+
+                // 画柱子 📍 和垂直辅助线
+                ctx.font = '18px sans-serif';
+                posts.forEach((pos) => {
+                    const x = getXPixel(pos, width);
+                    ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY - 80);
+                    ctx.setLineDash([4, 4]); ctx.strokeStyle = isSuccess ? '#059669' : '#e11d48';
+                    ctx.lineWidth = 1.5; ctx.stroke(); ctx.setLineDash([]);
+                    ctx.fillText('📍', x, axisY - 35);
+                });
+
+                // 更新左上角 UI 状态徽章
+                rValDisplay.innerText = R.toFixed(1);
+                if (isSuccess) {
+                    statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-emerald-500 text-white";
+                    statusBadge.innerText = `✅ 合法 (需 ${posts.length} 根)`;
+                } else {
+                    statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-rose-500 text-white";
+                    statusBadge.innerText = `❌ 超出 (需 ${posts.length} 根)`;
+                }
+            }
+
+            slider.addEventListener('input', draw);
+            window.addEventListener('resize', resizeCanvas);
+            
+            setTimeout(resizeCanvas, 50);
+        }
+
+        // ================= [8. 总结与考核模块] =================
         function verifySummary() {
             const answers = { 'sum-q1': 'sorted', 'sum-q2': 'half', 'sum-q4': 'on', 'sum-q5': 'ologn' };
             let allCorrect = true; let errorCount = 0;
@@ -2374,8 +2884,8 @@
         function checkFinalQuiz(answer, btnElement) {
             if (quizCompleted) return;
             document.querySelectorAll('.quiz-btn').forEach(btn => {
-                btn.className = "quiz-btn group relative px-6 py-4 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-xl transition-all shadow-sm flex items-center gap-4 overflow-hidden breathing-light";
-                btn.querySelector('span').className = "w-10 h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200";
+                btn.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light";
+                btn.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0";
             });
 
             const feedback = document.getElementById('quiz-feedback');
@@ -2383,12 +2893,12 @@
 
             if (answer === 'B') {
                 quizCompleted = true;
-                btnElement.className = "quiz-btn group relative px-6 py-4 bg-emerald-50 border-2 border-emerald-400 text-emerald-700 rounded-2xl font-black text-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-4 overflow-hidden cursor-default";
-                btnElement.querySelector('span').className = "w-10 h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center border border-emerald-600 shadow-inner";
-                btnElement.querySelector('span').innerHTML = `<i data-lucide="check" class="w-6 h-6"></i>`;
+                btnElement.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-emerald-50 border-2 border-emerald-400 text-emerald-700 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-3 overflow-hidden cursor-default";
+                btnElement.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center border border-emerald-600 shadow-inner shrink-0";
+                btnElement.querySelector('span').innerHTML = `<i data-lucide="check" class="w-5 h-5 lg:w-6 lg:h-6"></i>`;
                 
-                feedback.className = "mt-6 p-4 rounded-xl font-bold text-base lg:text-lg flex flex-col items-center justify-center transition-all bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm opacity-100";
-                feedback.innerHTML = `<div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-6 h-6"></i> 破译成功！</div><div class="text-sm font-medium mt-1">推演：15 → 7 → 3 → 1，最多 4 次即可锁定或排除。</div>`;
+                feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base flex flex-col items-center justify-center transition-all bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm opacity-100";
+                feedback.innerHTML = `<div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 lg:w-6 lg:h-6"></i> 破译成功！</div><div class="text-xs lg:text-sm font-medium mt-1">推演：15 → 7 → 3 → 1，最多 4 次即可锁定或排除。</div>`;
 
                 const vaultContainer = document.getElementById('vault-lock-container');
                 vaultContainer.classList.remove('border-slate-600'); vaultContainer.classList.add('border-emerald-500', 'shadow-[inset_0_0_50px_rgba(16,185,129,0.8)]');
@@ -2398,7 +2908,7 @@
                 vaultIcon.setAttribute('data-lucide', 'lock-open'); vaultIcon.classList.remove('text-slate-500'); vaultIcon.classList.add('text-emerald-400', 'scale-125');
                 
                 const vaultStatus = document.getElementById('vault-status-text');
-                vaultStatus.className = "mt-8 text-emerald-400 font-black text-2xl tracking-widest uppercase transition-all duration-300 drop-shadow-[0_0_10px_#34d399]";
+                vaultStatus.className = "mt-6 lg:mt-8 text-emerald-400 font-black text-xl lg:text-2xl tracking-widest uppercase transition-all duration-300 drop-shadow-[0_0_10px_#34d399] text-center";
                 vaultStatus.innerText = "[ 验证通过 ACCESS GRANTED ]";
 
                 setTimeout(() => {
@@ -2415,8 +2925,8 @@
                 vaultContainer.classList.add('border-rose-500'); setTimeout(() => vaultContainer.classList.remove('border-rose-500'), 300);
 
                 let hintStr = answer === 'A' ? "3 次太少了。虽然 15/2 连续除两次很小，但最坏情况下要查到区间只剩 1 个元素。" : (answer === 'C' ? "7 次是 15 折半一次的结果，但二分查找是不断折半的。" : "15 次是顺序查找的最坏情况！二分查找是“降维打击”。");
-                feedback.className = "mt-6 p-4 rounded-xl font-bold text-base transition-all bg-rose-50 text-rose-600 border border-rose-200 shadow-sm opacity-100 flex items-start gap-3";
-                feedback.innerHTML = `<i data-lucide="x-octagon" class="w-6 h-6 shrink-0 mt-0.5"></i> <div><b>指令错误：</b>${hintStr} <br><span class="text-rose-400 text-sm mt-1">提示：尝试在草稿纸上画一下每次折半后剩余的元素个数。</span></div>`;
+                feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base transition-all bg-rose-50 text-rose-600 border border-rose-200 shadow-sm opacity-100 flex items-start gap-3";
+                feedback.innerHTML = `<i data-lucide="x-octagon" class="w-5 h-5 lg:w-6 lg:h-6 shrink-0 mt-0.5"></i> <div><b>指令错误：</b>${hintStr} <br><span class="text-rose-400 text-xs lg:text-sm mt-1 inline-block">提示：尝试在草稿纸上画一下每次折半后剩余的元素个数。</span></div>`;
             }
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
@@ -2430,7 +2940,7 @@
         }
 
 
-        // ================= [8. 全局初始化 (Bootloader)] =================
+        // ================= [9. 全局初始化 (Bootloader)] =================
         document.addEventListener("DOMContentLoaded", function() {
             // 1. 初始化图标
             if(typeof lucide !== 'undefined') lucide.createIcons();
