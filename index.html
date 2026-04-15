@@ -2315,11 +2315,9 @@
         rangeEl.appendChild(label); container.appendChild(rangeEl);
     }
     
-    // 计算百分比范围
     const leftPercent = (aiLeftBound / 100) * 100;
     const widthPercent = ((aiRightBound - aiLeftBound) / 100) * 100;
 
-    // 1. 更新原图表底部的发光线条
     rangeEl.style.left = `${leftPercent}%`;
     rangeEl.style.width = `${widthPercent}%`;
     const label = document.getElementById('ai-active-range-label');
@@ -2733,7 +2731,7 @@
             const sheepPositions = [1, 3, 5, 8, 12, 15, 17, 19]; 
             const maxK = 3; 
             const minCoord = 0; 
-            const maxCoord = 28; 
+            const maxCoord = 22;
 
             function resizeCanvas() {
                 if (!document.getElementById('sheepDemoCanvas')) return; 
