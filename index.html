@@ -93,8 +93,7 @@
 
         /* 顶部进度条分段 */
         .progress-segment { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        .progress-segment.active { box-shadow: inset 0 -3px 0 #78716c; } 
-
+        .progress-segment.active { box-shadow: inset 0 -3px 0 #4f46e5; }
         /* 任务单卡片与输入框 */
         .task-card { transition: all 0.4s ease; border: 2px solid transparent; }
         .task-card.active-task {
@@ -246,18 +245,6 @@
         30%, 100% { left: 62.5%; background-color: #ef4444; transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 15px rgba(239,68,68,0.5), 0 0 0 6px rgba(239,68,68,0.2); }
         }
 
-        /* 特定场景动画：电工排障电流流动与报警 */
-        .electric-flow {
-            background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.8), transparent);
-            background-size: 200% 100%;
-            animation: flowAnim 1.5s infinite linear;
-        }
-        @keyframes flowAnim { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
-        .node-alert { animation: alertPulse 1s infinite; }
-        @keyframes alertPulse { 
-            0%, 100% { box-shadow: 0 0 10px #ef4444; border-color: #ef4444; } 
-            50% { box-shadow: 0 0 25px #ef4444; border-color: #fca5a5; } 
-        }
 
         /* 关联特定场景动画的 Class (废弃的或非必要的类已精简，保留实际引用的) */
         .anim-seq { animation: seqSearch 10s infinite linear; }
@@ -391,7 +378,7 @@
                             <div class="flex justify-between items-center mb-6">
                                 <div class="text-base lg:text-lg font-bold text-stone-600 flex items-center gap-2">
                                     <i data-lucide="search" class="text-blue-500 w-5 h-5"></i>
-                                    任务：在盲盒中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-lg lg:text-xl shadow-sm border border-rose-200">89</span>
+                                    任务：在盒子中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-lg lg:text-xl shadow-sm border border-rose-200">89</span>
                                 </div>
                                 <div class="text-sm font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
                                     当前比对次数：<span id="seq-step-count" class="text-blue-600 text-lg lg:text-xl font-black ml-1">0</span>
@@ -401,12 +388,20 @@
                             <div id="seq-array-container" class="flex flex-wrap gap-x-2 gap-y-10 lg:gap-3 justify-center min-h-[90px] items-center"></div>
                         </div>
 
-                        <div class="shrink-0 flex flex-row flex-wrap items-center justify-center gap-4 mb-4 relative z-20">
-                            <button id="btn-inspect-next" onclick="inspectNextSeq()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0">
-                                <div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
-                                <i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> 
-                                <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>
-                            </button>
+                        <div class="shrink-0 flex flex-row flex-wrap items-center justify-center gap-4 mb-4 relative z-20 mt-4">
+                            <div class="relative flex items-center">
+                                <div id="inspect-arrow-hint" class="absolute right-full mr-4 top-1/2 -translate-y-1/2 flex flex-row items-center animate-bounce z-30 pointer-events-none transition-opacity duration-300">
+                                    <span class="text-xs font-black text-blue-600 tracking-widest whitespace-nowrap bg-blue-100 px-2 py-0.5 rounded border border-blue-300 shadow-sm">点此开箱</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-500 drop-shadow-md ml-1"></i>
+                                </div>
+                                
+                                <button id="btn-inspect-next" onclick="inspectNextSeq(); document.getElementById('inspect-arrow-hint').style.opacity='0';" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0">
+                                    <div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
+                                    <i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> 
+                                    <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>
+                                </button>
+                            </div>
+                            
                             <p id="seq-feedback-text" class="text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white shadow-sm transition-all shrink-0">规则：从左到右，按顺序逐个开箱比对</p>
                         </div>
 
@@ -466,7 +461,7 @@
                                 onclick="const core = document.getElementById('cable-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(99, percent)); document.getElementById('guess-input').value = percent; if(typeof makeGuess === 'function') makeGuess();">
                                 <div class="absolute left-2 -top-5 text-xs font-black text-slate-500">东莞(0km)</div>
                                 <div class="absolute right-2 -top-5 text-xs font-black text-slate-500">广州(100km)</div>
-                                <div class="absolute left-1/2 -top-5 -translate-x-1/2 text-[10px] lg:text-xs font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
+                                <div class="absolute left-1/2 -top-5 -translate-x-1/2 text-[10px] lg:text-xs font-bold text-blue-500 opacity-100 flex items-center gap-1 pointer-events-none">
                                     <i data-lucide="mouse-pointer-click" class="w-3 h-3 lg:w-4 lg:h-4"></i> 点击坐标快速检测
                                 </div>
                                 <div class="w-full h-2.5 lg:h-3 bg-slate-300 rounded-full relative" id="cable-core">
@@ -746,50 +741,6 @@
             </div>
 
             <div id="slide-7" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-engineer.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
-                        <div class="flex items-center justify-center gap-4 mb-6 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-2 bg-teal-50 border border-teal-100 rounded-xl text-teal-600 shadow-sm"><i data-lucide="plug-zap" class="w-8 h-8"></i></div>
-                            <h2 class="text-3xl lg:text-4xl font-black tracking-widest text-stone-800 uppercase m-0">拓展：电工排障模拟</h2>
-                        </div>
-                        <div class="bg-white/95 p-6 lg:p-8 rounded-[2.5rem] border border-stone-200 shadow-xl backdrop-blur-md w-full max-w-4xl transition-all duration-500 relative overflow-hidden">
-                            <div class="absolute -right-20 -top-20 w-64 h-64 bg-teal-100/30 rounded-full blur-[60px] pointer-events-none"></div>
-                            <div class="flex justify-between items-end mb-6">
-                                <div class="text-left">
-                                    <h3 class="text-xl lg:text-2xl font-black text-stone-800 flex items-center gap-2 mb-2"><i data-lucide="zap" class="text-amber-500 w-6 h-6"></i> 万用表分段检测法</h3>
-                                    <p class="text-stone-500 font-bold text-sm">任务：某处线路断开导致尾端无电。请点击节点测试电压，找出断点！</p>
-                                </div>
-                                <button onclick="initEngineerGame()" class="px-4 py-2 bg-stone-100 hover:bg-stone-200 border border-stone-300 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95">
-                                    <i data-lucide="refresh-ccw" class="w-4 h-4"></i> 重置电路
-                                </button>
-                            </div>
-                            <div class="mb-8 w-full max-w-md mx-auto bg-[#8b9bb4] p-2 rounded-xl shadow-[inset_0_4px_10px_rgba(0,0,0,0.2)] border-4 border-slate-700 relative">
-                                <div class="bg-[#9ea79c] w-full h-20 rounded shadow-inner flex items-center justify-between px-6 font-mono border-2 border-[#7a8578] relative overflow-hidden">
-                                    <div class="absolute top-0 left-0 w-full h-1/2 bg-white/10"></div>
-                                    <div class="flex flex-col">
-                                        <span class="text-[#3b423a] text-[10px] font-black tracking-widest uppercase">测得电压 (Voltage)</span>
-                                        <span id="eng-lcd-volt" class="text-4xl font-black text-[#2c332b] tracking-tighter">---</span>
-                                    </div>
-                                    <div class="text-right flex flex-col items-end">
-                                        <span class="text-[#3b423a] text-[10px] font-black tracking-widest uppercase mb-1">测试次数</span>
-                                        <span id="eng-lcd-step" class="text-2xl font-black text-[#2c332b] bg-[#899387] px-2 rounded">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative w-full h-32 lg:h-40 bg-slate-900 rounded-2xl border-[6px] border-slate-800 flex items-center px-8 shadow-[inset_0_15px_30px_rgba(0,0,0,0.6)] mb-6">
-                                <div class="absolute left-10 right-10 h-2 bg-slate-700 top-1/2 -translate-y-1/2 z-0 rounded-full"></div>
-                                <div id="eng-circuit-nodes" class="w-full flex justify-between z-10 relative"></div>
-                            </div>
-                            <div id="eng-feedback" class="flex items-center justify-center gap-3 text-stone-600 font-bold text-lg bg-stone-50 py-4 rounded-xl border border-stone-200 transition-all">
-                                <i data-lucide="info" class="w-5 h-5 text-teal-500"></i> 请选择中间节点进行测试，寻找 220V 与 0V 的交界处。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="slide-8" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
         <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
@@ -864,7 +815,7 @@
     </div>
             </div>
 
-            <div id="slide-9" class="slide inactive-right absolute inset-0"> 
+            <div id="slide-8" class="slide inactive-right absolute inset-0"> 
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math-bridge.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
                     <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
@@ -932,7 +883,7 @@
                 </div>
             </div>
 
-            <div id="slide-10" class="slide inactive-right absolute inset-0">
+            <div id="slide-9" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-literature.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
                     <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
@@ -955,25 +906,40 @@
                                 </div>
                             </div>
                             <div id="dict-book-container" class="relative w-full h-36 lg:h-44 bg-[#e8dcc4] rounded-xl border-[4px] lg:border-[6px] border-[#8b5a2b] shadow-[0_15px_30px_rgba(0,0,0,0.3)] mb-4 flex perspective-[1200px] transition-all duration-500">
-                                <div class="absolute left-1/2 top-0 bottom-0 w-4 lg:w-6 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#8b5a2b]/30 to-transparent z-20 shadow-[inset_0_0_10px_rgba(0,0,0,0.2)]"></div>
-                                <div id="dict-page-left" class="w-1/2 h-full bg-[#fdfaf3] relative flex flex-col justify-center items-center origin-right transition-transform duration-700 overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-stone-200/40"></div>
-                                    <span class="absolute bottom-2 lg:bottom-4 left-4 lg:left-6 text-stone-400 font-bold font-mono text-xs lg:text-sm">Page <span id="ui-page-left">--</span></span>
-                                    <div class="relative z-10 flex flex-col items-center scale-0 opacity-0 transition-all duration-500" id="dict-content-left">
-                                        <div class="text-[9px] lg:text-xs font-black text-amber-800/60 tracking-widest uppercase mb-1 border-b border-amber-200 pb-0.5 lg:pb-1">当前页首字母</div>
-                                        <div class="text-4xl lg:text-6xl font-black text-stone-800 drop-shadow-sm mb-1 lg:mb-2" id="ui-char-left">?</div>
-                                        <div class="text-sm lg:text-lg font-bold text-amber-600 font-mono bg-amber-50 px-2 py-0.5 lg:py-1 rounded-lg border border-amber-100" id="ui-pinyin-left">---</div>
-                                    </div>
-                                </div>
-                                <div id="dict-page-right" class="w-1/2 h-full bg-[#fcf9f1] relative flex flex-col justify-center items-center origin-left transition-transform duration-700 overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-l from-transparent to-stone-200/40"></div>
-                                    <span class="absolute bottom-2 lg:bottom-4 right-4 lg:right-6 text-stone-400 font-bold font-mono text-xs lg:text-sm">Page <span id="ui-page-right">--</span></span>
-                                    <div class="relative z-10 flex flex-col items-center text-stone-300 opacity-50">
-                                        <i data-lucide="book-text" class="w-10 h-10 lg:w-14 lg:h-14 mb-1 lg:mb-2"></i>
-                                        <span class="font-bold tracking-widest text-xs lg:text-sm">右侧书页</span>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="absolute left-1/2 top-0 bottom-0 w-4 lg:w-6 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#8b5a2b]/30 to-transparent z-20 shadow-[inset_0_0_10px_rgba(0,0,0,0.2)]"></div>
+    
+    <div id="dict-page-left" class="w-1/2 h-full bg-[#fdfaf3] relative flex flex-col justify-center items-center origin-right transition-transform duration-700 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-stone-200/40"></div>
+        <span class="absolute bottom-2 lg:bottom-4 left-4 lg:left-6 text-stone-400 font-bold font-mono text-xs lg:text-sm">Page <span id="ui-page-left">--</span></span>
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center scale-0 opacity-0 transition-all duration-500 w-full" id="dict-content-left">
+            <div class="text-[9px] lg:text-xs font-black text-amber-800/60 tracking-widest uppercase mb-1 border-b border-amber-200 pb-0.5 lg:pb-1">当前页首字母</div>
+            <div class="text-4xl lg:text-6xl font-black text-stone-800 drop-shadow-sm mb-1 lg:mb-2" id="ui-char-left">?</div>
+            <div class="text-sm lg:text-lg font-bold text-amber-600 font-mono bg-amber-50 px-2 py-0.5 lg:py-1 rounded-lg border border-amber-100" id="ui-pinyin-left">---</div>
+        </div>
+
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center text-stone-300 opacity-50 transition-all duration-500 w-full" id="dict-placeholder-left">
+            <i data-lucide="book-text" class="w-10 h-10 lg:w-14 lg:h-14 mb-1 lg:mb-2"></i>
+            <span class="font-bold tracking-widest text-xs lg:text-sm">左侧书页</span>
+        </div>
+    </div>
+    
+    <div id="dict-page-right" class="w-1/2 h-full bg-[#fcf9f1] relative flex flex-col justify-center items-center origin-left transition-transform duration-700 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-l from-transparent to-stone-200/40"></div>
+        <span class="absolute bottom-2 lg:bottom-4 right-4 lg:right-6 text-stone-400 font-bold font-mono text-xs lg:text-sm">Page <span id="ui-page-right">--</span></span>
+        
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center scale-0 opacity-0 transition-all duration-500 w-full" id="dict-content-right">
+            <div class="text-[9px] lg:text-xs font-black text-amber-800/60 tracking-widest uppercase mb-1 border-b border-amber-200 pb-0.5 lg:pb-1">当前页首字母</div>
+            <div class="text-4xl lg:text-6xl font-black text-stone-800 drop-shadow-sm mb-1 lg:mb-2" id="ui-char-right">?</div>
+            <div class="text-sm lg:text-lg font-bold text-amber-600 font-mono bg-amber-50 px-2 py-0.5 lg:py-1 rounded-lg border border-amber-100" id="ui-pinyin-right">---</div>
+        </div>
+
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center text-stone-300 opacity-50 transition-all duration-500 w-full" id="dict-placeholder-right">
+            <i data-lucide="book-text" class="w-10 h-10 lg:w-14 lg:h-14 mb-1 lg:mb-2"></i>
+            <span class="font-bold tracking-widest text-xs lg:text-sm">右侧书页</span>
+        </div>
+    </div>
+</div>
                             <div class="bg-amber-50/50 p-3 lg:p-4 rounded-2xl border border-amber-100 w-full shadow-inner relative z-10 flex flex-col items-center justify-center">
                                 <div id="dict-step-1" class="w-full flex flex-col items-center justify-center transition-all duration-300">
                                     <button onclick="calculateDictMid()" id="btn-dict-mid" class="px-6 py-2.5 lg:py-3 bg-amber-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,119,6,0.4)] hover:bg-amber-700 hover:shadow-[0_6px_20px_rgba(217,119,6,0.6)] transition-all font-black text-base lg:text-lg active:scale-95 flex items-center gap-2 breathing-light">
@@ -1004,7 +970,7 @@
                 </div>
             </div>
 
-            <div id="slide-11" class="slide inactive-right absolute inset-0">
+            <div id="slide-10" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-extension.jpg'); background-color: #f8fafc;"></div>
                 
                 <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
@@ -1078,7 +1044,7 @@
                 </div>
             </div>
 
-            <div id="slide-12" class="slide inactive-right absolute inset-0">
+            <div id="slide-11" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./conclusion.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-6 flex flex-col items-center justify-center pointer-events-auto">
                     <div class="w-full max-w-5xl flex flex-col h-full justify-center items-center">
@@ -1134,7 +1100,7 @@
                 </div>
             </div>
 
-            <div id="slide-13" class="slide inactive-right absolute inset-0">
+            <div id="slide-12" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./test.jpg');"></div>
                 <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
                     <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
@@ -1191,7 +1157,7 @@
                 </div>
             </div>
 
-            <div id="slide-14" class="slide inactive-right absolute inset-0">
+            <div id="slide-13" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./evaluation.jpg');"></div>
                 
                 <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
@@ -1250,7 +1216,7 @@
                 </div>
             </div>
 
-            <div id="slide-15" class="slide inactive-right absolute inset-0">
+            <div id="slide-14" class="slide inactive-right absolute inset-0">
                 <div class="h-full w-full p-8 flex flex-col items-center justify-center">
                     <div class="text-center w-full flex flex-col items-center justify-center h-full space-y-12">
                         <div class="relative">
@@ -1264,10 +1230,11 @@
                     </div>
                 </div>
             </div>
-        </div> <button id="btn-global-prev" onclick="goToSlide(Math.max(0, currentSlide - 1))" class="fixed left-2 lg:left-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-white/40 hover:bg-white/80 backdrop-blur-md rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-white/60 flex items-center justify-center text-stone-600 hover:text-blue-600 transition-all duration-300 z-50 group hover:scale-110 active:scale-95 pointer-events-auto opacity-0 pointer-events-none">
-            <i data-lucide="chevron-left" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:-translate-x-1 transition-transform"></i>
+        <button id="btn-global-prev" onclick="goToSlide(Math.max(0, currentSlide - 1))" class="fixed left-2 lg:left-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 opacity-0 pointer-events-none">
+    <i data-lucide="chevron-left" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:-translate-x-1 transition-transform"></i>
         </button>
-        <button id="btn-global-next" onclick="goToSlide(Math.min(totalSlides - 1, currentSlide + 1))" class="fixed right-2 lg:right-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-white/40 hover:bg-white/80 backdrop-blur-md rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-white/60 flex items-center justify-center text-stone-600 hover:text-blue-600 transition-all duration-300 z-50 group hover:scale-110 active:scale-95 pointer-events-auto">
+
+        <button id="btn-global-next" onclick="goToSlide(Math.min(totalSlides - 1, currentSlide + 1))" class="fixed right-2 lg:right-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 pointer-events-auto">
             <i data-lucide="chevron-right" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:translate-x-1 transition-transform"></i>
         </button>
 
@@ -1345,10 +1312,6 @@
                         <p>将二分法思想迁移至其他领域（请选择合适的关键词）：</p>
                         <ul class="space-y-3">
                             <li class="flex flex-col gap-1">
-                                <span class="font-bold text-stone-800">🔌 电路排障：</span> 
-                                <div>利用 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="中值判断">中值判断</option><option value="缩小区间">缩小区间</option><option value="有序前提">有序前提</option></select> 法快速排查断点。</div>
-                            </li>
-                            <li class="flex flex-col gap-1">
                                 <span class="font-bold text-stone-800">🤖 AI 模型调参：</span> 
                                 <div>在连续的参数空间中，利用二分思想寻找最佳的 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="学习率">学习率</option><option value="准确率">准确率</option><option value="损失值">损失值</option></select>。</div>
                             </li>
@@ -1393,10 +1356,10 @@
             const clickX = e.clientX;
             const screenWidth = window.innerWidth;
             
-            // 左侧 30% 上一页，右侧 30% 下一页
-            if (clickX < screenWidth * 0.3) {
+            // 左侧 10% 上一页，右侧 10% 下一页
+            if (clickX < screenWidth * 0.1) {
                 if (typeof prevSlide === 'function') prevSlide();
-            } else if (clickX > screenWidth * 0.7) {
+            } else if (clickX > screenWidth * 0.9) {
                 if (typeof nextSlide === 'function') nextSlide();
             }
         });
@@ -1407,17 +1370,15 @@
         // ==========================================================================
 
         // ================= [0. 核心状态与导航系统 (Core & Navigation)] =================
-        const totalSlides = 16; 
+        const totalSlides = 15; 
         let currentSlide = 0;
         let isDrawerOpen = false;
 
         // 记录特定页面是否已经触发过“任务单强制拦截”
-        // 2: 光缆维修结束; 5: 算法模拟结束; 6: 代码构建结束; 10: 拓展总结前
-        const taskIntercepted = { 2: false, 5: false, 6: false, 10: false };
-
+        const taskIntercepted = { 2: false, 5: false, 6: false, 9: false };
         function shouldInterceptForward(fromSlide, toSlide) {
             if (toSlide <= fromSlide) return false;
-            if ([2, 5, 6, 10].includes(fromSlide) && !taskIntercepted[fromSlide]) {
+            if ([2, 5, 6, 9].includes(fromSlide) && !taskIntercepted[fromSlide]) {
                 return true;
             }
             return false;
@@ -1458,7 +1419,6 @@
         }
 
         function updateSlides(direction = 'next') {
-            // 切换幻灯片类名，触发 CSS 动画
             for(let i = 0; i < totalSlides; i++) {
                 const slide = document.getElementById(`slide-${i}`);
                 if(!slide) continue;
@@ -1467,7 +1427,6 @@
                 else slide.className = "slide inactive-right absolute inset-0";
             }
             
-            // 更新全局左右悬浮按钮状态
             const btnPrev = document.getElementById('btn-global-prev');
             const btnNext = document.getElementById('btn-global-next');
             if(btnPrev) {
@@ -1495,8 +1454,8 @@
                 { title: "算法原理", slides: [3, 4] },
                 { title: "算法模拟", slides: [5] },
                 { title: "代码实现", slides: [6] },
-                { title: "拓展", slides: [7, 8, 9, 10, 11] }, 
-                { title: "总结", slides: [12, 13, 14] } 
+                { title: "拓展", slides: [7, 8, 9, 10] }, 
+                { title: "总结", slides: [11, 12, 13] }
             ];
 
             progressBar.innerHTML = progressSegments.map((segment, i) => {
@@ -1539,7 +1498,7 @@
             if (currentSlide === 2) activeTaskId = 1;
             if (currentSlide === 5) activeTaskId = 2; 
             if (currentSlide === 6) activeTaskId = 3; 
-            if (currentSlide >= 7 && currentSlide <= 10) activeTaskId = 4;
+            if (currentSlide >= 7 && currentSlide <= 9) activeTaskId = 4;
 
             if (activeTaskId) {
                 const card = document.getElementById(`task-card-${activeTaskId}`);
@@ -1875,20 +1834,16 @@
     logsContainer.scrollTop = logsContainer.scrollHeight; 
     if(typeof lucide !== 'undefined') lucide.createIcons();
 
-    // 当数据缩减到 1 时触发
     if (mathCurrentN <= 1) {
         mathGameWon = true;
         const btn = document.getElementById('btn-halve-strike');
         btn.disabled = true;
         
-        // 核心修复：确保 flex 和 居中属性
         btn.className = "mx-auto w-fit px-8 py-3 bg-stone-100 border-2 border-dashed border-stone-300 text-stone-400 rounded-2xl font-black text-xl flex items-center justify-center gap-2 mt-4 cursor-default transition-all duration-700 opacity-100 shadow-inner relative z-10";
         btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> <span>数据已粉碎</span>`;
 
-        // 改变上方数据块颜色为绿色
         dataBlock.className = "w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[2.5rem] shadow-[0_10px_40px_rgba(16,185,129,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-700 transform scale-105";
 
-        // 更新结论面板
         document.getElementById('final-k').innerText = mathCutsK;
         const conclusion = document.getElementById('math-conclusion');
         setTimeout(() => {
@@ -1896,8 +1851,6 @@
             conclusion.classList.add('translate-y-0', 'opacity-100');
         }, 500);
 
-        // 【关键修复点】：重新触发图标渲染！
-        // 这样左侧的打勾图标就会显示出来，与右侧的文字形成平衡，在整个按钮内部实现绝对居中。
         if(typeof lucide !== 'undefined') lucide.createIcons();
     }
 }
@@ -2160,79 +2113,7 @@
             }
         }
 
-        // ================= [6. 拓展：电工排障、AI 调参、数学求根、查字典] =================
-        const TOTAL_NODES = 8;
-        let engFaultNode = 5; let engSteps = 0; let engGameWon = false;
-        let engNodeStatus = new Array(TOTAL_NODES + 1).fill(null);
-
-        function initEngineerGame() {
-            engFaultNode = Math.floor(Math.random() * 7) + 2; 
-            engSteps = 0; engGameWon = false;
-            engNodeStatus.fill(null); engNodeStatus[1] = 220;
-
-            document.getElementById('eng-lcd-volt').innerText = "---";
-            document.getElementById('eng-lcd-step').innerText = "0";
-            
-            const feedback = document.getElementById('eng-feedback');
-            feedback.className = "flex items-center justify-center gap-3 text-stone-600 font-bold text-lg bg-stone-50 py-4 rounded-xl border border-stone-200 transition-all";
-            feedback.innerHTML = `<i data-lucide="info" class="w-5 h-5 text-teal-500"></i> 请直接点击中间的节点进行测试，利用折半思想快速排查！`;
-            renderCircuit();
-        }
-
-        function renderCircuit() {
-            const container = document.getElementById('eng-circuit-nodes');
-            if(!container) return;
-            let html = '';
-            for (let i = 1; i <= TOTAL_NODES; i++) {
-                let nodeClass = "bg-slate-500 border-slate-700 text-slate-300"; 
-                let labelClass = "text-slate-400"; let voltLabel = ""; let glowEffect = "";
-                let cursorStyle = engGameWon ? "cursor-default" : "cursor-pointer hover:scale-110";
-
-                if (engNodeStatus[i] === 220) {
-                    nodeClass = "bg-teal-400 border-white text-teal-900 shadow-[0_0_15px_#2dd4bf]"; labelClass = "text-teal-300";
-                    voltLabel = `<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-black text-teal-400 bg-teal-950/80 px-1 rounded border border-teal-800">220V</div>`;
-                } else if (engNodeStatus[i] === 0) {
-                    nodeClass = "bg-rose-500 border-white text-white shadow-[0_0_15px_#ef4444]"; labelClass = "text-rose-400";
-                    voltLabel = `<div class="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-black text-rose-400 bg-rose-950/80 px-1 rounded border border-rose-800">0V</div>`;
-                }
-
-                if (engGameWon && i === engFaultNode) {
-                    nodeClass = "bg-rose-600 border-white text-white node-alert z-20";
-                    voltLabel = `<div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-sm font-black text-white bg-rose-600 px-3 py-1 rounded-full shadow-[0_0_15px_#ef4444] border-2 border-white whitespace-nowrap z-30">故障断点</div>`;
-                    glowEffect = `<div class="absolute top-1/2 -left-8 -translate-y-1/2 text-rose-500 animate-pulse z-30"><i data-lucide="zap-off" class="w-8 h-8 drop-shadow-[0_0_10px_#ef4444]"></i></div>`;
-                }
-
-                let wireToNext = (i < TOTAL_NODES && engGameWon && i < engFaultNode - 1) ? `<div class="absolute top-1/2 left-6 w-[calc(100%+2rem)] h-1.5 -translate-y-1/2 electric-flow z-0"></div>` : "";
-                let breathingClass = (!engGameWon && engNodeStatus[i] === null && i !== 1) ? "breathing-light" : "";
-
-                html += `<div class="relative flex flex-col items-center group">${glowEffect}${wireToNext}<div onclick="testNode(${i})" class="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-[4px] flex items-center justify-center font-black text-sm lg:text-base relative z-10 transition-all duration-300 ${nodeClass} ${cursorStyle} ${breathingClass}">${i}</div><span class="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-bold ${labelClass} transition-colors">N${i}</span>${voltLabel}</div>`;
-            }
-            container.innerHTML = html;
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-        }
-
-        function testNode(nodeIndex) {
-            if (engGameWon || nodeIndex === 1) return; 
-            if (engNodeStatus[nodeIndex] === null) { engSteps++; document.getElementById('eng-lcd-step').innerText = engSteps; }
-            
-            const voltage = (nodeIndex < engFaultNode) ? 220 : 0;
-            engNodeStatus[nodeIndex] = voltage;
-            const lcdVolt = document.getElementById('eng-lcd-volt');
-            lcdVolt.innerText = voltage + "V";
-            lcdVolt.className = voltage === 220 ? "text-4xl font-black text-teal-800 tracking-tighter drop-shadow-[0_0_5px_rgba(45,212,191,0.5)]" : "text-4xl font-black text-rose-800 tracking-tighter drop-shadow-[0_0_5px_rgba(244,63,94,0.5)]";
-
-            if (engNodeStatus[engFaultNode] === 0 && engNodeStatus[engFaultNode - 1] === 220) {
-                engGameWon = true;
-                const feedback = document.getElementById('eng-feedback');
-                feedback.className = "flex items-center justify-center gap-3 text-rose-600 font-bold text-lg bg-rose-50 py-4 rounded-xl border border-rose-200 shadow-md transition-all animate-bounce";
-                feedback.innerHTML = `<i data-lucide="alert-triangle" class="w-6 h-6"></i> 成功锁定断点！位于节点 ${engFaultNode - 1} 与 ${engFaultNode} 之间。共测试 ${engSteps} 次。`;
-            } else {
-                const feedback = document.getElementById('eng-feedback');
-                feedback.innerHTML = voltage === 220 ? `<span class="text-teal-600"><i data-lucide="check-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> 节点 ${nodeIndex} 电压正常，说明 <b>1 ~ ${nodeIndex}</b> 线路完好。断点在右侧！</span>` : `<span class="text-rose-500"><i data-lucide="x-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> 节点 ${nodeIndex} 无电压，说明断点在 <b>左侧</b> 某处！</span>`;
-            }
-            renderCircuit();
-        }
-
+        // ================= [6. 拓展：AI 调参、数学求根、查字典] =================
         // AI 模块
         const AI_TARGET_LR = 45; 
         let aiEpochs = 0; let aiGameWon = false; let aiLeftBound = 1; let aiRightBound = 100;
@@ -2413,12 +2294,15 @@
             }
         }
 
-        // 查字典模块
+        // ================= [查字典模块] =================
         let dictL = 1; let dictR = 1000; let dictMid = 0; let dictSteps = 0;
-        const DICT_TARGET_PAGE = 682; let dictState = 'FIND_MID'; let currentDictInfo = null;
+        
+        const DICT_TARGET_PAGE = 687; 
+        let dictState = 'FIND_MID'; let currentDictInfo = null;
 
         function getDictPageData(p) {
             if (p === DICT_TARGET_PAGE) return { char: "淼", pinyin: "miǎo", cmp: 0 };
+            
             if (p < DICT_TARGET_PAGE) {
                 const diff = DICT_TARGET_PAGE - p;
                 if (diff <= 7) { const arr = ["庙","妙","藐","渺","秒","鹋","描"]; return { char: arr[diff-1], pinyin: (diff===6||diff===7)?"miáo": (diff<=2?"miào":"miǎo"), cmp: -1 }; }
@@ -2426,6 +2310,7 @@
                 if (diff <= 30) return { char: "面", pinyin: "mian", cmp: -1 };
                 if (diff <= 50) return { char: "门", pinyin: "men", cmp: -1 };
                 if (diff <= 80) return { char: "毛", pinyin: "mao", cmp: -1 };
+                
                 const chars = ["啊(a)", "波(b)", "吃(c)", "得(d)", "佛(f)", "哥(g)", "哈(h)", "机(j)", "科(k)", "拉(l)"];
                 let idx = Math.max(0, Math.min(chars.length - 1, Math.floor((p / (DICT_TARGET_PAGE - 120)) * chars.length)));
                 return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: -1 };
@@ -2437,6 +2322,7 @@
                 if (diff <= 15) return { char: "明", pinyin: "ming", cmp: 1 };
                 if (diff <= 30) return { char: "摸", pinyin: "mo", cmp: 1 };
                 if (diff <= 80) return { char: "木", pinyin: "mu", cmp: 1 };
+                
                 const chars = ["那(n)", "欧(o)", "坡(p)", "七(q)", "日(r)", "思(s)", "特(t)", "乌(w)", "西(x)", "呀(y)", "字(z)"];
                 let idx = Math.max(0, Math.min(chars.length - 1, Math.floor(((p - (DICT_TARGET_PAGE + 80)) / (1000 - (DICT_TARGET_PAGE + 80))) * chars.length)));
                 return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: 1 };
@@ -2458,17 +2344,46 @@
                 book.classList.remove('scale-95', 'opacity-80', 'rotate-1');
                 dictMid = Math.floor((dictL + dictR) / 2); currentDictInfo = getDictPageData(dictMid);
                 document.getElementById('ui-page-left').innerText = dictMid; document.getElementById('ui-page-right').innerText = dictMid + 1;
-                document.getElementById('ui-char-left').innerText = currentDictInfo.char; document.getElementById('ui-pinyin-left').innerText = currentDictInfo.pinyin;
+                
+                const showOnRight = currentDictInfo.cmp === 1;
+
+                if (showOnRight) {
+                    document.getElementById('ui-char-right').innerText = currentDictInfo.char; 
+                    document.getElementById('ui-pinyin-right').innerText = currentDictInfo.pinyin;
+                    
+                    document.getElementById('dict-content-right').classList.remove('scale-0', 'opacity-0'); 
+                    document.getElementById('dict-content-right').classList.add('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-right').classList.add('scale-0', 'opacity-0');
+                    
+                    document.getElementById('dict-content-left').classList.add('scale-0', 'opacity-0');
+                    document.getElementById('dict-content-left').classList.remove('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-left').classList.remove('scale-0', 'opacity-0');
+                } else {
+                    document.getElementById('ui-char-left').innerText = currentDictInfo.char; 
+                    document.getElementById('ui-pinyin-left').innerText = currentDictInfo.pinyin;
+                    
+                    document.getElementById('dict-content-left').classList.remove('scale-0', 'opacity-0'); 
+                    document.getElementById('dict-content-left').classList.add('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-left').classList.add('scale-0', 'opacity-0');
+                    
+                    document.getElementById('dict-content-right').classList.add('scale-0', 'opacity-0');
+                    document.getElementById('dict-content-right').classList.remove('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-right').classList.remove('scale-0', 'opacity-0');
+                }
+
                 document.getElementById('ui-cmp-current').parentNode.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4 text-rose-500 shrink-0"></i> 当前查到 <span id="ui-cmp-current" class="text-rose-600 font-black text-base lg:text-lg underline decoration-rose-300">${currentDictInfo.char}(${currentDictInfo.pinyin})</span>，目标是 <span class="text-blue-600 font-black text-base lg:text-lg underline decoration-blue-300">淼(miǎo)</span>。接下来撕哪半本？`;
                 if(typeof lucide !== 'undefined') lucide.createIcons();
-                document.getElementById('dict-content-left').classList.remove('scale-0', 'opacity-0'); document.getElementById('dict-content-left').classList.add('scale-100', 'opacity-100');
 
                 if (currentDictInfo.cmp === 0) {
                     dictState = 'WON'; document.getElementById('dict-step-1').classList.add('hidden');
                     const success = document.getElementById('dict-success-msg'); success.classList.remove('hidden'); success.classList.add('animate-bounce');
                     success.innerHTML = `<i data-lucide="party-popper" class="w-5 h-5 inline mr-1 -mt-1 text-emerald-500"></i> 太棒了！用二分法，面对 1000 页字典，你仅需 <b>${dictSteps}</b> 次就成功锁定了目标！`;
-                    document.getElementById('dict-page-left').classList.add('bg-emerald-50'); document.getElementById('ui-char-left').classList.add('text-emerald-600');
-                    document.getElementById('ui-pinyin-left').className = "text-xl font-black text-white bg-emerald-500 px-4 py-1 rounded-lg shadow-md";
+                    
+                    // 成功时让当前页变绿
+                    const targetPage = showOnRight ? 'right' : 'left';
+                    document.getElementById(`dict-page-${targetPage}`).classList.add('bg-emerald-50'); 
+                    document.getElementById(`ui-char-${targetPage}`).classList.add('text-emerald-600');
+                    document.getElementById(`ui-pinyin-${targetPage}`).className = "text-xl font-black text-white bg-emerald-500 px-4 py-1 rounded-lg shadow-md";
                 } else {
                     dictState = 'CHOOSE_HALF'; document.getElementById('dict-step-1').classList.add('hidden');
                     document.getElementById('dict-step-2').classList.remove('hidden'); document.getElementById('dict-step-2').classList.add('flex');
@@ -2482,12 +2397,22 @@
             }
             if (choice === 'LEFT') dictR = dictMid - 1; else dictL = dictMid + 1;
             const pageLeft = document.getElementById('dict-page-left'); const pageRight = document.getElementById('dict-page-right');
-            if (choice === 'LEFT') pageRight.classList.add('opacity-20', 'scale-95'); else pageLeft.classList.add('opacity-20', 'scale-95');
+            
+            if (choice === 'LEFT') pageRight.classList.add('opacity-20', 'scale-95'); 
+            else pageLeft.classList.add('opacity-20', 'scale-95');
 
             setTimeout(() => {
                 pageLeft.classList.remove('opacity-20', 'scale-95'); pageRight.classList.remove('opacity-20', 'scale-95');
                 document.getElementById('ui-page-left').innerText = '--'; document.getElementById('ui-page-right').innerText = '--';
+                
                 document.getElementById('dict-content-left').classList.add('scale-0', 'opacity-0');
+                document.getElementById('dict-content-left').classList.remove('scale-100', 'opacity-100');
+                document.getElementById('dict-content-right').classList.add('scale-0', 'opacity-0');
+                document.getElementById('dict-content-right').classList.remove('scale-100', 'opacity-100');
+                
+                document.getElementById('dict-placeholder-left').classList.remove('scale-0', 'opacity-0');
+                document.getElementById('dict-placeholder-right').classList.remove('scale-0', 'opacity-0');
+                
                 document.getElementById('dict-l-val').innerText = dictL; document.getElementById('dict-r-val').innerText = dictR;
                 document.getElementById('dict-l-val').parentElement.classList.add('bg-rose-100');
                 setTimeout(() => document.getElementById('dict-l-val').parentElement.classList.remove('bg-rose-100'), 300);
@@ -2495,8 +2420,8 @@
                 dictState = 'FIND_MID'; document.getElementById('dict-step-2').classList.add('hidden'); document.getElementById('dict-step-2').classList.remove('flex');
                 document.getElementById('dict-step-1').classList.remove('hidden');
             }, 500);
-        }
-
+        }      
+ 
         // ================= [7. 拓展：模拟 AI 豆包交互分析] =================
         let aiChatStep = 1; 
 
@@ -2968,7 +2893,6 @@
             initGame();
             initMathGame();
             initInteractiveSim();
-            initEngineerGame();
             initMathBridgeGame();
             
             // 5. 绑定所有回车键交互事件
