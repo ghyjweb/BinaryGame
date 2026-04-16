@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5.2.2 二分查找 教学课件</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./tailwindcss.js"></script>
     <script>window.tailwind || document.write('<script src="./tailwindcss.js"><\\/script>')</script>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="./lucide.js"></script>
     <script>window.lucide || document.write('<script src="./lucide.js"><\\/script>')</script>
     
     <style>
@@ -332,13 +332,10 @@
     
     <div id="seq-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
         <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+        
+        <div class="relative bg-gradient-to-br from-white/95 via-cyan-50/90 to-cyan-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(6,182,212,0.15),0_20px_50px_rgba(6,182,212,0.25)] z-10">
             
-            <div class="relative bg-gradient-to-br from-white/95 via-cyan-50/90 to-cyan-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(6,182,212,0.15),0_20px_50px_rgba(6,182,212,0.25)] z-10">
-                
-                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
-                
-                <i data-lucide="sparkles" class="absolute top-8 left-8 w-6 h-6 text-cyan-400 fill-cyan-400 opacity-60 animate-pulse"></i>
-                <i data-lucide="star" class="absolute bottom-10 right-8 w-4 h-4 text-amber-300 fill-amber-300 opacity-80 animate-pulse"></i>
+<div class="absolute top-12 -left-3 w-8 h-8 bg-white/95 border-l border-t border-white/60 transform -rotate-45 rounded-tl-sm shadow-[-5px_-5px_10px_rgba(6,182,212,0.1)] -z-10 backdrop-blur-md"></div>                <i data-lucide="star" class="absolute bottom-10 right-8 w-4 h-4 text-amber-300 fill-amber-300 opacity-80 animate-pulse"></i>
                 
                 <div class="w-14 h-14 bg-white text-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(6,182,212,0.2)] border border-cyan-100 relative z-10">
                     <i data-lucide="book-open-text" class="w-6 h-6"></i>
@@ -351,9 +348,6 @@
                     <i data-lucide="check-circle" class="w-5 h-5"></i> 我明白了，开始体验
                 </button>
             </div>
-
-            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-cyan-50 to-cyan-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),inset_0_-3px_5px_rgba(6,182,212,0.1),0_10px_20px_rgba(6,182,212,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
-            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-cyan-50 to-cyan-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(6,182,212,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
         </div>
     </div>
 
@@ -375,9 +369,16 @@
                     同学们，如果数据量庞大，哪怕目标近在眼前，只要它排在最后，计算机也只能“死脑筋”查到尾。<br>
                     <span class="text-rose-500 mt-2 block font-black text-base lg:text-lg">难道就没有更聪明、快速的方法吗？</span>
                 </p>
-                <button onclick="closeSeqOutro()" class="relative z-10 px-8 py-3.5 bg-gradient-to-r from-stone-700 to-stone-900 hover:from-stone-800 hover:to-black text-white rounded-full font-black shadow-[0_8px_20px_rgba(30,41,59,0.4)] transition-all active:scale-95 text-base w-full flex items-center justify-center gap-2 breathing-light border border-stone-600">
+                
+                <button onclick="closeSeqOutro(); nextSlide();" class="relative z-10 px-8 py-3.5 bg-gradient-to-r from-stone-700 to-stone-900 hover:from-stone-800 hover:to-black text-white rounded-full font-black shadow-[0_8px_20px_rgba(30,41,59,0.4)] transition-all active:scale-95 text-base w-full flex items-center justify-center gap-2 breathing-light border border-stone-600">
                     带着问题，进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
                 </button>
+                
+                <div class="relative z-10 w-full text-center mt-4">
+                    <button onclick="closeSeqOutro();" class="text-xs lg:text-sm font-bold text-stone-400 hover:text-stone-600 transition-colors tracking-widest underline decoration-stone-300 hover:decoration-stone-500 underline-offset-4">
+                        先不翻页，再看看本页
+                    </button>
+                </div>
             </div>
 
             <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-rose-50 to-pink-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),inset_0_-3px_5px_rgba(244,63,94,0.1),0_10px_20px_rgba(244,63,94,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
@@ -468,8 +469,8 @@
                 <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">工程师请就位！</h3>
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-orange-100 shadow-sm backdrop-blur-sm">
-                    我们先不急着翻书学理论。<br>
-                    现在，请大家化身<span class="text-orange-600 font-black">“光缆维修工程师”</span>，利用刚刚那种“折半”的直觉，去解决一个棘手的断连难题！
+                    我们先不急着学理论。<br>
+                    现在，请大家化身<span class="text-orange-600 font-black">“光缆维修工程师”</span>，利用直觉，去解决一个棘手的断连难题！
                 </p>
                 
                 <button onclick="closeGameIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(245,158,11,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-orange-300/50">
@@ -550,13 +551,13 @@
                 <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">为什么要“折半”？</h3>
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-indigo-100 shadow-sm backdrop-blur-sm">
-                    我们在光缆排查中，深刻体会到了折半的高效。<br>
+                    我们在光缆排查中体会到了折半的高效。<br>
                     那么二分查找为什么比顺序查找快呢？有没有方法可以证明它？<br>
-                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">准备好，让我们见识一下 log₂n 的绝对魅力！</span>
+                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">让我们见识一下 log₂n 的绝对魅力！</span>
                 </p>
                 
                 <button onclick="closeMathIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-indigo-300/50">
-                    开始硬核推演 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                    开始推演 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
                 </button>
             </div>
 
@@ -564,6 +565,43 @@
             <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-indigo-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(99,102,241,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
         </div>
     </div>
+
+    <div id="math-outro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none hidden">
+        <div id="math-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+            <div class="relative bg-gradient-to-br from-white/95 via-indigo-50/90 to-purple-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(99,102,241,0.15),0_20px_50px_rgba(99,102,241,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="sparkles" class="absolute top-8 left-8 w-6 h-6 text-indigo-400 fill-indigo-400 opacity-60 animate-pulse"></i>
+                <i data-lucide="lightbulb" class="absolute bottom-10 right-8 w-5 h-5 text-purple-300 opacity-80 animate-pulse"></i>
+
+                <div class="w-14 h-14 bg-white text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(99,102,241,0.2)] border border-indigo-100 relative z-10">
+                    <i data-lucide="lightbulb" class="w-7 h-7 animate-[pulse_1.5s_ease-in-out_infinite]"></i>
+                </div>
+                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 tracking-widest text-center relative z-10">推演揭秘</h3>
+                
+                <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-4 rounded-3xl border border-indigo-100 shadow-sm backdrop-blur-sm">
+                    刚才我们通过不断将数据“折半”，推导出了 <b class="text-indigo-600 font-black font-mono text-lg">log₂n</b> 的公式。<br>
+                    <span class="text-indigo-600 mt-2 block text-sm lg:text-base"><b>数据量 n 连续除以 2 直到变成 1，切分的次数就是 log₂n</b>。</span>
+                    <span class="text-rose-500 mt-2 block font-black text-base lg:text-lg">这就是二分法如此高效的底层逻辑：每次都能精准排除一半的无效数据！</span>
+                </p>
+                
+                <button onclick="closeMathOutro(); nextSlide();" class="relative z-10 px-8 py-3.5 bg-gradient-to-r from-stone-700 to-stone-900 hover:from-stone-800 hover:to-black text-white rounded-full font-black shadow-[0_8px_20px_rgba(30,41,59,0.4)] transition-all active:scale-95 text-base w-full flex items-center justify-center gap-2 breathing-light border border-stone-600">
+                    带着结论进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+                
+                <div class="relative z-10 w-full text-center mt-4">
+                    <button onclick="closeMathOutro();" class="text-xs lg:text-sm font-bold text-stone-400 hover:text-stone-600 transition-colors tracking-widest underline decoration-stone-300 hover:decoration-stone-500 underline-offset-4">
+                        先不翻页，再看看本页
+                    </button>
+                </div>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-indigo-50 to-purple-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),inset_0_-3px_5px_rgba(99,102,241,0.1),0_10px_20px_rgba(99,102,241,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-indigo-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(99,102,241,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
         <div class="w-full max-w-5xl h-[90%] lg:h-[85%] flex flex-col">
             <div class="flex justify-between items-center mb-4 lg:mb-6 shrink-0">
@@ -578,20 +616,20 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 flex-1 min-h-0">
-                <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-lg flex flex-col items-center justify-center gap-4 lg:gap-8 relative overflow-hidden backdrop-blur-sm">
+                <div class="bg-white/90 p-4 lg:p-5 rounded-3xl border border-stone-200 shadow-lg flex flex-col items-center justify-center gap-3 lg:gap-5 relative overflow-hidden backdrop-blur-sm">
                     <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
-                    <h3 class="text-lg lg:text-xl font-bold text-stone-600 relative z-10 flex items-center gap-2 m-0"><i data-lucide="layers" class="text-indigo-500"></i> 当前剩余数据量</h3>
-                    <div id="math-data-block" class="w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform">
+                    <h3 class="text-lg lg:text-xl font-bold text-stone-600 relative z-10 flex items-center gap-2 m-0 shrink-0"><i data-lucide="layers" class="text-indigo-500"></i> 当前剩余数据量</h3>
+                    <div id="math-data-block" class="w-full max-w-[12rem] lg:max-w-[14rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform shrink-0">
                         <div class="text-xs lg:text-sm font-bold opacity-70 mb-1 lg:mb-2 uppercase tracking-widest">规模 N</div>
                         <div id="math-current-n" class="text-3xl lg:text-5xl font-black font-mono drop-shadow-md transition-all duration-300">1000</div>
-                        <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[2rem] lg:rounded-[2.5rem] pointer-events-none transition-opacity duration-100"></div>
+                        <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[1.5rem] lg:rounded-[2rem] pointer-events-none transition-opacity duration-100"></div>
                     </div>
-                    <div class="relative z-10 flex flex-col items-center">
+                    <div class="relative z-10 flex flex-col items-center shrink-0">
                         <button id="btn-halve-strike" onclick="executeHalve()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light">
                             <div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
                             <i data-lucide="scissors" class="w-6 h-6 lg:w-7 lg:h-7"></i> 折半劈砍！
                         </button>
-                        <p class="text-stone-400 font-medium text-xs lg:text-sm mt-3 text-center">疯狂点击直到数据变为 1，感受算法的威力</p>
+                        <p class="text-stone-400 font-medium text-xs lg:text-sm mt-2 lg:mt-3 text-center">疯狂点击直到数据变为 1，感受算法的威力</p>
                     </div>
                 </div>
                 <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-xl flex flex-col relative overflow-hidden backdrop-blur-sm">
@@ -625,102 +663,111 @@
             </div>
 
             <div id="slide-4" class="slide inactive-right absolute inset-0">
-    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-log.jpg');"></div>
-    
-    <div id="log-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
-        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
-            <div class="relative bg-gradient-to-br from-white/95 via-blue-50/90 to-indigo-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(59,130,246,0.15),0_20px_50px_rgba(59,130,246,0.25)] z-10">
+                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-log.jpg');"></div>
                 
-                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
-                
-                <i data-lucide="bar-chart-2" class="absolute top-8 left-8 w-6 h-6 text-blue-400 opacity-60 animate-bounce"></i>
-                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-indigo-400 fill-indigo-400 opacity-80 animate-pulse"></i>
-                
-                <div class="w-14 h-14 bg-white text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(59,130,246,0.2)] border border-blue-100 relative z-10">
-                    <i data-lucide="rocket" class="w-7 h-7"></i>
-                </div>
-                
-                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">数据浩如烟海，如何破局？</h3>
-                
-                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-blue-100 shadow-sm backdrop-blur-sm">
-                    刚才我们推导出了 <span class="text-indigo-600 font-black font-mono">log₂n</span> 的公式。<br>
-                    不妨通过拨动滑块，对比不同数据量级下的查找次数。<br>
-                    <span class="text-blue-600 font-black mt-2 block text-base lg:text-lg">你会发现，即使数据浩如烟海，对数时间的二分查找也能快速锁定目标！</span>
-                </p>
-                
-                <button onclick="closeLogIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(59,130,246,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-blue-300/50">
-                    感受降维打击 <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
-                </button>
-            </div>
+                <div id="log-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+                    <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+                        <div class="relative bg-gradient-to-br from-white/95 via-blue-50/90 to-indigo-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(59,130,246,0.15),0_20px_50px_rgba(59,130,246,0.25)] z-10">
+                            
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                            
+                            <i data-lucide="bar-chart-2" class="absolute top-8 left-8 w-6 h-6 text-blue-400 opacity-60 animate-bounce"></i>
+                            <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-indigo-400 fill-indigo-400 opacity-80 animate-pulse"></i>
+                            
+                            <div class="w-14 h-14 bg-white text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(59,130,246,0.2)] border border-blue-100 relative z-10">
+                                <i data-lucide="rocket" class="w-7 h-7"></i>
+                            </div>
+                            
+                            <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">数据浩如烟海，如何破局？</h3>
+                            
+                            <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-blue-100 shadow-sm backdrop-blur-sm">
+                                刚才我们推导出了 <span class="text-indigo-600 font-black font-mono">log₂n</span> 的公式。<br>
+                                不妨通过拨动滑块，对比不同数据量级下的查找次数。<br>
+                                <span class="text-blue-600 font-black mt-2 block text-base lg:text-lg">你会发现，即使数据浩如烟海，对数时间的二分查找也能快速锁定目标！</span>
+                            </p>
+                            
+                            <button onclick="closeLogIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(59,130,246,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-blue-300/50">
+                                感受降维打击 <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
+                            </button>
+                        </div>
 
-            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
-            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
-        </div>
-    </div>
-    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
-        <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
-            
-            <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
-                <div class="p-2 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
-                <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">3. 算法原理</h2>
-            </div>
-
-            <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-200 shadow-xl mb-5 relative z-20 transition-all duration-300 hover:shadow-2xl">
-                <div class="flex justify-between items-center mb-4 lg:mb-5">
-                    <h3 class="text-lg lg:text-xl font-black text-stone-700 flex items-center gap-2">
-                        <i data-lucide="sliders-horizontal" class="text-indigo-500 w-5 h-5"></i> 拖动滑块，感受数据爆炸
-                    </h3>
-                    <div class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-xs lg:text-sm shadow-sm">
-                        当前数据量(n)：<span id="slider-n-display" class="text-indigo-600 font-black text-base lg:text-lg ml-1">1,000,000</span>
-                    </div>
-                </div>
-                <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-3 lg:h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-3 shadow-inner" oninput="updateLogScale()">
-                <div class="flex justify-between text-[10px] lg:text-xs font-bold text-slate-400 px-2 mt-2">
-                    <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班(50)</span>
-                    <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校(3千)</span>
-                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(3)">东莞人口<br>(1千万)</span>
-                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(4)">全国人口<br>(14亿)</span>
-                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-right" onclick="setSliderValue(5)">全球IP数<br>(42亿)</span>
-                </div>
-            </div>
-
-            <div class="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 relative">
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-sm lg:text-base italic z-30 shadow-xl border-4 border-white/50">VS</div>
-                
-                <div class="bg-white/90 border border-stone-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
-                    <div class="absolute top-0 left-0 w-full h-1.5 bg-rose-400"></div>
-                    <div class="text-stone-500 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5">
-                        <i data-lucide="footprints" class="w-4 h-4 lg:w-5 lg:h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
-                    </div>
-                    <div class="text-base lg:text-lg font-bold text-stone-600 mb-1">最坏需要比较：</div>
-                    <div class="flex items-baseline gap-2">
-                        <div id="val-seq" class="text-3xl lg:text-5xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
-                        <span class="text-base lg:text-lg font-bold text-stone-400">次</span>
+                        <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+                        <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
                     </div>
                 </div>
                 
-                <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
-                    <div class="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
-                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-200/40 rounded-full blur-2xl pointer-events-none"></div>
-                    <div class="text-indigo-600 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5 relative z-10">
-                        <i data-lucide="zap" class="w-4 h-4 lg:w-5 lg:h-5"></i> 降维打击：二分查找 O(log₂n)
-                    </div>
-                    <div class="text-base lg:text-lg font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
-                    <div class="flex items-baseline gap-2 relative z-10">
-                        <div id="val-bin" class="text-4xl lg:text-6xl font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
-                        <span class="text-base lg:text-lg font-bold text-indigo-400">次</span>
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+                        
+                        <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
+                            <div class="p-2 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">3. 算法原理</h2>
+                        </div>
+
+                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-200 shadow-xl mb-5 relative z-20 transition-all duration-300 hover:shadow-2xl">
+                            <div class="flex justify-between items-center mb-4 lg:mb-5">
+                                <h3 class="text-lg lg:text-xl font-black text-stone-700 flex items-center gap-2">
+                                    <i data-lucide="sliders-horizontal" class="text-indigo-500 w-5 h-5"></i> 拖动滑块，感受数据爆炸
+                                </h3>
+                                <div class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-xs lg:text-sm shadow-sm">
+                                    当前数据量(n)：<span id="slider-n-display" class="text-indigo-600 font-black text-base lg:text-lg ml-1">1,000,000</span>
+                                </div>
+                            </div>
+                            <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-3 lg:h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-3 shadow-inner" oninput="updateLogScale()">
+                            <div class="flex justify-between text-[10px] lg:text-xs font-bold text-slate-400 px-2 mt-2">
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班(50)</span>
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校(3千)</span>
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(3)">东莞人口<br>(1千万)</span>
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(4)">全国人口<br>(14亿)</span>
+                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-right" onclick="setSliderValue(5)">全球IP数<br>(42亿)</span>
+                            </div>
+                        </div>
+
+                        <div class="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 relative">
+                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-sm lg:text-base italic z-30 shadow-xl border-4 border-white/50">VS</div>
+                            
+                            <div class="bg-white/90 border border-stone-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
+                                <div class="absolute top-0 left-0 w-full h-1.5 bg-rose-400"></div>
+                                <div class="text-stone-500 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5">
+                                    <i data-lucide="footprints" class="w-4 h-4 lg:w-5 lg:h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
+                                </div>
+                                <div class="text-base lg:text-lg font-bold text-stone-600 mb-1">最坏需要比较：</div>
+                                <div class="flex items-baseline gap-2">
+                                    <div id="val-seq" class="text-3xl lg:text-5xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
+                                    <span class="text-base lg:text-lg font-bold text-stone-400">次</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
+                                <div class="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
+                                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-200/40 rounded-full blur-2xl pointer-events-none"></div>
+                                <div class="text-indigo-600 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5 relative z-10">
+                                    <i data-lucide="zap" class="w-4 h-4 lg:w-5 lg:h-5"></i> 降维打击：二分查找 O(log₂n)
+                                </div>
+                                <div class="text-base lg:text-lg font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
+                                <div class="flex items-baseline gap-2 relative z-10">
+                                    <div id="val-bin" class="text-4xl lg:text-6xl font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
+                                    <span class="text-base lg:text-lg font-bold text-indigo-400">次</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="shrink-0 mt-5 text-center relative z-20">
+                            <p class="text-stone-600 text-sm lg:text-base italic tracking-wide font-sans font-bold bg-white/80 inline-block px-6 py-2.5 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm m-0">
+                                “即使数据如星辰般浩瀚，二分法也能在屈指可数的次数内锁定目标。”
+                            </p>
+                        </div>
+
                     </div>
                 </div>
-            </div>
 
-            <div class="shrink-0 mt-5 text-center relative z-20">
-                <p class="text-stone-600 text-sm lg:text-base italic tracking-wide font-sans font-bold bg-white/80 inline-block px-6 py-2.5 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm m-0">
-                    “即使数据如星辰般浩瀚，二分法也能在屈指可数的次数内锁定目标。”
-                </p>
-            </div>
+                <div class="absolute right-[4.5rem] lg:right-[5.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none animate-pulse flex flex-row items-center gap-1.5">
+                    <div class="bg-indigo-50/90 text-indigo-600 text-[11px] lg:text-xs font-black px-2.5 py-1.5 rounded-xl border border-indigo-200 shadow-sm backdrop-blur-md whitespace-nowrap text-right w-fit leading-tight">
+                        感受完降维打击后<br>请点击右侧按钮
+                    </div>
+                    <i data-lucide="chevrons-right" class="w-7 h-7 lg:w-8 lg:h-8 text-indigo-500 drop-shadow-md -ml-0.5"></i>
+                </div>
 
-        </div>
-    </div>
             </div>
 
             <div id="slide-5" class="slide inactive-right absolute inset-0">
@@ -742,9 +789,9 @@
                 <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">计算机是怎么“看”数据的？</h3>
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-emerald-100 shadow-sm backdrop-blur-sm">
-                    我们已经见识了二分查找“降维打击”般的极速优势。<br>
-                    但在代码世界里，计算机并没有眼睛，它是如何精准记住该“找哪一半”的呢？<br>
-                    <span class="text-emerald-600 font-black mt-2 block text-base lg:text-lg">其实，它派出了三位神秘的“指针特工”！接下来，请你亲自指挥它们执行任务。</span>
+                    我们见识了二分查找“降维打击”般的极速优势。<br>
+                    但计算机并没有眼睛，它如何精准记住该“找哪一半”的呢？计算机底层如何二分查找？<br>
+                    <span class="text-emerald-600 font-black mt-2 block text-base lg:text-lg">其实它派出了三位“指针特工”！接下来，请你亲自指挥它们执行任务。</span>
                 </p>
                 
                 <button onclick="closeSimIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-emerald-300/50">
@@ -756,6 +803,51 @@
             <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-emerald-50 to-teal-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(16,185,129,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
         </div>
     </div>
+
+    <div id="sim-outro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none hidden">
+        <div id="sim-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+            <div class="relative bg-gradient-to-br from-white/95 via-emerald-50/90 to-teal-100/80 backdrop-blur-md p-6 lg:p-8 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(16,185,129,0.25)] z-10">
+                <div class="w-14 h-14 bg-white text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-[0_5px_15px_rgba(16,185,129,0.2)] border border-emerald-100 relative z-10">
+                    <i data-lucide="lightbulb" class="w-7 h-7 animate-[pulse_1.5s_ease-in-out_infinite]"></i>
+                </div>
+                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-2 text-center relative z-10">引发思考...</h3>
+                <p class="text-slate-600 font-bold text-sm lg:text-base mb-4 leading-relaxed text-center relative z-10">
+                    有没有发现计算机的底层移动指针是有规律的呢？<br>
+                    <span class="text-emerald-600 font-black">让我们一起来总结这段“核心口诀”：</span>
+                </p>
+                
+                <div class="bg-slate-800/95 border border-emerald-500/40 p-4 rounded-2xl shadow-inner mb-6 relative z-10 w-full">
+                    <div class="text-emerald-50 font-medium text-xs lg:text-sm leading-relaxed space-y-3">
+                        <div class="flex items-start gap-2">
+                            <div class="p-1 bg-slate-700/80 rounded mt-0.5 shrink-0"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div>
+                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">小</span>，目标在 <span class="text-amber-300 font-bold">右</span> 👉 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">左界 L = Mid + 1</span></p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <div class="p-1 bg-slate-700/80 rounded mt-0.5 shrink-0"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div>
+                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">大</span>，目标在 <span class="text-amber-300 font-bold">左</span> 👈 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">右界 R = Mid - 1</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-3 relative z-10">
+                    <button onclick="handleSimOutro('task')" class="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                        我已明白，我去填写任务单 <i data-lucide="clipboard-edit" class="w-5 h-5 inline"></i>
+                    </button>
+                    <button onclick="handleSimOutro('look')" class="px-6 py-3 bg-white hover:bg-stone-50 text-stone-600 rounded-full font-bold border border-stone-200 shadow-sm transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                        我再看看操作记录
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sim-task-hint" class="absolute right-[3.5rem] lg:right-[4.5rem] top-[60%] -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+        <div class="bg-amber-50/90 text-amber-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-amber-200 shadow-[0_5px_15px_rgba(245,158,11,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
+            点此打开任务单<br>填写指针口诀哦
+        </div>
+        <i data-lucide="arrow-right" class="w-10 h-10 lg:w-12 lg:h-12 text-amber-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
+    </div>
+
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
         <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
             
@@ -836,7 +928,7 @@
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-sky-100 shadow-sm backdrop-blur-sm">
                     在熟悉了计算机底层进行二分查找的“指针移动”步骤后，我们终于可以来进行代码实操啦！<br>
-                    <span class="text-sky-600 font-black mt-2 block text-base lg:text-lg">请化身算法工程师，补充缺失的核心代码块，让这台虚拟编译器成功跑起来吧！</span>
+                    <span class="text-sky-600 font-black mt-2 block text-base lg:text-lg">请化身算法工程师，补充缺失的核心代码块，让程序成功跑起来吧！</span>
                 </p>
                 
                 <button onclick="closeCodeIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(14,165,233,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-sky-300/50">
@@ -848,6 +940,7 @@
             <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-sky-50 to-blue-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(14,165,233,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
         </div>
     </div>
+    
     <div class="relative z-10 h-full w-full p-2 lg:p-4 flex flex-col items-center pointer-events-auto">
         <div class="w-full max-w-5xl flex flex-col h-full overflow-hidden pt-2 pb-2 lg:pt-4 lg:pb-4">
             
@@ -914,6 +1007,13 @@
             </div>
         </div>
     </div>
+
+    <div id="slide6-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2">
+        <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
+            代码编译成功！<br>请点击右侧箭头下一页
+        </div>
+        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
+    </div>
             </div>
 
             <div id="slide-7" class="slide inactive-right absolute inset-0">
@@ -932,11 +1032,11 @@
                     <i data-lucide="rocket" class="w-7 h-7"></i>
                 </div>
                 
-                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">还能用来干什么？</h3>
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">有什么应用？</h3>
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-fuchsia-100 shadow-sm backdrop-blur-sm">
                     代码写完啦！学习了那么多，二分查找在其他前沿领域有什么神奇的应用呢？<br>
-                    <span class="text-fuchsia-600 font-black mt-2 block text-base lg:text-lg">其实，连最火热的 AI 人工智能训练，也离不开它的降维打击！去体验一下“AI 调参师”吧！</span>
+                    <span class="text-fuchsia-600 font-black mt-2 block text-base lg:text-lg">最火热的 AI 人工智能训练也离不开它的高效性！去体验一下“AI 调参师”吧！</span>
                 </p>
                 
                 <button onclick="closeAiIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-fuchsia-500 to-purple-500 hover:from-fuchsia-600 hover:to-purple-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(217,70,239,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-fuchsia-300/50">
@@ -982,12 +1082,12 @@
                     </div>
                 </div>
 
-                <div class="relative w-full h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-5 flex items-center px-6 group cursor-crosshair z-10" 
+                <div class="relative w-full h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-5 flex items-center px-16 lg:px-20 group cursor-crosshair z-10" 
                      onclick="const core = document.getElementById('ai-lr-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(100, percent)); document.getElementById('ai-lr-input').value = percent; if(typeof trainAIModel === 'function') trainAIModel();">
-                    <div class="absolute left-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=1</div>
-                    <div class="absolute right-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=100</div>
+                    <div class="absolute left-4 lg:left-5 text-xs lg:text-sm font-black text-slate-500 pointer-events-none -top-6">LR=1</div>
+                    <div class="absolute right-4 lg:right-5 text-xs lg:text-sm font-black text-slate-500 pointer-events-none -top-6">LR=100</div>
                     
-                    <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 flex items-center gap-1 pointer-events-none animate-bounce">
+                    <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 flex items-center gap-1 pointer-events-none z-20">
                         <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速输入并训练
                     </div>
 
@@ -2041,11 +2141,72 @@
         }
 
         const originalInitGame = initGame;
+
         initGame = function() {
             originalInitGame(); 
         };
 
-        function initGame() {
+        function toggleTaskDrawer() {
+    const drawer = document.getElementById('task-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    isDrawerOpen = !isDrawerOpen;
+
+    if (isDrawerOpen) {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        highlightActiveTask();
+    } else {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+
+        // 优化点：只有在 Slide 2 且 游戏已赢，且 揭秘气泡还没出来时才触发
+        if (currentSlide === 2 && gameWon && !document.getElementById('game-outro-bubble')) {
+            setTimeout(() => {
+                showSlide2OutroBubble();
+            }, 300);
+        }
+    }
+}
+
+function showSlide2OutroBubble() {
+    if (document.getElementById('game-outro-bubble')) return; 
+
+    // 移除之前的 Toast 提示，避免视觉堆叠
+    const oldToast = document.getElementById('success-toast');
+    if (oldToast) oldToast.remove();
+
+    const outroBubble = document.createElement('div');
+    outroBubble.id = 'game-outro-bubble';
+    outroBubble.className = "absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none";
+    outroBubble.innerHTML = `
+        <div id="game-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+            <div class="relative bg-gradient-to-br from-white/95 via-rose-50/90 to-pink-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(244,63,94,0.25)] z-10">
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                <div class="w-14 h-14 bg-white text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md border border-rose-100 relative z-10">
+                    <i data-lucide="lightbulb" class="w-7 h-7 animate-pulse"></i>
+                </div>
+                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 text-center relative z-10">教学揭秘</h3>
+                <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-4 rounded-3xl border border-rose-100 shadow-sm">
+                    刚才你尝试“猜中间”来排除一半范围的方法，正是我们要学习的主角——<b class="text-rose-500 font-black">二分查找</b>。<br>
+                    <span class="text-rose-600 mt-2 block font-black text-base lg:text-lg">核心特点：数组有序，折半查找。</span>
+                </p>
+                <button onclick="document.getElementById('game-outro-bubble').remove(); nextSlide();" class="relative z-10 px-8 py-3.5 bg-slate-800 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                    带着结论进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('slide-2').appendChild(outroBubble);
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+
+    setTimeout(() => {
+        outroBubble.classList.remove('opacity-0', 'pointer-events-none');
+        document.getElementById('game-outro-content').classList.replace('scale-95', 'scale-100');
+    }, 10);
+}
+
+function initGame() {
             secretFault = Math.floor(Math.random() * 49) + 51;
             attempts = 0; gameWon = false; leftBound = 0; rightBound = 100;
             
@@ -2060,6 +2221,12 @@
             feedback.className = "mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0";
             feedback.innerHTML = '<i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已刷新，请输入或点击坐标开始排查';
             
+            // 清理上一轮游戏生成的悬浮元素
+            const toast = document.getElementById('success-toast');
+            if(toast) toast.remove();
+            const outroBubble = document.getElementById('game-outro-bubble');
+            if(outroBubble) outroBubble.remove();
+
             updateCableVisual();
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
@@ -2091,49 +2258,45 @@
             let markerColor = ""; let message = ""; 
             let extraArrowHTML = ""; 
 
+            // ================= 游戏胜利逻辑 =================
             if (guess === secretFault) {
                 gameWon = true;
+                
+                // 【修复核心】标记当前页面的任务单拦截机制已完成，防止点击下一页时重复弹出
+                taskIntercepted[2] = true; 
+                
                 markerColor = "bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.6)] animate-pulse";
-                message = `<span class="text-rose-600 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 lg:w-6 lg:h-6"></i> 故障点 ${guess}km 锁定！共耗费 ${attempts} 次排查。</span>`;
+                message = `<span class="text-rose-600 flex items-center gap-2"><i data-lucide="target" class="w-5 h-5 lg:w-6 lg:h-6"></i> 故障点 ${guess}km 锁定！</span>`;
                 feedback.className = "mt-4 w-full p-3 lg:p-4 bg-rose-50 border-2 border-rose-300 rounded-xl text-base lg:text-xl font-black flex items-center justify-center transition-all duration-300 shadow-md animate-bounce shrink-0";
-                input.disabled = true; document.getElementById('guess-btn').disabled = true;
+                input.disabled = true; 
+                document.getElementById('guess-btn').disabled = true;
                 
                 document.querySelectorAll('.right-pointing-arrow, .left-pointing-arrow').forEach(el => el.remove());
 
+                // 弹出成功提示 (加入了排查次数的显示)
+                const toast = document.createElement('div');
+                toast.id = 'success-toast';
+                toast.className = "fixed top-24 right-4 lg:right-8 z-[90] bg-emerald-50 border border-emerald-200 shadow-[0_10px_30px_rgba(16,185,129,0.3)] rounded-2xl p-4 flex items-center gap-3 transform transition-transform duration-500";
+                toast.innerHTML = `
+                    <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-inner shrink-0"><i data-lucide="check" class="w-6 h-6"></i></div>
+                    <div>
+                        <div class="text-emerald-700 font-black text-lg tracking-widest flex items-center gap-2">
+                            挑战完成 <span class="bg-emerald-200/80 text-emerald-800 text-sm px-2 py-0.5 rounded-md border border-emerald-300 shadow-sm">${attempts} 次</span>
+                        </div>
+                        <div class="text-emerald-600 font-bold text-sm mt-0.5">点击“任务单”记录数据</div>
+                    </div>
+                `;
+                document.body.appendChild(toast);
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+                requestAnimationFrame(() => toast.classList.add('translate-x-0'));
+
+                // 仅自动打开任务单，不再重复设置定时器触发气泡
                 setTimeout(() => {
-                    const existingCard = document.getElementById('teaching-reveal-card');
-                    if(existingCard) existingCard.remove();
-
-                    let evaluation = attempts <= 7 ? "太厉害了！你完美运用了“每次折半”的策略，效率极高！" : "排查次数有点多哦。如果是顺序排查最坏要100次，但每次都测“中间点”最多只要7次。";
-                    let evalColorClass = attempts <= 7 ? "text-emerald-600" : "text-amber-600";
-
-                    const revealCard = document.createElement('div');
-                    revealCard.id = 'teaching-reveal-card';
-                    revealCard.className = "absolute inset-0 z-50 bg-white/60 backdrop-blur-md rounded-3xl flex flex-col items-center justify-center p-6 text-center opacity-0 transform scale-95 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] border-4 border-emerald-400/80 shadow-[0_0_50px_rgba(52,211,153,0.3)] overflow-hidden";
-
-                    revealCard.innerHTML = `
-                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-200/40 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="relative z-10 flex flex-col items-center animate-bounce mb-2 mt-4"><h3 class="text-3xl font-black text-emerald-600 tracking-widest drop-shadow-md">挑战成功</h3></div>
-                        <div class="relative z-10 flex gap-4 my-3">
-                            <div class="bg-white/70 backdrop-blur-sm px-4 py-2 rounded-xl border border-stone-200/50 shadow-sm flex flex-col items-center"><span class="text-[10px] font-black text-stone-500 tracking-widest uppercase mb-1">目标断点</span><span class="text-3xl font-black text-stone-700 leading-none">${guess}<span class="text-sm ml-0.5">km</span></span></div>
-                            <div class="bg-white/70 backdrop-blur-sm px-4 py-2 rounded-xl border border-stone-200/50 shadow-sm flex flex-col items-center"><span class="text-[10px] font-black text-stone-500 tracking-widest uppercase mb-1">排查次数</span><span class="text-3xl font-black ${evalColorClass} leading-none">${attempts}<span class="text-sm ml-0.5">次</span></span></div>
-                        </div>
-                        <p class="relative z-10 text-stone-700 font-bold text-sm mb-5 drop-shadow-sm">${evaluation}</p>
-                        <div class="relative z-10 bg-blue-50/80 backdrop-blur-md border border-blue-200/50 p-5 lg:p-6 rounded-2xl shadow-inner w-full max-w-lg transform hover:scale-[1.02] transition-transform duration-300">
-                            <div class="flex items-center gap-2 mb-2 text-blue-600"><i data-lucide="lightbulb" class="w-6 h-6 animate-pulse"></i><span class="text-lg font-black tracking-widest">教学揭秘</span></div>
-                            <p class="text-stone-700 font-medium text-left leading-relaxed text-sm lg:text-base">刚才排查时，这种<b class="text-blue-600 mx-1">“每次猜中间，不断将范围缩小一半”</b>的聪明方法，其实正是我们要学习的主角——<span class="bg-blue-600 text-white px-2 py-0.5 rounded-lg font-black text-lg mx-1 shadow-md inline-block transform -rotate-1">二分查找</span>！</p>
-                        </div>
-                        <button onclick="document.getElementById('teaching-reveal-card').remove()" class="relative z-10 mt-6 px-6 py-2 bg-white/80 hover:bg-white border border-stone-300/50 text-stone-600 rounded-xl font-bold transition-all shadow-sm active:scale-95 flex items-center gap-2 backdrop-blur-sm">进入下一环节 <i data-lucide="arrow-right-circle" class="w-4 h-4"></i></button>
-                    `;
-                    document.getElementById('game-feedback').parentNode.appendChild(revealCard);
-                    if(typeof lucide !== 'undefined') lucide.createIcons();
-                    requestAnimationFrame(() => {
-                        revealCard.classList.remove('opacity-0', 'scale-95');
-                        revealCard.classList.add('opacity-100', 'scale-100');
-                    });
-                }, 800);
-
-            } else if (guess < secretFault) {
+                    if (!isDrawerOpen) toggleTaskDrawer();
+                }, 1000);
+            }          
+            // ================= 猜小了逻辑 =================
+            else if (guess < secretFault) {
                 document.querySelectorAll('.right-pointing-arrow').forEach(el => el.remove());
 
                 markerColor = "bg-emerald-500 border-white";
@@ -2142,7 +2305,9 @@
                 leftBound = Math.max(leftBound, guess);
                 
                 extraArrowHTML = `<div class="right-pointing-arrow absolute -bottom-6 left-1/2 -translate-x-1/2 text-emerald-500 font-bold flex items-center justify-center pointer-events-none drop-shadow-sm animate-pulse"><i data-lucide="arrow-right" class="w-4 h-4 lg:w-5 lg:h-5"></i></div>`;
-            } else {
+            }
+            // ================= 猜大了逻辑 =================
+             else {
                 document.querySelectorAll('.left-pointing-arrow').forEach(el => el.remove());
 
                 markerColor = "bg-amber-500 border-white";
@@ -2187,6 +2352,19 @@
     }
 }
         
+        function closeMathOutro() {
+    const outro = document.getElementById('math-outro-bubble');
+    if (outro) {
+        outro.classList.add('opacity-0', 'pointer-events-none');
+        const content = document.getElementById('math-outro-content');
+        if (content) {
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+        setTimeout(() => outro.classList.add('hidden'), 500);
+    }
+}
+
         function closeLogIntro() {
     const bubble = document.getElementById('log-intro-bubble');
     if (bubble) {
@@ -2195,86 +2373,108 @@
 }
 
         function initMathGame() {
-            const inputVal = parseInt(document.getElementById('math-initial-n').value);
-            if(isNaN(inputVal) || inputVal <= 1) {
-                document.getElementById('math-initial-n').value = 1000;
-                mathInitialN = 1000;
-            } else {
-                mathInitialN = inputVal;
-            }
-            
-            mathCurrentN = mathInitialN;
-            mathCutsK = 0;
-            mathGameWon = false;
+    const inputVal = parseInt(document.getElementById('math-initial-n').value);
+    if(isNaN(inputVal) || inputVal <= 1) {
+        document.getElementById('math-initial-n').value = 1000;
+        mathInitialN = 1000;
+    } else {
+        mathInitialN = inputVal;
+    }
+    
+    mathCurrentN = mathInitialN;
+    mathCutsK = 0;
+    mathGameWon = false;
 
-            document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
-            document.getElementById('math-k-count').innerText = "0";
-            
-            document.getElementById('math-logs').innerHTML = `
-                <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70" id="math-empty-state">
-                    <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>等待执行第一次劈砍...
-                </div>
-            `;
-            
-            const btn = document.getElementById('btn-halve-strike');
-            btn.disabled = false;
-            btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light";
-            btn.innerHTML = `<div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scissors" class="w-7 h-7"></i> 折半劈砍！`;
+    document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
+    document.getElementById('math-k-count').innerText = "0";
+    
+    document.getElementById('math-logs').innerHTML = `
+        <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70" id="math-empty-state">
+            <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>等待执行第一次劈砍...
+        </div>
+    `;
+    
+    const btn = document.getElementById('btn-halve-strike');
+    btn.disabled = false;
+    btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light";
+    btn.innerHTML = `<div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scissors" class="w-7 h-7"></i> 折半劈砍！`;
 
-            document.getElementById('math-data-block').className = "w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform";
-            document.getElementById('math-conclusion').classList.add('translate-y-full', 'opacity-0');
-            document.getElementById('math-conclusion').classList.remove('translate-y-0', 'opacity-100');
+    document.getElementById('math-data-block').className = "w-full max-w-[12rem] lg:max-w-[14rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform shrink-0";            
+    document.getElementById('math-conclusion').classList.add('translate-y-full', 'opacity-0');
+    document.getElementById('math-conclusion').classList.remove('translate-y-0', 'opacity-100');
 
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-        }
+    const outro = document.getElementById('math-outro-bubble');
+    if (outro) {
+        outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+    }
+
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+}
 
         function executeHalve() {
-    if (mathGameWon) return;
+            if (mathGameWon) return;
 
-    mathCutsK++;
-    document.getElementById('math-k-count').innerText = mathCutsK;
-    mathCurrentN = Math.max(1, Math.floor(mathCurrentN / 2));
-    document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
-    
-    const dataBlock = document.getElementById('math-data-block');
-    const flash = document.getElementById('slash-effect');
-    dataBlock.classList.remove('shake-animation');
-    void dataBlock.offsetWidth; 
-    dataBlock.classList.add('shake-animation');
-    flash.style.opacity = '0.5';
-    setTimeout(() => { flash.style.opacity = '0'; }, 150);
+            mathCutsK++;
+            document.getElementById('math-k-count').innerText = mathCutsK;
+            mathCurrentN = Math.max(1, Math.floor(mathCurrentN / 2));
+            document.getElementById('math-current-n').innerText = mathCurrentN.toLocaleString();
+            
+            const dataBlock = document.getElementById('math-data-block');
+            const flash = document.getElementById('slash-effect');
+            dataBlock.classList.remove('shake-animation');
+            void dataBlock.offsetWidth; 
+            dataBlock.classList.add('shake-animation');
+            flash.style.opacity = '0.5';
+            setTimeout(() => { flash.style.opacity = '0'; }, 150);
 
-    const emptyState = document.getElementById('math-empty-state');
-    if(emptyState) emptyState.remove();
+            const emptyState = document.getElementById('math-empty-state');
+            if(emptyState) emptyState.remove();
 
-    const logsContainer = document.getElementById('math-logs');
-    const newLog = document.createElement('div');
-    newLog.className = "flex items-center gap-3 p-2 lg:p-3 bg-stone-50 rounded-xl border border-stone-200 animate-[slideInRight_0.3s_ease-out]";
-    newLog.innerHTML = `<span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold shrink-0">第 ${mathCutsK} 次</span><span class="text-stone-600 flex-1 whitespace-nowrap">n / 2<sup>${mathCutsK}</sup></span><span class="text-stone-400"><i data-lucide="arrow-right" class="w-4 h-4 inline"></i></span><span class="text-emerald-600 font-bold shrink-0 text-right w-20">${mathCurrentN.toLocaleString()}</span>`;
-    logsContainer.appendChild(newLog);
-    logsContainer.scrollTop = logsContainer.scrollHeight; 
-    if(typeof lucide !== 'undefined') lucide.createIcons();
+            const logsContainer = document.getElementById('math-logs');
+            const newLog = document.createElement('div');
+            newLog.className = "flex items-center gap-3 p-2 lg:p-3 bg-stone-50 rounded-xl border border-stone-200 animate-[slideInRight_0.3s_ease-out]";
+            newLog.innerHTML = `<span class="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold shrink-0">第 ${mathCutsK} 次</span><span class="text-stone-600 flex-1 whitespace-nowrap">n / 2<sup>${mathCutsK}</sup></span><span class="text-stone-400"><i data-lucide="arrow-right" class="w-4 h-4 inline"></i></span><span class="text-emerald-600 font-bold shrink-0 text-right w-20">${mathCurrentN.toLocaleString()}</span>`;
+            logsContainer.appendChild(newLog);
+            logsContainer.scrollTop = logsContainer.scrollHeight; 
+            if(typeof lucide !== 'undefined') lucide.createIcons();
 
-    if (mathCurrentN <= 1) {
-        mathGameWon = true;
-        const btn = document.getElementById('btn-halve-strike');
-        btn.disabled = true;
-        
-        btn.className = "mx-auto w-fit px-8 py-3 bg-stone-100 border-2 border-dashed border-stone-300 text-stone-400 rounded-2xl font-black text-xl flex items-center justify-center gap-2 mt-4 cursor-default transition-all duration-700 opacity-100 shadow-inner relative z-10";
-        btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> <span>数据已粉碎</span>`;
+            if (mathCurrentN <= 1) {
+                mathGameWon = true;
+                const btn = document.getElementById('btn-halve-strike');
+                btn.disabled = true;
+                
+                btn.className = "mx-auto w-fit px-8 py-3 bg-stone-100 border-2 border-dashed border-stone-300 text-stone-400 rounded-2xl font-black text-xl flex items-center justify-center gap-2 mt-4 cursor-default transition-all duration-700 opacity-100 shadow-inner relative z-10";
+                btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> <span>数据已粉碎</span>`;
 
-        dataBlock.className = "w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[2.5rem] shadow-[0_10px_40px_rgba(16,185,129,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-700 transform scale-105";
+                dataBlock.className = "w-full max-w-[12rem] lg:max-w-[14rem] aspect-square bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_10px_40px_rgba(16,185,129,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-700 transform scale-105";
+                document.getElementById('final-k').innerText = mathCutsK;
+                
+                // 500ms 后展示“得出公式”的结论面板
+                const conclusion = document.getElementById('math-conclusion');
+                setTimeout(() => {
+                    conclusion.classList.remove('translate-y-full', 'opacity-0');
+                    conclusion.classList.add('translate-y-0', 'opacity-100');
+                }, 500);
 
-        document.getElementById('final-k').innerText = mathCutsK;
-        const conclusion = document.getElementById('math-conclusion');
-        setTimeout(() => {
-            conclusion.classList.remove('translate-y-full', 'opacity-0');
-            conclusion.classList.add('translate-y-0', 'opacity-100');
-        }, 500);
+                // 【核心修改点】得出公式 (500ms) 后的 2 秒，即总计 2500ms 时，弹出总结气泡
+                setTimeout(() => {
+                    const outro = document.getElementById('math-outro-bubble');
+                    if (outro) {
+                        outro.classList.remove('hidden');
+                        void outro.offsetWidth; 
+                        outro.classList.remove('opacity-0', 'pointer-events-none');
+                        
+                        const content = document.getElementById('math-outro-content');
+                        if(content) {
+                            content.classList.remove('scale-95');
+                            content.classList.add('scale-100');
+                        }
+                    }
+                }, 2500);
 
-        if(typeof lucide !== 'undefined') lucide.createIcons();
-    }
-}
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        }        
 
         const scaleDataMap = {
             1: { n: 50, label: "50" },
@@ -2332,6 +2532,28 @@
             updateSimUI();
         }
 
+        function initInteractiveSim() {
+            simGameState = 'FIND_MID';
+            currentL = 0; currentR = gameArray.length - 1; currentM = null;
+            
+            // 新增：重置气泡和提示箭头的状态
+            const outro = document.getElementById('sim-outro-bubble');
+            if (outro) {
+                outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                const content = document.getElementById('sim-outro-content');
+                if(content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+            }
+            const hint = document.getElementById('sim-task-hint');
+            if (hint) {
+                hint.classList.add('hidden', 'opacity-0');
+            }
+
+            updateSimUI();
+        }
+
         function updateSimUI() {
             document.getElementById('ui-val-l').innerText = currentL;
             document.getElementById('ui-val-r').innerText = currentR;
@@ -2358,20 +2580,61 @@
                 promptEl.innerHTML = `
                     <span class="text-emerald-400 font-black text-lg lg:text-xl flex items-center gap-2">
                         <i data-lucide="party-popper" class="w-5 h-5 lg:w-6 lg:h-6"></i> 恭喜！成功找到目标元素！
-                    </span>
-                    <div id="sim-mnemonic-box" class="mt-2 bg-slate-800/90 border border-emerald-500/40 p-3 lg:p-4 rounded-xl shadow-[0_10px_30px_rgba(16,185,129,0.2)] relative overflow-hidden" style="animation: mnemonicSlideDown 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;">
-                        <div class="absolute -right-8 -top-8 w-20 h-20 bg-emerald-500/20 rounded-full blur-xl pointer-events-none"></div>
-                        <h4 class="text-amber-400 font-black text-sm lg:text-base mb-1.5 flex items-center gap-1.5 relative z-10"><i data-lucide="book-open-check" class="w-4 h-4"></i> 核心口诀</h4>
-                        <div class="text-emerald-50 font-medium text-xs lg:text-sm leading-relaxed space-y-1 relative z-10">
-                            <div class="flex items-center gap-1.5"><div class="p-0.5 bg-slate-700/80 rounded"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black">小</span>，目标在 <span class="text-amber-300 font-bold">右</span> 👉 <span class="text-emerald-300 font-black bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-600">左界 L = Mid + 1</span></p></div>
-                            <div class="flex items-center gap-1.5"><div class="p-0.5 bg-slate-700/80 rounded"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div><p>中值比目标 <span class="text-rose-400 font-black">大</span>，目标在 <span class="text-amber-300 font-bold">左</span> 👈 <span class="text-emerald-300 font-black bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-600">右界 R = Mid - 1</span></p></div>
-                        </div>
-                    </div>`;
+                    </span>`;
+                
+                // 新增：等待1秒后弹出总结气泡
+                setTimeout(() => {
+                    const outro = document.getElementById('sim-outro-bubble');
+                    if (outro) {
+                        outro.classList.remove('hidden');
+                        // 强制重绘以触发过渡动画
+                        void outro.offsetWidth;
+                        outro.classList.remove('opacity-0', 'pointer-events-none');
+                        const content = document.getElementById('sim-outro-content');
+                        if (content) {
+                            content.classList.remove('scale-95');
+                            content.classList.add('scale-100');
+                        }
+                    }
+                }, 1000);
             }
 
             renderInteractiveArray();
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
+
+        function handleSimOutro(action) {
+    // 隐藏思考气泡
+    const outro = document.getElementById('sim-outro-bubble');
+    if (outro) {
+        outro.classList.add('opacity-0', 'pointer-events-none');
+        const content = document.getElementById('sim-outro-content');
+        if (content) {
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+        setTimeout(() => outro.classList.add('hidden'), 500);
+    }
+
+    if (action === 'look') {
+        // 显示指向任务单的箭头
+        const hint = document.getElementById('sim-task-hint');
+        if (hint) {
+            hint.classList.remove('hidden');
+            void hint.offsetWidth;
+            hint.classList.remove('opacity-0');
+        }
+    } else if (action === 'task') {
+        // 【新增逻辑】打开任务单的同时，确保箭头消失
+        const hint = document.getElementById('sim-task-hint');
+        if (hint) {
+            hint.classList.add('opacity-0');
+            setTimeout(() => hint.classList.add('hidden'), 500);
+        }
+        
+        if (!isDrawerOpen) toggleTaskDrawer();
+    }
+}
 
         function renderInteractiveArray() {
             const container = document.getElementById('interactive-array-container');
@@ -2547,6 +2810,10 @@
                             btnRun.disabled = true;
                             btnRun.classList.remove('hover:bg-sky-600', 'active:scale-95', 'breathing-light');
                             btnRun.classList.add('opacity-80', 'cursor-not-allowed');
+                            
+                            // ===== 新增：编译成功后触发箭头显示 =====
+                            const nextHint = document.getElementById('slide6-next-hint');
+                            if(nextHint) nextHint.classList.remove('opacity-0');
                         }
                     }, delay);
                     delay += 800;
