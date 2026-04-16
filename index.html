@@ -450,268 +450,404 @@
             </div>
 
             <div id="slide-2" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-cable.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
-                        
-                        <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
-                            <div class="p-2 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
-                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">2. 情境探究：光缆维修模拟</h2>
-                        </div>
-                        
-                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-100 shadow-xl relative flex flex-col items-center z-20 overflow-hidden">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-amber-500"></div>
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-cable.jpg');"></div>
 
-                            <div class="w-full mb-5 p-3 lg:p-4 bg-slate-50/80 border border-slate-200 rounded-2xl text-sm lg:text-base text-stone-600 font-medium flex items-start gap-3 shadow-inner shrink-0">
-                                <div class="p-1.5 bg-blue-50 rounded-full shrink-0 border border-blue-100 mt-0.5"><i data-lucide="info" class="w-5 h-5 text-blue-500"></i></div>
-                                <p class="leading-relaxed m-0">
-                                    <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连，请派遣无人机前往指定公里数检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。请用<b>最少的次数</b>找到断点！
-                                </p>
-                            </div>
+    <div id="game-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-amber-50/90 to-orange-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(245,158,11,0.15),0_20px_50px_rgba(245,158,11,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="wrench" class="absolute top-8 left-8 w-6 h-6 text-orange-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-amber-400 fill-amber-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(245,158,11,0.2)] border border-orange-100 relative z-10">
+                    <i data-lucide="hard-hat" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">工程师请就位！</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-orange-100 shadow-sm backdrop-blur-sm">
+                    我们先不急着翻书学理论。<br>
+                    现在，请大家化身<span class="text-orange-600 font-black">“光缆维修工程师”</span>，利用刚刚那种“折半”的直觉，去解决一个棘手的断连难题！
+                </p>
+                
+                <button onclick="closeGameIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(245,158,11,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-orange-300/50">
+                    接收任务，开始排查 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
 
-                            <div class="flex justify-between items-center w-full mb-6 px-2 lg:px-4 shrink-0">
-                                <div class="text-base lg:text-lg font-bold text-stone-600 bg-slate-50 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
-                                    当前排查次数：<span id="game-attempts" class="text-blue-600 text-2xl lg:text-3xl font-black transition-all">0</span>
-                                </div>
-                                <button onclick="initGame()" class="px-3 lg:px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-bold text-sm lg:text-base transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0">
-                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新生成断点</span><span class="sm:hidden">重置</span>
-                                </button>
-                            </div>
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-amber-50 to-orange-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(245,158,11,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-amber-50 to-orange-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(245,158,11,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
 
-                            <div class="relative w-full h-12 lg:h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-6 flex items-center px-6 group cursor-crosshair shrink-0" 
-                                onclick="const core = document.getElementById('cable-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(99, percent)); document.getElementById('guess-input').value = percent; if(typeof makeGuess === 'function') makeGuess();">
-                                <div class="absolute left-2 -top-5 text-xs font-black text-slate-500">东莞(0km)</div>
-                                <div class="absolute right-2 -top-5 text-xs font-black text-slate-500">广州(100km)</div>
-                                <div class="absolute left-1/2 -top-5 -translate-x-1/2 text-[10px] lg:text-xs font-bold text-blue-500 opacity-100 flex items-center gap-1 pointer-events-none">
-                                    <i data-lucide="mouse-pointer-click" class="w-3 h-3 lg:w-4 lg:h-4"></i> 点击坐标快速检测
-                                </div>
-                                <div class="w-full h-2.5 lg:h-3 bg-slate-300 rounded-full relative" id="cable-core">
-                                    <div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>
-                                    <div class="absolute inset-0 w-full h-full pointer-events-none flex justify-between items-center" style="padding: 0 10%;">
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">10</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">20</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">30</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">40</span></div>
-                                        <div class="w-[3px] h-3.5 bg-slate-500/90 relative -mt-0.5"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-slate-600 font-black">50</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">60</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">70</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">80</span></div>
-                                        <div class="w-[2px] h-2.5 bg-slate-400/70 relative"><span class="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] text-slate-400 font-bold">90</span></div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+        <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+            
+            <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
+                <div class="p-2 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">2. 情境探究：光缆维修模拟</h2>
+            </div>
+            
+            <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-100 shadow-xl relative flex flex-col items-center z-20 overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-amber-500"></div>
 
-                            <div class="flex flex-wrap items-center gap-3 lg:gap-4 bg-gradient-to-r from-slate-50 to-blue-50 p-4 rounded-2xl border border-blue-100 w-full justify-center shadow-inner shrink-0">
-                                <span class="font-black text-slate-700 text-base lg:text-lg hidden sm:inline">输入或点击检测：</span>
-                                <input type="number" id="guess-input" min="0" max="100" class="w-24 lg:w-28 text-center font-black text-xl lg:text-2xl text-blue-600 border-2 border-blue-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 py-1.5 shadow-sm transition-all" placeholder="km">
-                                <button onclick="makeGuess()" id="guess-btn" class="px-5 py-2.5 lg:px-6 lg:py-3 bg-blue-600 text-white rounded-xl shadow-[0_4px_15px_rgba(37,99,235,0.4)] hover:bg-blue-700 hover:shadow-[0_6px_20px_rgba(37,99,235,0.6)] transition-all font-black text-base lg:text-lg active:scale-95 flex items-center gap-2 breathing-light shrink-0">
-                                    <i data-lucide="satellite" class="w-5 h-5"></i> 派遣检测
-                                </button>
-                            </div>
+                <div class="w-full mb-5 p-3 lg:p-4 bg-slate-50/80 border border-slate-200 rounded-2xl text-sm lg:text-base text-stone-600 font-medium flex items-start gap-3 shadow-inner shrink-0">
+                    <div class="p-1.5 bg-blue-50 rounded-full shrink-0 border border-blue-100 mt-0.5"><i data-lucide="info" class="w-5 h-5 text-blue-500"></i></div>
+                    <p class="leading-relaxed m-0">
+                        <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连。请派遣无人机前往坐标检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。
+                    </p>
+                </div>
 
-                            <div id="game-feedback" class="mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0">
-                                <i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已就绪，请输入或点击坐标开始排查
-                            </div>
-                        </div>
+                <div class="flex justify-between items-center w-full mb-6 px-2 lg:px-4 shrink-0">
+                    <div class="text-base lg:text-lg font-bold text-stone-600 bg-slate-50 px-3 lg:px-4 py-2 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+                        当前排查次数：<span id="game-attempts" class="text-blue-600 text-2xl lg:text-3xl font-black transition-all">0</span>
+                    </div>
+                    <button onclick="initGame()" class="px-3 lg:px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-bold text-sm lg:text-base transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新生成断点</span>
+                    </button>
+                </div>
+
+                <div class="relative w-full h-12 lg:h-14 bg-slate-100 hover:bg-slate-200/70 transition-colors rounded-full shadow-inner border border-slate-300 mb-6 flex items-center px-6 group cursor-crosshair shrink-0" 
+                    onclick="const core = document.getElementById('cable-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(99, percent)); document.getElementById('guess-input').value = percent; if(typeof makeGuess === 'function') makeGuess();">
+                    <div class="w-full h-2.5 lg:h-3 bg-slate-300 rounded-full relative" id="cable-core">
+                        <div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500"></div>
                     </div>
                 </div>
+
+                <div class="flex flex-wrap items-center gap-3 lg:gap-4 bg-gradient-to-r from-slate-50 to-blue-50 p-4 rounded-2xl border border-blue-100 w-full justify-center shadow-inner shrink-0">
+                    <input type="number" id="guess-input" min="0" max="100" class="w-24 lg:w-28 text-center font-black text-xl lg:text-2xl text-blue-600 border-2 border-blue-300 rounded-xl" placeholder="km">
+                    <button onclick="makeGuess()" id="guess-btn" class="px-5 py-2.5 lg:px-6 lg:py-3 bg-blue-600 text-white rounded-xl shadow-lg font-black flex items-center gap-2">
+                        <i data-lucide="satellite" class="w-5 h-5"></i> 派遣检测
+                    </button>
+                </div>
+
+                <div id="game-feedback" class="mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center bg-stone-50 rounded-xl border border-dashed shrink-0">
+                    <i data-lucide="activity" class="w-4 h-4 mr-2"></i> 游戏已就绪
+                </div>
+            </div>
+        </div>
+    </div>
             </div>
 
             <div id="slide-3" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
-                    <div class="w-full max-w-5xl h-[90%] lg:h-[85%] flex flex-col">
-                        <div class="flex justify-between items-center mb-4 lg:mb-6 shrink-0">
-                            <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/50 shadow-sm w-fit">
-                                <div class="p-2 lg:p-3 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="calculator" class="w-6 h-6 lg:w-8 lg:h-8"></i></div>
-                                <h3 class="text-xl lg:text-3xl font-black text-stone-800 whitespace-nowrap m-0">3. 算法推演</h3>
-                            </div>
-                            <div class="flex items-center gap-2 lg:gap-3 bg-white/90 px-4 py-2 rounded-xl border border-stone-200 shadow-sm">
-                                <span class="text-stone-500 font-bold text-xs lg:text-sm">初始数据规模 (n):</span>
-                                <input type="number" id="math-initial-n" value="1000" class="w-24 lg:w-28 font-mono font-black text-indigo-600 text-center border-b-2 border-indigo-200 focus:outline-none focus:border-indigo-500 bg-transparent">
-                                <button onclick="initMathGame()" class="p-1.5 lg:p-2 bg-stone-100 hover:bg-stone-200 rounded-lg text-stone-600 transition-colors active:scale-95" title="重置模拟器"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
-                            </div>
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math.jpg');"></div>
+
+    <div id="math-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-indigo-50/90 to-purple-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(99,102,241,0.15),0_20px_50px_rgba(99,102,241,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="calculator" class="absolute top-8 left-8 w-6 h-6 text-indigo-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-purple-400 fill-purple-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(99,102,241,0.2)] border border-indigo-100 relative z-10">
+                    <i data-lucide="help-circle" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">为什么要“折半”？</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-indigo-100 shadow-sm backdrop-blur-sm">
+                    我们在光缆排查中，深刻体会到了折半的高效。<br>
+                    那么二分查找为什么比顺序查找快呢？有没有方法可以证明它？<br>
+                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">准备好，让我们见识一下 log₂n 的绝对魅力！</span>
+                </p>
+                
+                <button onclick="closeMathIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-indigo-300/50">
+                    开始硬核推演 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-indigo-50 to-purple-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(99,102,241,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-indigo-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(99,102,241,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
+        <div class="w-full max-w-5xl h-[90%] lg:h-[85%] flex flex-col">
+            <div class="flex justify-between items-center mb-4 lg:mb-6 shrink-0">
+                <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/50 shadow-sm w-fit">
+                    <div class="p-2 lg:p-3 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="calculator" class="w-6 h-6 lg:w-8 lg:h-8"></i></div>
+                    <h3 class="text-xl lg:text-3xl font-black text-stone-800 whitespace-nowrap m-0">3. 算法推演</h3>
+                </div>
+                <div class="flex items-center gap-2 lg:gap-3 bg-white/90 px-4 py-2 rounded-xl border border-stone-200 shadow-sm">
+                    <span class="text-stone-500 font-bold text-xs lg:text-sm">初始数据规模 (n):</span>
+                    <input type="number" id="math-initial-n" value="1000" class="w-24 lg:w-28 font-mono font-black text-indigo-600 text-center border-b-2 border-indigo-200 focus:outline-none focus:border-indigo-500 bg-transparent">
+                    <button onclick="initMathGame()" class="p-1.5 lg:p-2 bg-stone-100 hover:bg-stone-200 rounded-lg text-stone-600 transition-colors active:scale-95" title="重置模拟器"><i data-lucide="rotate-ccw" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 flex-1 min-h-0">
+                <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-lg flex flex-col items-center justify-center gap-4 lg:gap-8 relative overflow-hidden backdrop-blur-sm">
+                    <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
+                    <h3 class="text-lg lg:text-xl font-bold text-stone-600 relative z-10 flex items-center gap-2 m-0"><i data-lucide="layers" class="text-indigo-500"></i> 当前剩余数据量</h3>
+                    <div id="math-data-block" class="w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform">
+                        <div class="text-xs lg:text-sm font-bold opacity-70 mb-1 lg:mb-2 uppercase tracking-widest">规模 N</div>
+                        <div id="math-current-n" class="text-3xl lg:text-5xl font-black font-mono drop-shadow-md transition-all duration-300">1000</div>
+                        <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[2rem] lg:rounded-[2.5rem] pointer-events-none transition-opacity duration-100"></div>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <button id="btn-halve-strike" onclick="executeHalve()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light">
+                            <div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
+                            <i data-lucide="scissors" class="w-6 h-6 lg:w-7 lg:h-7"></i> 折半劈砍！
+                        </button>
+                        <p class="text-stone-400 font-medium text-xs lg:text-sm mt-3 text-center">疯狂点击直到数据变为 1，感受算法的威力</p>
+                    </div>
+                </div>
+                <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-xl flex flex-col relative overflow-hidden backdrop-blur-sm">
+                    <h3 class="text-base lg:text-lg text-stone-500 mb-3 lg:mb-4 font-sans font-bold border-b border-stone-200 pb-2 shrink-0 flex items-center gap-2">
+                        <i data-lucide="scroll-text" class="w-5 h-5 text-indigo-500"></i> 推演日志记录 (比较次数: <span id="math-k-count" class="text-indigo-600 font-black font-mono">0</span>)
+                    </h3>
+                    <div id="math-logs" class="flex-1 overflow-y-auto task-scrollbar pr-2 space-y-2 lg:space-y-3 font-mono text-sm lg:text-base">
+                        <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70">
+                            <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>等待执行第一次劈砍...
                         </div>
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 flex-1 min-h-0">
-                            <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-lg flex flex-col items-center justify-center gap-4 lg:gap-8 relative overflow-hidden backdrop-blur-sm">
-                                <div class="absolute inset-0 bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
-                                <h3 class="text-lg lg:text-xl font-bold text-stone-600 relative z-10 flex items-center gap-2 m-0"><i data-lucide="layers" class="text-indigo-500"></i> 当前剩余数据量</h3>
-                                <div id="math-data-block" class="w-full max-w-[14rem] lg:max-w-[16rem] aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2rem] lg:rounded-[2.5rem] shadow-[0_10px_40px_rgba(99,102,241,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-300 transform">
-                                    <div class="text-xs lg:text-sm font-bold opacity-70 mb-1 lg:mb-2 uppercase tracking-widest">规模 N</div>
-                                    <div id="math-current-n" class="text-3xl lg:text-5xl font-black font-mono drop-shadow-md transition-all duration-300">1000</div>
-                                    <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[2rem] lg:rounded-[2.5rem] pointer-events-none transition-opacity duration-100"></div>
-                                </div>
-                                <div class="relative z-10 flex flex-col items-center">
-                                    <button id="btn-halve-strike" onclick="executeHalve()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light">
-                                        <div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
-                                        <i data-lucide="scissors" class="w-6 h-6 lg:w-7 lg:h-7"></i> 折半劈砍！
-                                    </button>
-                                    <p class="text-stone-400 font-medium text-xs lg:text-sm mt-3 text-center">疯狂点击直到数据变为 1，感受算法的威力</p>
-                                </div>
-                            </div>
-                            <div class="bg-white/90 p-4 lg:p-6 rounded-3xl border border-stone-200 shadow-xl flex flex-col relative overflow-hidden backdrop-blur-sm">
-                                <h3 class="text-base lg:text-lg text-stone-500 mb-3 lg:mb-4 font-sans font-bold border-b border-stone-200 pb-2 shrink-0 flex items-center gap-2">
-                                    <i data-lucide="scroll-text" class="w-5 h-5 text-indigo-500"></i> 推演日志记录 (比较次数: <span id="math-k-count" class="text-indigo-600 font-black font-mono">0</span>)
-                                </h3>
-                                <div id="math-logs" class="flex-1 overflow-y-auto task-scrollbar pr-2 space-y-2 lg:space-y-3 font-mono text-sm lg:text-base">
-                                    <div class="text-stone-400 italic text-center py-4 flex flex-col items-center justify-center h-full gap-2 opacity-70">
-                                        <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>等待执行第一次劈砍...
-                                    </div>
-                                </div>
-                                <div id="math-conclusion" class="transition-all duration-700 transform translate-y-full opacity-0 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-indigo-50 via-white to-white p-4 lg:p-6 border-t border-indigo-200 shadow-[0_-10px_30px_rgba(99,102,241,0.1)] z-20">
-                                    <div class="flex items-center gap-2 mb-2 lg:mb-3">
-                                        <span class="bg-amber-100 text-amber-600 px-2 py-1 rounded text-xs font-black tracking-widest uppercase">BOSS DEFEATED</span>
-                                        <span class="text-stone-800 font-bold text-base lg:text-lg">推演完成！得出公式</span>
-                                    </div>
-                                    <div class="bg-indigo-600 text-white rounded-2xl p-3 lg:p-4 shadow-lg flex flex-col items-center justify-center gap-1 lg:gap-2 relative overflow-hidden">
-                                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-white/20 rounded-full blur-xl"></div>
-                                        <div class="text-base lg:text-xl font-medium opacity-90">第 <span class="font-black text-amber-300" id="final-k">k</span> 次劈砍后，剩余数据量为 1</div>
-                                        <div class="text-xl lg:text-3xl font-black mt-1 flex items-center gap-2 lg:gap-3">
-                                            <span>n / 2<sup class="text-sm lg:text-lg">k</sup> = 1</span>
-                                            <i data-lucide="arrow-right" class="w-5 h-5 lg:w-6 lg:h-6 text-indigo-300"></i>
-                                            <span class="text-amber-300">k = log₂n</span>
-                                        </div>
-                                    </div>
-                                </div>
+                    </div>
+                    <div id="math-conclusion" class="transition-all duration-700 transform translate-y-full opacity-0 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-indigo-50 via-white to-white p-4 lg:p-6 border-t border-indigo-200 shadow-[0_-10px_30px_rgba(99,102,241,0.1)] z-20">
+                        <div class="flex items-center gap-2 mb-2 lg:mb-3">
+                            <span class="bg-amber-100 text-amber-600 px-2 py-1 rounded text-xs font-black tracking-widest uppercase">BOSS DEFEATED</span>
+                            <span class="text-stone-800 font-bold text-base lg:text-lg">推演完成！得出公式</span>
+                        </div>
+                        <div class="bg-indigo-600 text-white rounded-2xl p-3 lg:p-4 shadow-lg flex flex-col items-center justify-center gap-1 lg:gap-2 relative overflow-hidden">
+                            <div class="absolute -right-4 -top-4 w-16 h-16 bg-white/20 rounded-full blur-xl"></div>
+                            <div class="text-base lg:text-xl font-medium opacity-90">第 <span class="font-black text-amber-300" id="final-k">k</span> 次劈砍后，剩余数据量为 1</div>
+                            <div class="text-xl lg:text-3xl font-black mt-1 flex items-center gap-2 lg:gap-3">
+                                <span>n / 2<sup class="text-sm lg:text-lg">k</sup> = 1</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5 lg:w-6 lg:h-6 text-indigo-300"></i>
+                                <span class="text-amber-300">k = log₂n</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
             </div>
 
             <div id="slide-4" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-log.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
-                        
-                        <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
-                            <div class="p-2 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
-                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">3. 算法原理</h2>
-                        </div>
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-log.jpg');"></div>
+    
+    <div id="log-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-blue-50/90 to-indigo-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(59,130,246,0.15),0_20px_50px_rgba(59,130,246,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="bar-chart-2" class="absolute top-8 left-8 w-6 h-6 text-blue-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-indigo-400 fill-indigo-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(59,130,246,0.2)] border border-blue-100 relative z-10">
+                    <i data-lucide="rocket" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">数据浩如烟海，如何破局？</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-blue-100 shadow-sm backdrop-blur-sm">
+                    刚才我们推导出了 <span class="text-indigo-600 font-black font-mono">log₂n</span> 的公式。<br>
+                    不妨通过拨动滑块，对比不同数据量级下的查找次数。<br>
+                    <span class="text-blue-600 font-black mt-2 block text-base lg:text-lg">你会发现，即使数据浩如烟海，对数时间的二分查找也能快速锁定目标！</span>
+                </p>
+                
+                <button onclick="closeLogIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(59,130,246,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-blue-300/50">
+                    感受降维打击 <i data-lucide="zap" class="w-5 h-5 fill-current"></i>
+                </button>
+            </div>
 
-                        <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-200 shadow-xl mb-5 relative z-20 transition-all duration-300 hover:shadow-2xl">
-                            <div class="flex justify-between items-center mb-4 lg:mb-5">
-                                <h3 class="text-lg lg:text-xl font-black text-stone-700 flex items-center gap-2">
-                                    <i data-lucide="sliders-horizontal" class="text-indigo-500 w-5 h-5"></i> 拖动滑块，感受数据爆炸
-                                </h3>
-                                <div class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-xs lg:text-sm shadow-sm">
-                                    当前数据量(n)：<span id="slider-n-display" class="text-indigo-600 font-black text-base lg:text-lg ml-1">1,000,000</span>
-                                </div>
-                            </div>
-                            <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-3 lg:h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-3 shadow-inner" oninput="updateLogScale()">
-                            <div class="flex justify-between text-[10px] lg:text-xs font-bold text-slate-400 px-2 mt-2">
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班(50)</span>
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校(3千)</span>
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(3)">东莞人口<br>(1千万)</span>
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(4)">全国人口<br>(14亿)</span>
-                                <span class="cursor-pointer hover:text-indigo-500 transition-colors text-right" onclick="setSliderValue(5)">全球IP数<br>(42亿)</span>
-                            </div>
-                        </div>
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+        <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+            
+            <div class="shrink-0 flex items-center justify-center gap-3 lg:gap-4 mb-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
+                <div class="p-2 bg-indigo-50 border border-indigo-100 rounded-2xl text-indigo-500 shadow-sm"><i data-lucide="trending-up" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">3. 算法原理</h2>
+            </div>
 
-                        <div class="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 relative">
-                            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-sm lg:text-base italic z-30 shadow-xl border-4 border-white/50">VS</div>
-                            
-                            <div class="bg-white/90 border border-stone-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
-                                <div class="absolute top-0 left-0 w-full h-1.5 bg-rose-400"></div>
-                                <div class="text-stone-500 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5">
-                                    <i data-lucide="footprints" class="w-4 h-4 lg:w-5 lg:h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
-                                </div>
-                                <div class="text-base lg:text-lg font-bold text-stone-600 mb-1">最坏需要比较：</div>
-                                <div class="flex items-baseline gap-2">
-                                    <div id="val-seq" class="text-3xl lg:text-5xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
-                                    <span class="text-base lg:text-lg font-bold text-stone-400">次</span>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
-                                <div class="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
-                                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-200/40 rounded-full blur-2xl pointer-events-none"></div>
-                                <div class="text-indigo-600 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5 relative z-10">
-                                    <i data-lucide="zap" class="w-4 h-4 lg:w-5 lg:h-5"></i> 降维打击：二分查找 O(log₂n)
-                                </div>
-                                <div class="text-base lg:text-lg font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
-                                <div class="flex items-baseline gap-2 relative z-10">
-                                    <div id="val-bin" class="text-4xl lg:text-6xl font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
-                                    <span class="text-base lg:text-lg font-bold text-indigo-400">次</span>
-                                </div>
-                            </div>
-                        </div>
+            <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-200 shadow-xl mb-5 relative z-20 transition-all duration-300 hover:shadow-2xl">
+                <div class="flex justify-between items-center mb-4 lg:mb-5">
+                    <h3 class="text-lg lg:text-xl font-black text-stone-700 flex items-center gap-2">
+                        <i data-lucide="sliders-horizontal" class="text-indigo-500 w-5 h-5"></i> 拖动滑块，感受数据爆炸
+                    </h3>
+                    <div class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-100 font-bold text-xs lg:text-sm shadow-sm">
+                        当前数据量(n)：<span id="slider-n-display" class="text-indigo-600 font-black text-base lg:text-lg ml-1">1,000,000</span>
+                    </div>
+                </div>
+                <input type="range" id="data-scale-slider" min="1" max="5" step="1" value="3" class="w-full h-3 lg:h-4 bg-slate-200 rounded-full appearance-none cursor-pointer mb-3 shadow-inner" oninput="updateLogScale()">
+                <div class="flex justify-between text-[10px] lg:text-xs font-bold text-slate-400 px-2 mt-2">
+                    <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(1)">全班(50)</span>
+                    <span class="cursor-pointer hover:text-indigo-500 transition-colors" onclick="setSliderValue(2)">全校(3千)</span>
+                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(3)">东莞人口<br>(1千万)</span>
+                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-center" onclick="setSliderValue(4)">全国人口<br>(14亿)</span>
+                    <span class="cursor-pointer hover:text-indigo-500 transition-colors text-right" onclick="setSliderValue(5)">全球IP数<br>(42亿)</span>
+                </div>
+            </div>
 
-                        <div class="shrink-0 mt-5 text-center relative z-20">
-                            <p class="text-stone-600 text-sm lg:text-base italic tracking-wide font-sans font-bold bg-white/80 inline-block px-6 py-2.5 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm m-0">
-                                “即使数据如星辰般浩瀚，二分法也能在屈指可数的次数内锁定目标。”
-                            </p>
-                        </div>
-
+            <div class="shrink-0 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 relative">
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-stone-800 text-white rounded-full flex items-center justify-center font-black text-sm lg:text-base italic z-30 shadow-xl border-4 border-white/50">VS</div>
+                
+                <div class="bg-white/90 border border-stone-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-rose-400"></div>
+                    <div class="text-stone-500 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5">
+                        <i data-lucide="footprints" class="w-4 h-4 lg:w-5 lg:h-5 text-rose-400"></i> 笨办法：顺序查找 O(n)
+                    </div>
+                    <div class="text-base lg:text-lg font-bold text-stone-600 mb-1">最坏需要比较：</div>
+                    <div class="flex items-baseline gap-2">
+                        <div id="val-seq" class="text-3xl lg:text-5xl font-black text-rose-500 font-mono tracking-tight drop-shadow-sm transition-all duration-100">1,000,000</div>
+                        <span class="text-base lg:text-lg font-bold text-stone-400">次</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 p-5 lg:p-6 rounded-[1.5rem] lg:rounded-[2rem] shadow-lg backdrop-blur-sm relative overflow-hidden flex flex-col justify-center transition-all duration-300 transform hover:scale-[1.02]">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-indigo-500"></div>
+                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-200/40 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="text-indigo-600 text-xs lg:text-sm font-black mb-2 uppercase tracking-widest flex items-center gap-1.5 relative z-10">
+                        <i data-lucide="zap" class="w-4 h-4 lg:w-5 lg:h-5"></i> 降维打击：二分查找 O(log₂n)
+                    </div>
+                    <div class="text-base lg:text-lg font-bold text-indigo-900/70 mb-1 relative z-10">最坏仅需比较：</div>
+                    <div class="flex items-baseline gap-2 relative z-10">
+                        <div id="val-bin" class="text-4xl lg:text-6xl font-black text-indigo-600 font-mono tracking-tight drop-shadow-md transition-all duration-300">20</div>
+                        <span class="text-base lg:text-lg font-bold text-indigo-400">次</span>
                     </div>
                 </div>
             </div>
 
+            <div class="shrink-0 mt-5 text-center relative z-20">
+                <p class="text-stone-600 text-sm lg:text-base italic tracking-wide font-sans font-bold bg-white/80 inline-block px-6 py-2.5 rounded-full border border-stone-200 shadow-sm backdrop-blur-sm m-0">
+                    “即使数据如星辰般浩瀚，二分法也能在屈指可数的次数内锁定目标。”
+                </p>
+            </div>
+
+        </div>
+    </div>
+            </div>
+
             <div id="slide-5" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-sim.jpg');"></div>
-                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
-                    <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
-                        
-                        <div class="shrink-0 flex justify-between items-center mb-4">
-                            <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit">
-                                <div class="p-2 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-600 shadow-sm"><i data-lucide="gamepad" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
-                                <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">4. 算法模拟：用计算机指针寻值 <span class="text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg shadow-sm">45</span></h2>
-                            </div>
-                            <button onclick="initInteractiveSim()" class="px-3 lg:px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0 text-sm lg:text-base">
-                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新开始</span><span class="sm:hidden">重置</span>
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-sim.jpg');"></div>
+    
+    <div id="sim-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-emerald-50/90 to-teal-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(16,185,129,0.15),0_20px_50px_rgba(16,185,129,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="cpu" class="absolute top-8 left-8 w-6 h-6 text-emerald-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-teal-400 fill-teal-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(16,185,129,0.2)] border border-emerald-100 relative z-10">
+                    <i data-lucide="mouse-pointer-click" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">计算机是怎么“看”数据的？</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-emerald-100 shadow-sm backdrop-blur-sm">
+                    我们已经见识了二分查找“降维打击”般的极速优势。<br>
+                    但在代码世界里，计算机并没有眼睛，它是如何精准记住该“找哪一半”的呢？<br>
+                    <span class="text-emerald-600 font-black mt-2 block text-base lg:text-lg">其实，它派出了三位神秘的“指针特工”！接下来，请你亲自指挥它们执行任务。</span>
+                </p>
+                
+                <button onclick="closeSimIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(16,185,129,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-emerald-300/50">
+                    启动指针模拟器 <i data-lucide="play-circle" class="w-5 h-5 fill-current"></i>
+                </button>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-emerald-50 to-teal-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(16,185,129,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-emerald-50 to-teal-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(16,185,129,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+    <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
+        <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
+            
+            <div class="shrink-0 flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3 lg:gap-4 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit">
+                    <div class="p-2 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-600 shadow-sm"><i data-lucide="gamepad" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+                    <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">4. 算法模拟：用计算机指针寻值 <span class="text-emerald-600 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg shadow-sm">45</span></h2>
+                </div>
+                <button onclick="initInteractiveSim()" class="px-3 lg:px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0 text-sm lg:text-base">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新开始</span><span class="sm:hidden">重置</span>
+                </button>
+            </div>
+
+            <div class="shrink-0 mb-3 flex justify-center relative z-20">
+                <div class="bg-amber-50 border border-amber-300 text-amber-800 px-4 py-2.5 rounded-xl text-xs lg:text-sm font-bold shadow-sm flex items-center gap-2 animate-[breathingLight_3s_infinite_ease-in-out]">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-500 shrink-0"></i>
+                    <span>防坑预警：变量 <b class="text-blue-600 font-black">L</b>、<b class="text-blue-600 font-black">R</b> 和 <b class="text-amber-500 font-black">Mid</b> 代表的是方块上方灰色的【位置索引】，千万别拿方块里的【数值】去相加计算哦！</span>
+                </div>
+            </div>
+            
+            <div id="interactive-array-container" class="shrink-0 flex flex-wrap gap-2 lg:gap-3 justify-center mb-4 bg-white/90 p-4 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-white shadow-xl backdrop-blur-md min-h-[160px] items-center relative z-20 transition-all duration-500"></div>
+            
+            <div class="shrink-0 bg-slate-900 p-5 lg:p-6 rounded-[2rem] border-[4px] border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-blue-500"></div>
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-center relative z-10 w-full">
+                    <div class="flex flex-col gap-2 shrink-0 bg-slate-800/80 p-3 lg:p-4 rounded-2xl border border-slate-700 min-w-[120px] lg:min-w-[140px]">
+                        <div class="text-[10px] lg:text-xs text-slate-400 font-black tracking-widest uppercase mb-0.5">系统变量 (索引)</div>
+                        <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">L (Left)</span> <span id="ui-val-l" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">0</span></div>
+                        <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">R (Right)</span> <span id="ui-val-r" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">11</span></div>
+                        <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-amber-400">M (Mid)</span> <span id="ui-val-m" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">-</span></div>
+                    </div>
+                    
+                    <div class="flex-1 w-full flex flex-col justify-center">
+                        <h3 class="text-emerald-400 font-black text-xs tracking-widest uppercase mb-2 flex items-center gap-1.5"><i data-lucide="terminal-square" class="w-4 h-4"></i> 任务指令</h3>
+                        <div class="min-h-[70px] lg:min-h-[80px] flex flex-col justify-center">
+                            <p id="ui-prompt-text" class="text-white text-base lg:text-lg font-bold leading-relaxed m-0 transition-all">
+                                初始化完成。请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-1.5 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。
+                            </p>
+                        </div>
+                        <div id="ui-action-buttons" class="flex flex-wrap gap-2 lg:gap-3 hidden mt-3">
+                            <button onclick="handleCompare('<')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                <i data-lucide="chevron-left" class="w-4 h-4 text-emerald-400"></i> 小于 45 (在右侧)
+                            </button>
+                            <button onclick="handleCompare('==')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-amber-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> 等于 45 (找到了!)
+                            </button>
+                            <button onclick="handleCompare('>')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-rose-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
+                                大于 45 (在左侧) <i data-lucide="chevron-right" class="w-4 h-4 text-rose-400"></i>
                             </button>
                         </div>
-
-                        <div class="shrink-0 mb-3 flex justify-center relative z-20">
-                            <div class="bg-amber-50 border border-amber-300 text-amber-800 px-4 py-2.5 rounded-xl text-xs lg:text-sm font-bold shadow-sm flex items-center gap-2 animate-[breathingLight_3s_infinite_ease-in-out]">
-                                <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-500 shrink-0"></i>
-                                <span>防坑预警：变量 <b class="text-blue-600 font-black">L</b>、<b class="text-blue-600 font-black">R</b> 和 <b class="text-amber-500 font-black">Mid</b> 代表的是方块上方灰色的【位置索引】，千万别拿方块里的【数值】去相加计算哦！</span>
-                            </div>
-                        </div>
-                        
-                        <div id="interactive-array-container" class="shrink-0 flex flex-wrap gap-2 lg:gap-3 justify-center mb-4 bg-white/90 p-4 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-white shadow-xl backdrop-blur-md min-h-[160px] items-center relative z-20 transition-all duration-500"></div>
-                        
-                        <div class="shrink-0 bg-slate-900 p-5 lg:p-6 rounded-[2rem] border-[4px] border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden">
-                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-blue-500"></div>
-                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                            
-                            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-center relative z-10 w-full">
-                                <div class="flex flex-col gap-2 shrink-0 bg-slate-800/80 p-3 lg:p-4 rounded-2xl border border-slate-700 min-w-[120px] lg:min-w-[140px]">
-                                    <div class="text-[10px] lg:text-xs text-slate-400 font-black tracking-widest uppercase mb-0.5">系统变量 (索引)</div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">L (Left)</span> <span id="ui-val-l" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">0</span></div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">R (Right)</span> <span id="ui-val-r" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">11</span></div>
-                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-amber-400">M (Mid)</span> <span id="ui-val-m" class="bg-slate-900 px-2 py-0.5 rounded shadow-inner">-</span></div>
-                                </div>
-                                
-                                <div class="flex-1 w-full flex flex-col justify-center">
-                                    <h3 class="text-emerald-400 font-black text-xs tracking-widest uppercase mb-2 flex items-center gap-1.5"><i data-lucide="terminal-square" class="w-4 h-4"></i> 任务指令</h3>
-                                    <div class="min-h-[70px] lg:min-h-[80px] flex flex-col justify-center">
-                                        <p id="ui-prompt-text" class="text-white text-base lg:text-lg font-bold leading-relaxed m-0 transition-all">
-                                            初始化完成。请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-1.5 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>。
-                                        </p>
-                                    </div>
-                                    <div id="ui-action-buttons" class="flex flex-wrap gap-2 lg:gap-3 hidden mt-3">
-                                        <button onclick="handleCompare('<')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-emerald-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
-                                            <i data-lucide="chevron-left" class="w-4 h-4 text-emerald-400"></i> 小于 45 (在右侧)
-                                        </button>
-                                        <button onclick="handleCompare('==')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-amber-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
-                                            <i data-lucide="check" class="w-4 h-4 text-amber-400"></i> 等于 45 (找到了!)
-                                        </button>
-                                        <button onclick="handleCompare('>')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-rose-400 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-sm lg:text-base transition-all active:scale-95 shadow-md flex items-center gap-1.5 breathing-light shrink-0">
-                                            大于 45 (在左侧) <i data-lucide="chevron-right" class="w-4 h-4 text-rose-400"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
+            </div>
+            
+        </div>
+    </div>
             </div>
 
             <div id="slide-6" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./daima.jpg');"></div>
     
+    <div id="code-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-sky-50/90 to-blue-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(14,165,233,0.15),0_20px_50px_rgba(14,165,233,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="file-code" class="absolute top-8 left-8 w-6 h-6 text-sky-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-blue-400 fill-blue-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-sky-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(14,165,233,0.2)] border border-sky-100 relative z-10">
+                    <i data-lucide="keyboard" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">把逻辑化为代码</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-sky-100 shadow-sm backdrop-blur-sm">
+                    在熟悉了计算机底层进行二分查找的“指针移动”步骤后，我们终于可以来进行代码实操啦！<br>
+                    <span class="text-sky-600 font-black mt-2 block text-base lg:text-lg">请化身算法工程师，补充缺失的核心代码块，让这台虚拟编译器成功跑起来吧！</span>
+                </p>
+                
+                <button onclick="closeCodeIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(14,165,233,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-sky-300/50">
+                    进入 IDE 编辑器 <i data-lucide="terminal" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-sky-50 to-blue-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(14,165,233,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-sky-50 to-blue-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(14,165,233,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
     <div class="relative z-10 h-full w-full p-2 lg:p-4 flex flex-col items-center pointer-events-auto">
         <div class="w-full max-w-5xl flex flex-col h-full overflow-hidden pt-2 pb-2 lg:pt-4 lg:pb-4">
             
@@ -782,6 +918,36 @@
 
             <div id="slide-7" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
+    
+    <div id="ai-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-fuchsia-50/90 to-purple-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(217,70,239,0.15),0_20px_50px_rgba(217,70,239,0.25)] z-10">
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="brain-circuit" class="absolute top-8 left-8 w-6 h-6 text-fuchsia-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-purple-400 fill-purple-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-fuchsia-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(217,70,239,0.2)] border border-fuchsia-100 relative z-10">
+                    <i data-lucide="rocket" class="w-7 h-7"></i>
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">还能用来干什么？</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-fuchsia-100 shadow-sm backdrop-blur-sm">
+                    代码写完啦！学习了那么多，二分查找在其他前沿领域有什么神奇的应用呢？<br>
+                    <span class="text-fuchsia-600 font-black mt-2 block text-base lg:text-lg">其实，连最火热的 AI 人工智能训练，也离不开它的降维打击！去体验一下“AI 调参师”吧！</span>
+                </p>
+                
+                <button onclick="closeAiIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-fuchsia-500 to-purple-500 hover:from-fuchsia-600 hover:to-purple-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(217,70,239,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-fuchsia-300/50">
+                    开启跨界拓展 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-fuchsia-50 to-purple-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(217,70,239,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-fuchsia-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(217,70,239,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
         <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
             <div class="flex items-center justify-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
@@ -820,9 +986,11 @@
                      onclick="const core = document.getElementById('ai-lr-core'); const rect = core.getBoundingClientRect(); let clickX = event.clientX - rect.left; let percent = Math.round((clickX / rect.width) * 100); percent = Math.max(1, Math.min(100, percent)); document.getElementById('ai-lr-input').value = percent; if(typeof trainAIModel === 'function') trainAIModel();">
                     <div class="absolute left-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=1</div>
                     <div class="absolute right-2 -top-6 text-xs lg:text-sm font-black text-slate-500">LR=100</div>
-                    <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 pointer-events-none">
+                    
+                    <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 flex items-center gap-1 pointer-events-none animate-bounce">
                         <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速输入并训练
                     </div>
+
                     <div class="w-full h-3 bg-slate-300 rounded-full relative" id="ai-lr-core">
                         <div id="ai-interactive-range" class="absolute h-full bg-fuchsia-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(217,70,239,0.5)]" style="left: 0%; width: 100%;"></div>
                         <div class="absolute inset-0 w-full h-full pointer-events-none flex justify-between items-center" style="padding: 0 10%;">
@@ -1011,78 +1179,108 @@
             </div>
 
             <div id="slide-10" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-extension.jpg'); background-color: #f8fafc;"></div>
+    <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-extension.jpg'); background-color: #f8fafc;"></div>
+    
+    <div id="ai-chat-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+        <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+            <div class="relative bg-gradient-to-br from-white/95 via-blue-50/90 to-slate-100/80 backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(59,130,246,0.1),0_20px_50px_rgba(59,130,246,0.2)] z-10">
                 
-                <div class="relative z-10 w-full flex flex-col items-center pointer-events-auto" style="justify-content: flex-start !important; padding-top: 2.5% !important; padding-bottom: 2.5% !important; height: 100% !important;">
-                    <div class="w-full max-w-6xl flex flex-col h-full flex-1 gap-3 lg:gap-4 relative z-20">
-                        
-                        <div class="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-md px-5 py-2.5 lg:px-6 lg:py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit shrink-0">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-xl overflow-hidden border border-blue-100 shadow-sm shrink-0 bg-white">
-                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                
+                <i data-lucide="bot" class="absolute top-8 left-8 w-6 h-6 text-blue-400 opacity-60 animate-bounce"></i>
+                <i data-lucide="sparkles" class="absolute bottom-10 right-8 w-5 h-5 text-indigo-400 fill-indigo-400 opacity-80 animate-pulse"></i>
+                
+                <div class="w-14 h-14 bg-white text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(59,130,246,0.2)] border border-blue-100 relative z-10 p-1">
+                    <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover rounded-full">
+                </div>
+                
+                <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">人机协同探究</h3>
+                
+                <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-blue-100 shadow-sm backdrop-blur-sm">
+                    这是一道具有挑战性的拓展题。<br>
+                    在课堂上，我们先用 <span class="text-blue-600 font-black">豆包 AI 大模型</span> 为大家梳理解题思路。<br>
+                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">至于具体的代码实现，课后同学们可以继续和 AI 结伴探究哦！</span>
+                </p>
+                
+                <button onclick="closeAiChatIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(59,130,246,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-blue-300/50">
+                    查看 AI 解题思路 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-blue-50 to-slate-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-blue-50 to-slate-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(59,130,246,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+    <div class="relative z-10 w-full flex flex-col items-center pointer-events-auto" style="justify-content: flex-start !important; padding-top: 2.5% !important; padding-bottom: 2.5% !important; height: 100% !important;">
+        <div class="w-full max-w-6xl flex flex-col h-full flex-1 gap-3 lg:gap-4 relative z-20">
+            
+            <div class="flex items-center justify-center gap-3 bg-white/80 backdrop-blur-md px-5 py-2.5 lg:px-6 lg:py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit shrink-0">
+                <div class="w-8 h-8 lg:w-10 lg:h-10 rounded-xl overflow-hidden border border-blue-100 shadow-sm shrink-0 bg-white">
+                    <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                </div>
+                <h2 class="text-xl lg:text-3xl font-black text-stone-800 tracking-widest uppercase m-0">拓展题：借助 AI 破解“二分答案”</h2>
+            </div>
+
+            <div class="flex flex-col lg:flex-row flex-1 min-h-0 w-full bg-white/95 rounded-[2rem] border border-stone-200 shadow-xl overflow-hidden backdrop-blur-md">
+                
+                <div class="w-full lg:w-[28%] p-4 lg:p-6 border-b lg:border-b-0 lg:border-r border-stone-200 bg-stone-50/50 shrink-0 flex flex-col overflow-y-auto task-scrollbar">
+                    <div class="flex items-center gap-2 mb-3 lg:mb-4">
+                        <span class="bg-stone-800 text-white text-xs font-black px-2 py-1 rounded shadow-sm tracking-widest uppercase shrink-0">题目背景</span>
+                        <h3 class="text-lg lg:text-xl font-bold text-stone-700 leading-tight">放羊与柱子</h3>
+                    </div>
+                    <div class="text-stone-600 text-sm lg:text-base leading-relaxed space-y-3 font-medium">
+                        <p>在一条直线上有 <span class="font-bold text-amber-600 font-mono">8</span> 只羊，它们的位置分别是 <span class="font-bold text-amber-600 font-mono">x = {1, 3, 5, 8, 12, 15, 17, 19}</span>。</p>
+                        <p>现在你有 <span class="font-bold text-blue-600 font-mono">3</span> 根相同的柱子，每根柱子可以拴住<b class="text-rose-500 mx-1">距离它不超过 R 米</b>的所有羊（即覆盖一个长度为 2R 的区间）。柱子可以打在直线上的任意位置。</p>
+                        <div class="flex flex-col gap-2 text-stone-800 bg-amber-50 p-3 lg:p-3.5 rounded-xl border border-amber-200 mt-2 lg:mt-4 shadow-inner">
+                            <div class="flex items-center gap-1.5 text-amber-600 font-bold mb-1">
+                                <i data-lucide="help-circle" class="w-4 h-4 lg:w-5 lg:h-5 shrink-0"></i> 请问：
                             </div>
-                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 tracking-widest uppercase m-0">拓展题：借助 AI 破解“二分答案”</h2>
-                        </div>
-
-                        <div class="flex flex-col lg:flex-row flex-1 min-h-0 w-full bg-white/95 rounded-[2rem] border border-stone-200 shadow-xl overflow-hidden backdrop-blur-md">
-                            
-                            <div class="w-full lg:w-[28%] p-4 lg:p-6 border-b lg:border-b-0 lg:border-r border-stone-200 bg-stone-50/50 shrink-0 flex flex-col overflow-y-auto task-scrollbar">
-                                <div class="flex items-center gap-2 mb-3 lg:mb-4">
-                                    <span class="bg-stone-800 text-white text-xs font-black px-2 py-1 rounded shadow-sm tracking-widest uppercase shrink-0">题目背景</span>
-                                    <h3 class="text-lg lg:text-xl font-bold text-stone-700 leading-tight">放羊与柱子</h3>
-                                </div>
-                                <div class="text-stone-600 text-sm lg:text-base leading-relaxed space-y-3 font-medium">
-                                    <p>在一条直线上有 <span class="font-bold text-amber-600 font-mono">8</span> 只羊，它们的位置分别是 <span class="font-bold text-amber-600 font-mono">x = {1, 3, 5, 8, 12, 15, 17, 19}</span>。</p>
-                                    <p>现在你有 <span class="font-bold text-blue-600 font-mono">3</span> 根相同的柱子，每根柱子可以拴住<b class="text-rose-500 mx-1">距离它不超过 R 米</b>的所有羊（即覆盖一个长度为 2R 的区间）。柱子可以打在直线上的任意位置。</p>
-                                    <div class="flex flex-col gap-2 text-stone-800 bg-amber-50 p-3 lg:p-3.5 rounded-xl border border-amber-200 mt-2 lg:mt-4 shadow-inner">
-                                        <div class="flex items-center gap-1.5 text-amber-600 font-bold mb-1">
-                                            <i data-lucide="help-circle" class="w-4 h-4 lg:w-5 lg:h-5 shrink-0"></i> 请问：
-                                        </div>
-                                        <p class="font-bold text-sm lg:text-base leading-relaxed text-amber-900">要保证这 8 只羊都被至少一根柱子覆盖，最小的 R 是多少？</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col flex-1 min-w-0 bg-slate-50 relative">
-                                <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 border-b border-slate-200 bg-white shrink-0 shadow-sm">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-6 h-6 lg:w-7 lg:h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 bg-white">
-                                            <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
-                                        </div>
-                                        <span class="font-black text-slate-700 text-sm">豆包 AI Assistant</span>
-                                    </div>
-                                    <div class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">在线 (Idle)</div>
-                                </div>
-
-                                <div id="ai-chat-history" class="flex-1 overflow-y-auto p-4 lg:p-5 space-y-4 lg:space-y-5 task-scrollbar relative">
-                                    <div class="flex gap-3 max-w-[90%]">
-                                        <div class="w-6 h-6 lg:w-7 lg:h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
-                                            <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
-                                        </div>
-                                        <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm text-xs lg:text-sm text-slate-700 leading-relaxed">
-                                            你好！这道题非常有意思。发现传统的数组查找逻辑行不通了吗？输入问题，让我一步步带你破局吧！                                        
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="bg-white border-t border-slate-200 shrink-0 flex flex-col relative z-10 p-3 lg:p-4">
-                                    <div class="w-full bg-white border border-blue-300 rounded-2xl p-1.5 pl-3 flex items-center gap-2 text-slate-700 shadow-sm focus-within:ring-2 focus-within:ring-blue-100 transition-all">
-                                        <div class="text-slate-400 hover:text-blue-500 transition-colors shrink-0 cursor-pointer">
-                                            <i data-lucide="paperclip" class="w-4 h-4"></i>
-                                        </div>
-                                        <div id="ai-fake-input" class="flex-1 text-xs lg:text-sm font-medium outline-none truncate text-slate-700">
-                                            请给我示意图帮助我理解题目
-                                        </div>
-                                        <button id="btn-ask-ai" onclick="startAIAnalysis(event)" class="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 hover:bg-blue-700 active:scale-95 transition-all shadow-sm group">
-                                            <i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
+                            <p class="font-bold text-sm lg:text-base leading-relaxed text-amber-900">要保证这 8 只羊都被至少一根柱子覆盖，最小的 R 是多少？</p>
                         </div>
                     </div>
                 </div>
+
+                <div class="flex flex-col flex-1 min-w-0 bg-slate-50 relative">
+                    <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 border-b border-slate-200 bg-white shrink-0 shadow-sm">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 lg:w-7 lg:h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div>
+                            <span class="font-black text-slate-700 text-sm">豆包 AI Assistant</span>
+                        </div>
+                        <div class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-md">在线 (Idle)</div>
+                    </div>
+
+                    <div id="ai-chat-history" class="flex-1 overflow-y-auto p-4 lg:p-5 space-y-4 lg:space-y-5 task-scrollbar relative">
+                        <div class="flex gap-3 max-w-[90%]">
+                            <div class="w-6 h-6 lg:w-7 lg:h-7 rounded-full overflow-hidden border border-slate-200 shadow-sm shrink-0 mt-0.5 bg-white">
+                                <img src="./doubao-avatar.png" alt="豆包" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-sm shadow-sm text-xs lg:text-sm text-slate-700 leading-relaxed">
+                                你好！这道题非常有意思。发现传统的数组查找逻辑行不通了吗？输入问题，让我一步步带你破局吧！                                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border-t border-slate-200 shrink-0 flex flex-col relative z-10 p-3 lg:p-4">
+                        <div class="w-full bg-white border border-blue-300 rounded-2xl p-1.5 pl-3 flex items-center gap-2 text-slate-700 shadow-sm focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+                            <div class="text-slate-400 hover:text-blue-500 transition-colors shrink-0 cursor-pointer">
+                                <i data-lucide="paperclip" class="w-4 h-4"></i>
+                            </div>
+                            <div id="ai-fake-input" class="flex-1 text-xs lg:text-sm font-medium outline-none truncate text-slate-700">
+                                请给我示意图帮助我理解题目
+                            </div>
+                            <button id="btn-ask-ai" onclick="startAIAnalysis(event)" class="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 hover:bg-blue-700 active:scale-95 transition-all shadow-sm group">
+                                <i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
             </div>
 
             <div id="slide-11" class="slide inactive-right absolute inset-0">
@@ -1344,90 +1542,94 @@
     <span class="writing-vertical font-bold tracking-widest text-sm" style="writing-mode: vertical-rl;">任务单</span>
         </div>
         
-        <div id="task-drawer" class="fixed top-0 right-0 w-full sm:w-[26rem] h-full bg-white/95 backdrop-blur-2xl shadow-2xl border-l border-stone-200 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col pointer-events-auto" style="z-index: 105;">            <div class="flex items-center justify-between p-6 border-b border-stone-200 bg-stone-50/80">
-                <div class="flex items-center gap-3 text-stone-800">
-                    <i data-lucide="pencil-ruler" class="w-6 h-6"></i>
-                    <h2 class="text-xl font-black">互动任务单</h2>
+        <div id="task-drawer" class="fixed top-0 right-0 w-full sm:w-1/2 h-full bg-white/95 backdrop-blur-2xl shadow-2xl border-l border-stone-200 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col pointer-events-auto" style="z-index: 105;">
+    
+    <div class="w-full h-10 shrink-0 bg-transparent"></div>  
+    <div class="flex items-center justify-between p-6 border-b border-stone-200 bg-stone-50/80">
+        <div class="flex items-center gap-3 text-stone-800">
+            <i data-lucide="pencil-ruler" class="w-6 h-6"></i>
+            <h2 class="text-xl font-black">互动任务单</h2>
+        </div>
+        <button onclick="toggleTaskDrawer()" class="p-2 bg-stone-200 hover:bg-stone-300 text-stone-600 rounded-full transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-6 task-scrollbar space-y-6">
+        <div class="text-sm text-stone-500 mb-2 flex items-center gap-2 bg-blue-50/50 p-3 rounded-lg border border-blue-100">
+            <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
+            <span>提示：选择答案后，系统会自动判定。选错会提供解析帮助理解。</span>
+        </div>
+
+        <div id="task-card-1" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+            <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-blue-50 text-blue-700 px-2 rounded border border-blue-100">任务一</span> 情境观察与假设</h3>
+            <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
+                <p>假设光缆全长 100km，断点恰好在 63km处。</p>
+                <ul class="list-disc pl-5 space-y-4">
+                    <li class="question-block">顺序查找：若每 1km 挖一次，最差需挖 <select data-answer="100" data-explanation="顺序查找最坏的情况是要一直从头查到最后，光缆全长100km，所以最差需要100次哦！" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="1">1</option><option value="50">50</option><option value="100">100</option></select> 次。</li>
+                    
+                    <li class="question-block">二分查找：第一次测 50km，断点在 50~100 之间；第二次测 <select data-answer="75" data-explanation="断点在50~100之间，新的中点应该取两者的中间值，即 (50 + 100) / 2 = 75km。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="25">25</option><option value="50">50</option><option value="75">75</option></select> km。</li>
+                </ul>
+                <div class="bg-stone-50 p-3 rounded-lg mt-2 font-medium border border-stone-100 question-block">
+                    <i data-lucide="lightbulb" class="w-4 h-4 inline-block text-amber-500 mr-1 -mt-1"></i>
+                    结论思考：使用二分查找的前提，是数据必须呈现 <select data-answer="ordered" data-explanation="二分查找的核心是利用大小关系来排除一半的数据。如果数据乱序，我们就无法通过中点判断目标在左侧还是右侧，所以必须是有序的。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="ordered">有序</option><option value="unordered">乱序</option></select> 状态。
                 </div>
-                <button onclick="toggleTaskDrawer()" class="p-2 bg-stone-200 hover:bg-stone-300 text-stone-600 rounded-full transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
-            <div class="flex-1 overflow-y-auto p-6 task-scrollbar space-y-6">
-                <div class="text-sm text-stone-500 mb-2 flex items-center gap-2 bg-blue-50/50 p-3 rounded-lg border border-blue-100">
-                    <i data-lucide="info" class="w-4 h-4 text-blue-500"></i>
-                    <span>提示：点击下划线可直接下拉选择思考结果。</span>
-                </div>
+        </div>
 
-                <div id="task-card-1" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-                    <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-blue-50 text-blue-700 px-2 rounded border border-blue-100">任务一</span> 情境观察与假设</h3>
-                    <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
-                        <p>假设光缆全长 100km，断点恰好在 63km处。</p>
-                        <ul class="list-disc pl-5 space-y-2">
-                            <li>顺序查找：若每 1km 挖一次，最差需挖 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="1">1</option><option value="50">50</option><option value="100">100</option></select> 次。</li>
-                            <li>二分查找：第一次测 50km，断点在 50~100 之间；第二次测 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="25">25</option><option value="50">50</option><option value="75">75</option></select> km。</li>
-                        </ul>
-                        <div class="bg-stone-50 p-3 rounded-lg mt-2 font-medium border border-stone-100">
-                            <i data-lucide="lightbulb" class="w-4 h-4 inline-block text-amber-500 mr-1 -mt-1"></i>
-                            结论思考：使用二分查找的前提，是数据必须呈现 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="ordered">有序</option><option value="unordered">乱序</option></select> 状态。
-                        </div>
+        <div id="task-card-2" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+            <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-emerald-50 text-emerald-700 px-2 rounded border border-emerald-100">任务二</span> 算法模拟实战</h3>
+            <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
+                <p>请跟随课件模拟在数组中寻找 <strong>45</strong> 的过程，并记录指针：</p>
+                <div class="space-y-2 font-mono bg-stone-50 p-3 rounded-lg border border-stone-200">
+                    <div class="pb-3 border-b border-stone-200 question-block">
+                        <span class="text-emerald-600 font-bold">第1次：</span> L=0, R=11, Mid=5<br>
+                        arr[5]=23 &lt; 45，新左界 L = <select data-answer="6" data-explanation="目标 45 比当前中值 23 大，说明目标在右侧。新左界应该是 Mid + 1，即 5 + 1 = 6。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
                     </div>
-                </div>
-
-                <div id="task-card-2" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
-                    <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-emerald-50 text-emerald-700 px-2 rounded border border-emerald-100">任务二</span> 算法模拟实战</h3>
-                    <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
-                        <p>请跟随课件模拟在数组中寻找 <strong>45</strong> 的过程，并记录指针：</p>
-                        <div class="space-y-2 font-mono bg-stone-50 p-3 rounded-lg border border-stone-200">
-                            <div class="pb-2 border-b border-stone-200">
-                                <span class="text-emerald-600 font-bold">第1次：</span> L=0, R=11, Mid=5<br>
-                                arr[5]=23 &lt; 45，新左界 L = <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
-                            </div>
-                            <div class="py-2 border-b border-stone-200">
-                                <span class="text-emerald-600 font-bold">第2次：</span> L=6, R=11, Mid= <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select><br>
-                                arr[8]=56 &gt; 45，新右界 R = <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
-                            </div>
-                            <div class="pt-2"><span class="text-emerald-600 font-bold">第3次：</span> ...成功找到！</div>
-                        </div>
+                    <div class="py-3 border-b border-stone-200 question-block">
+                        <span class="text-emerald-600 font-bold">第2次：</span> L=6, R=11, Mid= <select data-answer="8" data-explanation="计算中点公式是 (L+R)/2 向下取整。当前 L=6, R=11，中点就是 (6 + 11) / 2 = 8。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select><br>
+                        arr[8]=56 &gt; 45，新右界 R = <select data-answer="7" data-explanation="目标 45 比当前中值 56 小，说明目标在左侧。新右界应该是 Mid - 1，即 8 - 1 = 7。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
                     </div>
+                    <div class="pt-2"><span class="text-emerald-600 font-bold">第3次：</span> ...成功找到！</div>
                 </div>
-
-                <div id="task-card-3" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
-                    <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-sky-50 text-sky-700 px-2 rounded border border-sky-100">任务三</span> 代码构建与纠错</h3>
-                    <div class="text-sm text-stone-600 space-y-4 leading-relaxed">
-                        <div>
-                            循环能够继续进行的边界条件是：
-                            <div class="font-mono bg-slate-800 text-sky-300 p-2 rounded mt-1">
-                                while (left <select required class="task-input wide border-sky-400 text-white focus:border-sky-300 bg-transparent appearance-none cursor-pointer invalid:text-slate-500 invalid:font-normal"><option class="bg-slate-800 text-white" value="" disabled selected hidden>请选择</option><option class="bg-slate-800 text-white" value="<">&lt;</option><option class="bg-slate-800 text-white" value="<=">&lt;=</option></select> right)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="task-card-4" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden mb-8">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-violet-500"></div>
-                    <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-violet-50 text-violet-700 px-2 rounded border border-violet-100">任务四</span> 知识拓展</h3>
-                    <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
-                        <p>将二分法思想迁移至其他领域：</p>
-                        <ul class="space-y-3">
-                            <li class="flex flex-col gap-1">
-                                <span class="font-bold text-stone-800">🤖 AI 模型调参：</span> 
-                                <div>在连续的参数空间中，利用二分思想寻找最佳的 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="学习率">学习率</option><option value="准确率">准确率</option><option value="损失值">损失值</option></select>。</div>
-                            </li>
-                            <li class="flex flex-col gap-1">
-                                <span class="font-bold text-stone-800">📌 数学求零点：</span> 
-                                <div>利用 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="中值判断">中值判断</option><option value="缩小区间">缩小区间</option><option value="有序前提">有序前提</option></select> 的方式逼近答案。</div>
-                            </li>
-                            <li class="flex flex-col gap-1">
-                                <span class="font-bold text-stone-800">📖 字典查字：</span> 
-                                <div>建立在字母排序是 <select required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="中值判断">中值判断</option><option value="缩小区间">缩小区间</option><option value="有序前提">有序前提</option></select> 的基础之上。</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="h-10"></div>
             </div>
+        </div>
+
+        <div id="task-card-3" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
+            <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-sky-50 text-sky-700 px-2 rounded border border-sky-100">任务三</span> 代码构建与纠错</h3>
+            <div class="text-sm text-stone-600 space-y-4 leading-relaxed">
+                <div class="question-block">
+                    循环能够继续进行的边界条件是：
+                    <div class="font-mono bg-slate-800 text-sky-300 p-2 rounded mt-1">
+                        while (left <select data-answer="<=" data-explanation="当 left == right 时，说明区间内还有一个元素需要检查。如果不加等于号，就会漏掉最后这个元素的比对！" onchange="checkTaskAnswer(this)" required class="task-input wide border-sky-400 text-white focus:border-sky-300 bg-transparent appearance-none cursor-pointer invalid:text-slate-500 invalid:font-normal"><option class="bg-slate-800 text-white" value="" disabled selected hidden>请选择</option><option class="bg-slate-800 text-white" value="<">&lt;</option><option class="bg-slate-800 text-white" value="<=">&lt;=</option></select> right)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="task-card-4" class="task-card bg-white p-5 rounded-2xl border border-stone-200 shadow-sm relative overflow-hidden mb-8">
+            <div class="absolute top-0 left-0 w-1 h-full bg-violet-500"></div>
+            <h3 class="font-bold text-lg text-stone-800 mb-3 flex items-center gap-2"><span class="bg-violet-50 text-violet-700 px-2 rounded border border-violet-100">任务四</span> 知识拓展</h3>
+            <div class="text-sm text-stone-600 space-y-3 leading-relaxed">
+                <p>将二分法思想迁移至其他领域：</p>
+                <ul class="space-y-4">
+                    <li class="flex flex-col gap-1 question-block">
+                        <span class="font-bold text-stone-800">🤖 AI 模型调参：</span> 
+                        <div>在连续的参数空间中，利用二分思想寻找最佳的 <select data-answer="学习率" data-explanation="在课件的拓展实验中，我们调整的参数是 LR（Learning Rate 学习率），通过折半找最佳参数以避免梯度爆炸或学习停滞。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="学习率">学习率</option><option value="准确率">准确率</option><option value="损失值">损失值</option></select>。</div>
+                    </li>
+                    <li class="flex flex-col gap-1 question-block">
+                        <span class="font-bold text-stone-800">📌 数学求零点：</span> 
+                        <div>利用 <select data-answer="缩小区间" data-explanation="根据零点存在性定理，我们通过判断中值函数结果的正负，来不断折半“缩小区间”，从而逼近真实零点。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="中值判断">中值判断</option><option value="缩小区间">缩小区间</option><option value="有序前提">有序前提</option></select> 的方式逼近答案。</div>
+                    </li>
+                    <li class="flex flex-col gap-1 question-block">
+                        <span class="font-bold text-stone-800">📖 字典查字：</span> 
+                        <div>建立在字母排序是 <select data-answer="有序前提" data-explanation="字典里的字都是按照拼音字母顺序排列的，这就满足了二分查找必须“有序”的大前提。" onchange="checkTaskAnswer(this)" required class="task-input wide appearance-none cursor-pointer invalid:text-stone-300 invalid:font-normal"><option value="" disabled selected hidden>请选择</option><option value="中值判断">中值判断</option><option value="缩小区间">缩小区间</option><option value="有序前提">有序前提</option></select> 的基础之上。</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="h-10"></div>
+    </div>
         </div>
         
         <div id="drawer-overlay" onclick="toggleTaskDrawer()" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500" style="z-index: 104;"></div>
@@ -1579,6 +1781,39 @@
                 overlay.classList.add('opacity-0', 'pointer-events-none');
             }
         }
+
+        function checkTaskAnswer(el) {
+    const isCorrect = el.value === el.dataset.answer;
+    const parentBlock = el.closest('.question-block');
+    
+    if (!parentBlock) return;
+
+    let feedbackEl = parentBlock.querySelector('.task-feedback');
+    if (!feedbackEl) {
+        feedbackEl = document.createElement('div');
+        parentBlock.appendChild(feedbackEl);
+    }
+    
+    if (isCorrect) {
+        feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+        feedbackEl.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 inline align-text-bottom mr-1.5"></i><b>回答正确！</b>';
+        
+        el.style.color = '#059669'; 
+        el.style.borderColor = '#34d399'; 
+    } else {
+        feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+        feedbackEl.innerHTML = '<div class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><b>哎呀，选错了。解析：</b>' + el.dataset.explanation + '</div></div>';
+        
+        el.style.color = '#e11d48';
+        el.style.borderColor = '#fb7185'; 
+        
+        el.classList.remove('shake-error');
+        void el.offsetWidth; 
+        el.classList.add('shake-error');
+    }
+    
+    if(typeof lucide !== 'undefined') lucide.createIcons();
+}
 
         let maxReachedTaskId = 0;
 
@@ -1798,6 +2033,18 @@
         let leftBound = 0;
         let rightBound = 100;
 
+        function closeGameIntro() {
+            const bubble = document.getElementById('game-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        const originalInitGame = initGame;
+        initGame = function() {
+            originalInitGame(); 
+        };
+
         function initGame() {
             secretFault = Math.floor(Math.random() * 49) + 51;
             attempts = 0; gameWon = false; leftBound = 0; rightBound = 100;
@@ -1933,6 +2180,20 @@
         let mathCutsK = 0;
         let mathGameWon = false;
 
+        function closeMathIntro() {
+    const bubble = document.getElementById('math-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
+        
+        function closeLogIntro() {
+    const bubble = document.getElementById('log-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
+
         function initMathGame() {
             const inputVal = parseInt(document.getElementById('math-initial-n').value);
             if(isNaN(inputVal) || inputVal <= 1) {
@@ -2057,6 +2318,13 @@
         let currentL = 0;
         let currentR = 11;
         let currentM = null;
+
+        function closeSimIntro() {
+    const bubble = document.getElementById('sim-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
 
         function initInteractiveSim() {
             simGameState = 'FIND_MID';
@@ -2194,7 +2462,14 @@
         }
 
 
-        // ================= [5. 核心构建：智能编译器模块] =================
+        // ================= [5. 代码实操] =================
+
+        function closeCodeIntro() {
+    const bubble = document.getElementById('code-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
         
         function compileCode() {
             const compileHint = document.getElementById('compile-hint');
@@ -2323,6 +2598,13 @@
         }
 
         // ================= [6. 拓展：AI 调参、数学求根、查字典] =================
+        function closeAiIntro() {
+    const bubble = document.getElementById('ai-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
+
         // AI 模块
         const AI_TARGET_LR = 45; 
         let aiEpochs = 0; let aiGameWon = false; let aiLeftBound = 1; let aiRightBound = 100;
@@ -2633,6 +2915,13 @@
  
         // ================= [7. 拓展：模拟 AI 豆包交互分析] =================
         let aiChatStep = 1; 
+
+        function closeAiChatIntro() {
+    const bubble = document.getElementById('ai-chat-intro-bubble');
+    if (bubble) {
+        bubble.classList.add('opacity-0', 'pointer-events-none');
+    }
+}
 
         function startAIAnalysis(event) {
             if (event) event.stopPropagation();
