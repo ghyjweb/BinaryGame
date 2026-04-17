@@ -2039,7 +2039,6 @@
          * 【全局配置】点击屏幕两侧翻页防误触拦截
          */
         document.addEventListener('click', (e) => {
-            // 拦截点击事件：保护所有交互控件和代码区，防止误触触发翻页
             if (e.target.closest('#task-drawer') || 
                 e.target.closest('[onclick="toggleTaskDrawer()"]') ||
                 e.target.closest('#progress-bar') ||
@@ -2056,7 +2055,6 @@
             const clickX = e.clientX;
             const screenWidth = window.innerWidth;
             
-            // 左侧 10% 上一页，右侧 10% 下一页
             if (clickX < screenWidth * 0.1) {
                 if (typeof prevSlide === 'function') prevSlide();
             } else if (clickX > screenWidth * 0.9) {
@@ -2095,28 +2093,27 @@
                 maxReachedTaskId = activeTaskId;
             }
 
-            // 找到这部分并替换
-let tipDiv = document.getElementById('task-close-tip');
-if (!tipDiv) {
-    tipDiv = document.createElement('div');
-    tipDiv.id = 'task-close-tip';
-    tipDiv.className = 'bg-indigo-50 text-indigo-600 p-3 lg:p-4 rounded-xl border border-indigo-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-indigo-100 transition-all font-bold text-sm mt-4 active:scale-95 group shrink-0';
-    tipDiv.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 本项任务已完成，点击关闭任务单';
-    
-    // 修改点：加入当前页判断，避免 Slide 2 强制翻页
-    tipDiv.onclick = function() {
-        toggleTaskDrawer();
-        
-        // 如果是 Slide 2（或 Slide 5 这种需要留在本页看提示的），则阻止自动翻页
-        if (currentSlide === 2 || currentSlide === 5) {
-            return; 
-        }
-        
-        setTimeout(() => {
-            nextSlide();
-        }, 400);
-    };
-}
+            let tipDiv = document.getElementById('task-close-tip');
+            if (!tipDiv) {
+                tipDiv = document.createElement('div');
+                tipDiv.id = 'task-close-tip';
+                tipDiv.className = 'bg-indigo-50 text-indigo-600 p-3 lg:p-4 rounded-xl border border-indigo-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-indigo-100 transition-all font-bold text-sm mt-4 active:scale-95 group shrink-0';
+                tipDiv.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 本项任务已完成，点击关闭任务单';
+                
+                // 修改点：加入当前页判断，避免 Slide 2 强制翻页
+                tipDiv.onclick = function() {
+                    toggleTaskDrawer();
+                    
+                    // 如果是 Slide 2（或 Slide 5 这种需要留在本页看提示的），则阻止自动翻页
+                    if (currentSlide === 2 || currentSlide === 5) {
+                        return; 
+                    }
+                    
+                    setTimeout(() => {
+                        nextSlide();
+                    }, 400);
+                };
+            }
 
             for(let i=1; i<=4; i++) {
                 const card = document.getElementById(`task-card-${i}`);
@@ -2154,7 +2151,6 @@ if (!tipDiv) {
                 return; 
             }
             
-            // 如果抽屉是开着的，先关抽屉，等动画结束再翻页
             if (isDrawerOpen) {
                 toggleTaskDrawer();
                 setTimeout(() => {
@@ -2173,7 +2169,6 @@ if (!tipDiv) {
         }
 
         function prevSlide() { 
-            // 如果抽屉是开着的，先关抽屉，等动画结束再翻页
             if (isDrawerOpen) {
                 toggleTaskDrawer();
                 setTimeout(() => {
@@ -2200,7 +2195,6 @@ if (!tipDiv) {
                 return; 
             }
             
-            // 如果抽屉是开着的，先关抽屉，等动画结束再跳转
             if (isDrawerOpen) {
                 toggleTaskDrawer();
                 setTimeout(() => {
@@ -2283,88 +2277,81 @@ if (!tipDiv) {
         });
 
         // ================= [全局控制：任务单开关] =================
-function toggleTaskDrawer() {
-    const drawer = document.getElementById('task-drawer');
-    const overlay = document.getElementById('drawer-overlay');
-    isDrawerOpen = !isDrawerOpen;
+        function toggleTaskDrawer() {
+            const drawer = document.getElementById('task-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            isDrawerOpen = !isDrawerOpen;
 
-    if (isDrawerOpen) {
-        // 1. 打开任务单逻辑
-        drawer.classList.remove('translate-x-full');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        
-        // 当打开任务单时，把 Slide 5 提示“点此打开”的黄色箭头隐藏
-        const simHint = document.getElementById('sim-task-hint');
-        if (simHint) {
-            simHint.classList.add('opacity-0');
-            setTimeout(() => simHint.classList.add('hidden'), 500);
-        }
-
-        // 高亮当前 Slide 对应的任务单模块
-        highlightActiveTask();
-    } else {
-        // 2. 关闭任务单逻辑
-        drawer.classList.add('translate-x-full');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-
-        // 逻辑A：Slide 2 光缆游戏完成后，关闭任务单时触发揭秘气泡
-        if (currentSlide === 2 && typeof gameWon !== 'undefined' && gameWon && !document.getElementById('game-outro-bubble')) {
-            setTimeout(() => {
-                if (typeof showSlide2OutroBubble === 'function') {
-                    showSlide2OutroBubble();
+            if (isDrawerOpen) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                
+                const simHint = document.getElementById('sim-task-hint');
+                if (simHint) {
+                    simHint.classList.add('opacity-0');
+                    setTimeout(() => simHint.classList.add('hidden'), 500);
                 }
-            }, 300);
-        }
 
-        // 逻辑B：Slide 5 关闭退出任务单时，无条件触发下一页提示箭头
-        if (currentSlide === 5) {
-            const nextHint = document.getElementById('sim-next-hint');
-            if (nextHint) {
-                setTimeout(() => {
-                    nextHint.classList.remove('hidden');
-                    void nextHint.offsetWidth; // 触发重绘，保证动画生效
-                    nextHint.classList.remove('opacity-0');
-                }, 300);
+                highlightActiveTask();
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+
+                if (currentSlide === 2 && typeof gameWon !== 'undefined' && gameWon && !document.getElementById('game-outro-bubble')) {
+                    setTimeout(() => {
+                        if (typeof showSlide2OutroBubble === 'function') {
+                            showSlide2OutroBubble();
+                        }
+                    }, 300);
+                }
+
+                if (currentSlide === 5) {
+                    const nextHint = document.getElementById('sim-next-hint');
+                    if (nextHint) {
+                        setTimeout(() => {
+                            nextHint.classList.remove('hidden');
+                            void nextHint.offsetWidth;
+                            nextHint.classList.remove('opacity-0');
+                        }, 300);
+                    }
+                }
             }
         }
-    }
-}
 
-// ================= [全局控制：检查任务答案] =================
-function checkTaskAnswer(el) {
-    const isCorrect = el.value === el.dataset.answer;
-    const parentBlock = el.closest('.question-block');
-    
-    if (!parentBlock) return;
+        // ================= [全局控制：检查任务答案] =================
+        function checkTaskAnswer(el) {
+            const isCorrect = el.value === el.dataset.answer;
+            const parentBlock = el.closest('.question-block');
+            
+            if (!parentBlock) return;
 
-    let feedbackEl = parentBlock.querySelector('.task-feedback');
-    if (!feedbackEl) {
-        feedbackEl = document.createElement('div');
-        parentBlock.appendChild(feedbackEl);
-    }
-    
-    if (isCorrect) {
-        feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
-        feedbackEl.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 inline align-text-bottom mr-1.5"></i><b>回答正确！</b>';
-        
-        el.style.color = '#059669'; 
-        el.style.borderColor = '#34d399'; 
-        
-    } else {
-        feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
-        feedbackEl.innerHTML = '<div class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><b>哎呀，选错了。解析：</b>' + el.dataset.explanation + '</div></div>';
-        
-        el.style.color = '#e11d48';
-        el.style.borderColor = '#fb7185'; 
-        
-        // 触发错误抖动动画
-        el.classList.remove('shake-error');
-        void el.offsetWidth; 
-        el.classList.add('shake-error');
-    }
-    
-    if(typeof lucide !== 'undefined') lucide.createIcons();
-}
+            let feedbackEl = parentBlock.querySelector('.task-feedback');
+            if (!feedbackEl) {
+                feedbackEl = document.createElement('div');
+                parentBlock.appendChild(feedbackEl);
+            }
+            
+            if (isCorrect) {
+                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+                feedbackEl.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 inline align-text-bottom mr-1.5"></i><b>回答正确！</b>';
+                
+                el.style.color = '#059669'; 
+                el.style.borderColor = '#34d399'; 
+                
+            } else {
+                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+                feedbackEl.innerHTML = '<div class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><b>哎呀，选错了。解析：</b>' + el.dataset.explanation + '</div></div>';
+                
+                el.style.color = '#e11d48';
+                el.style.borderColor = '#fb7185'; 
+                
+                el.classList.remove('shake-error');
+                void el.offsetWidth; 
+                el.classList.add('shake-error');
+            }
+            
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
 
         // ================= [1. 课程回顾模块：顺序查找盲盒] =================
         const seqArrayData = [11, 12, 23, 34, 45, 56, 67, 78, 89, 90];
@@ -2378,51 +2365,50 @@ function checkTaskAnswer(el) {
             bubble.classList.add('opacity-0', 'pointer-events-none');
         }
 
-function closeSeqOutro(showHint = false) {
-    const outro = document.getElementById('seq-outro-bubble');
-    outro.classList.add('opacity-0', 'pointer-events-none');
-    document.getElementById('seq-outro-content').classList.remove('scale-100');
-    document.getElementById('seq-outro-content').classList.add('scale-95');
-    setTimeout(() => outro.classList.add('hidden'), 500);
-
-    // 如果用户点击了“我再看看”，则展示下一页箭头提示
-    if (showHint) {
-        const hint = document.getElementById('slide1-next-hint');
-        if (hint) {
-            hint.classList.remove('hidden');
-            void hint.offsetWidth; // 触发重绘
-            hint.classList.remove('opacity-0');
-        }
-    }
-}
-
-function initSeqGame() {
-            seqCurrentIndex = 0;
-            seqGameWon = false;
-            isSeqAnimating = false;
-            document.getElementById('seq-step-count').innerText = "0";
-            document.getElementById('seq-current-i').innerText = "0";
-            
-            document.getElementById('seq-intro-bubble').classList.remove('opacity-0', 'pointer-events-none');
+        function closeSeqOutro(showHint = false) {
             const outro = document.getElementById('seq-outro-bubble');
-            outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-            
-            const btn = document.getElementById('btn-inspect-next');
-            btn.disabled = false;
-            btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0";
-            btn.innerHTML = `<div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>`;
-            
-            const feedbackText = document.getElementById('seq-feedback-text');
-            feedbackText.innerText = "规则：从左到右，按顺序逐个开箱比对";
-            feedbackText.className = "text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white shadow-sm transition-all shrink-0";
+            outro.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('seq-outro-content').classList.remove('scale-100');
+            document.getElementById('seq-outro-content').classList.add('scale-95');
+            setTimeout(() => outro.classList.add('hidden'), 500);
 
-            const efficiencyPanel = document.getElementById('review-efficiency');
-            efficiencyPanel.classList.add('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
-            efficiencyPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
-
-            renderSeqArray();
-            if(typeof lucide !== 'undefined') lucide.createIcons();
+            if (showHint) {
+                const hint = document.getElementById('slide1-next-hint');
+                if (hint) {
+                    hint.classList.remove('hidden');
+                    void hint.offsetWidth;
+                    hint.classList.remove('opacity-0');
+                }
+            }
         }
+
+        function initSeqGame() {
+                    seqCurrentIndex = 0;
+                    seqGameWon = false;
+                    isSeqAnimating = false;
+                    document.getElementById('seq-step-count').innerText = "0";
+                    document.getElementById('seq-current-i').innerText = "0";
+                    
+                    document.getElementById('seq-intro-bubble').classList.remove('opacity-0', 'pointer-events-none');
+                    const outro = document.getElementById('seq-outro-bubble');
+                    outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                    
+                    const btn = document.getElementById('btn-inspect-next');
+                    btn.disabled = false;
+                    btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0";
+                    btn.innerHTML = `<div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>`;
+                    
+                    const feedbackText = document.getElementById('seq-feedback-text');
+                    feedbackText.innerText = "规则：从左到右，按顺序逐个开箱比对";
+                    feedbackText.className = "text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white shadow-sm transition-all shrink-0";
+
+                    const efficiencyPanel = document.getElementById('review-efficiency');
+                    efficiencyPanel.classList.add('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
+                    efficiencyPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+
+                    renderSeqArray();
+                    if(typeof lucide !== 'undefined') lucide.createIcons();
+                }
 
         function renderSeqArray() {
             const container = document.getElementById('seq-array-container');
@@ -2543,91 +2529,88 @@ function initSeqGame() {
             originalInitGame(); 
         };
 
-function showSlide2OutroBubble() {
-    if (document.getElementById('game-outro-bubble')) return; 
+        function showSlide2OutroBubble() {
+            if (document.getElementById('game-outro-bubble')) return; 
 
-    const oldToast = document.getElementById('success-toast');
-    if (oldToast) oldToast.remove();
+            const oldToast = document.getElementById('success-toast');
+            if (oldToast) oldToast.remove();
 
-    const outroBubble = document.createElement('div');
-    outroBubble.id = 'game-outro-bubble';
-    outroBubble.className = "absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none";
-    
-    // 注意：加入了背景图层和优化后的遮罩透明度
-    outroBubble.innerHTML = `
-        <div id="game-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
-            <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(244,63,94,0.25)] z-10">
-                
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./2outro.jpg'); border-radius: inherit; z-index: -2;"></div>
-                <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-rose-50/75 to-pink-100/70" style="border-radius: inherit; z-index: -1;"></div>
-                
-                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none z-0"></div>
-                <div class="w-14 h-14 bg-white text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md border border-rose-100 relative z-10">
-                    <i data-lucide="lightbulb" class="w-7 h-7 animate-pulse"></i>
+            const outroBubble = document.createElement('div');
+            outroBubble.id = 'game-outro-bubble';
+            outroBubble.className = "absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none";
+            
+            outroBubble.innerHTML = `
+                <div id="game-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+                    <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(244,63,94,0.25)] z-10">
+                        
+                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./2outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-rose-50/75 to-pink-100/70" style="border-radius: inherit; z-index: -1;"></div>
+                        
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none z-0"></div>
+                        <div class="w-14 h-14 bg-white text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md border border-rose-100 relative z-10">
+                            <i data-lucide="lightbulb" class="w-7 h-7 animate-pulse"></i>
+                        </div>
+                        <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 text-center relative z-10">思考...</h3>
+                        <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-rose-100 shadow-sm">
+                            有同学尝试“猜中间”来排除一半范围的方法，正是我们要学习的主角——<b class="text-rose-500 font-black">二分查找</b>。<br>
+                            <span class="text-rose-600 mt-2 block font-black text-base lg:text-lg">核心特点：数组有序，折半查找。</span>
+                        </p>
+                        <div class="flex flex-col gap-3 relative z-10">
+                            <button onclick="document.getElementById('game-outro-bubble').remove(); nextSlide();" class="px-8 py-3.5 bg-slate-800 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                                带着结论进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="closeGameOutro()" class="px-6 py-3 bg-white hover:bg-stone-50 text-stone-600 rounded-full font-bold border border-stone-200 shadow-sm transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                                我再看看排查记录
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 text-center relative z-10">思考...</h3>
-                <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-rose-100 shadow-sm">
-                    有同学尝试“猜中间”来排除一半范围的方法，正是我们要学习的主角——<b class="text-rose-500 font-black">二分查找</b>。<br>
-                    <span class="text-rose-600 mt-2 block font-black text-base lg:text-lg">核心特点：数组有序，折半查找。</span>
-                </p>
-                <div class="flex flex-col gap-3 relative z-10">
-                    <button onclick="document.getElementById('game-outro-bubble').remove(); nextSlide();" class="px-8 py-3.5 bg-slate-800 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
-                        带着结论进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
-                    </button>
-                    <button onclick="closeGameOutro()" class="px-6 py-3 bg-white hover:bg-stone-50 text-stone-600 rounded-full font-bold border border-stone-200 shadow-sm transition-all active:scale-95 w-full flex items-center justify-center gap-2">
-                        我再看看排查记录
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.getElementById('slide-2').appendChild(outroBubble);
-    if(typeof lucide !== 'undefined') lucide.createIcons();
-
-    setTimeout(() => {
-        outroBubble.classList.remove('opacity-0', 'pointer-events-none');
-        document.getElementById('game-outro-content').classList.replace('scale-95', 'scale-100');
-    }, 10);
-}
-
-// 新增此函数处理 Slide 2 点击“再看看”
-function closeGameOutro() {
-    const bubble = document.getElementById('game-outro-bubble');
-    if (bubble) bubble.remove();
-    
-    const hint = document.getElementById('slide2-next-hint');
-    if (hint) {
-        hint.classList.remove('hidden');
-        void hint.offsetWidth;
-        hint.classList.remove('opacity-0');
-    }
-}
-
-function initGame() {
-            secretFault = Math.floor(Math.random() * 49) + 51;
-            attempts = 0; gameWon = false; leftBound = 0; rightBound = 100;
+            `;
             
-            document.getElementById('game-attempts').innerText = attempts;
-            const input = document.getElementById('guess-input');
-            input.value = ''; input.disabled = false;
-            document.getElementById('guess-btn').disabled = false;
-            
-            document.getElementById('cable-core').innerHTML = '<div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>';
-            
-            const feedback = document.getElementById('game-feedback');
-            feedback.className = "mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0";
-            feedback.innerHTML = '<i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已刷新，请输入或点击坐标开始排查';
-            
-            // 清理上一轮游戏生成的悬浮元素
-            const toast = document.getElementById('success-toast');
-            if(toast) toast.remove();
-            const outroBubble = document.getElementById('game-outro-bubble');
-            if(outroBubble) outroBubble.remove();
-
-            updateCableVisual();
+            document.getElementById('slide-2').appendChild(outroBubble);
             if(typeof lucide !== 'undefined') lucide.createIcons();
+
+            setTimeout(() => {
+                outroBubble.classList.remove('opacity-0', 'pointer-events-none');
+                document.getElementById('game-outro-content').classList.replace('scale-95', 'scale-100');
+            }, 10);
         }
+
+        function closeGameOutro() {
+            const bubble = document.getElementById('game-outro-bubble');
+            if (bubble) bubble.remove();
+            
+            const hint = document.getElementById('slide2-next-hint');
+            if (hint) {
+                hint.classList.remove('hidden');
+                void hint.offsetWidth;
+                hint.classList.remove('opacity-0');
+            }
+        }
+
+        function initGame() {
+                    secretFault = Math.floor(Math.random() * 49) + 51;
+                    attempts = 0; gameWon = false; leftBound = 0; rightBound = 100;
+                    
+                    document.getElementById('game-attempts').innerText = attempts;
+                    const input = document.getElementById('guess-input');
+                    input.value = ''; input.disabled = false;
+                    document.getElementById('guess-btn').disabled = false;
+                    
+                    document.getElementById('cable-core').innerHTML = '<div id="active-range" class="absolute h-full bg-blue-400/40 rounded-full z-0 transition-all duration-500 shadow-[0_0_10px_rgba(96,165,250,0.5)]"></div>';
+                    
+                    const feedback = document.getElementById('game-feedback');
+                    feedback.className = "mt-4 w-full h-12 lg:h-14 text-sm lg:text-base font-bold text-stone-400 flex items-center justify-center transition-all duration-300 bg-stone-50 rounded-xl border border-stone-100 border-dashed shrink-0";
+                    feedback.innerHTML = '<i data-lucide="activity" class="w-4 h-4 lg:w-5 lg:h-5 mr-2"></i> 游戏已刷新，请输入或点击坐标开始排查';
+                    
+                    const toast = document.getElementById('success-toast');
+                    if(toast) toast.remove();
+                    const outroBubble = document.getElementById('game-outro-bubble');
+                    if(outroBubble) outroBubble.remove();
+
+                    updateCableVisual();
+                    if(typeof lucide !== 'undefined') lucide.createIcons();
+                }
 
         function makeGuess() {
             if(gameWon) return;
@@ -2656,7 +2639,6 @@ function initGame() {
             let markerColor = ""; let message = ""; 
             let extraArrowHTML = ""; 
 
-            // ================= 游戏胜利逻辑 =================
             if (guess === secretFault) {
                 gameWon = true;
                 
@@ -2693,7 +2675,6 @@ function initGame() {
                     if (!isDrawerOpen) toggleTaskDrawer();
                 }, 1000);
             }          
-            // ================= 猜小了逻辑 =================
             else if (guess < secretFault) {
                 document.querySelectorAll('.right-pointing-arrow').forEach(el => el.remove());
 
@@ -2704,7 +2685,6 @@ function initGame() {
                 
                 extraArrowHTML = `<div class="right-pointing-arrow absolute -bottom-6 left-1/2 -translate-x-1/2 text-emerald-500 font-bold flex items-center justify-center pointer-events-none drop-shadow-sm animate-pulse"><i data-lucide="arrow-right" class="w-4 h-4 lg:w-5 lg:h-5"></i></div>`;
             }
-            // ================= 猜大了逻辑 =================
              else {
                 document.querySelectorAll('.left-pointing-arrow').forEach(el => el.remove());
 
@@ -2856,14 +2836,12 @@ function closeLogIntro() {
                 dataBlock.className = "w-full max-w-[12rem] lg:max-w-[14rem] aspect-square bg-gradient-to-br from-emerald-400 to-teal-500 rounded-[1.5rem] lg:rounded-[2rem] shadow-[0_10px_40px_rgba(16,185,129,0.4)] flex flex-col items-center justify-center text-white relative transition-all duration-700 transform scale-105";
                 document.getElementById('final-k').innerText = mathCutsK;
                 
-                // 500ms 后展示“得出公式”的结论面板
                 const conclusion = document.getElementById('math-conclusion');
                 setTimeout(() => {
                     conclusion.classList.remove('translate-y-full', 'opacity-0');
                     conclusion.classList.add('translate-y-0', 'opacity-100');
                 }, 500);
 
-                // 【核心修改点】得出公式 (500ms) 后的 2 秒，即总计 2500ms 时，弹出总结气泡
                 setTimeout(() => {
                     const outro = document.getElementById('math-outro-bubble');
                     if (outro) {
@@ -2986,12 +2964,11 @@ function closeLogIntro() {
                         <i data-lucide="party-popper" class="w-5 h-5 lg:w-6 lg:h-6"></i> 恭喜！成功找到目标元素！
                     </span>`;
                 
-                // 等待1秒后弹出总结气泡
                 setTimeout(() => {
                     const outro = document.getElementById('sim-outro-bubble');
                     if (outro) {
                         outro.classList.remove('hidden');
-                        void outro.offsetWidth; // 触发重绘以执行动画
+                        void outro.offsetWidth;
                         outro.classList.remove('opacity-0', 'pointer-events-none');
                         const content = document.getElementById('sim-outro-content');
                         if (content) {
@@ -3007,10 +2984,8 @@ function closeLogIntro() {
         }
 
         function handleSimOutro(action) {
-    // 【修复核心】：标记 Slide 5 的任务单拦截机制已完成，防止点击下一页时重复弹出
     taskIntercepted[5] = true;
 
-    // 隐藏气泡
     const outro = document.getElementById('sim-outro-bubble');
     if (outro) {
         outro.classList.add('opacity-0', 'pointer-events-none');
@@ -3022,30 +2997,25 @@ function closeLogIntro() {
         setTimeout(() => outro.classList.add('hidden'), 500);
     }
 
-    // 根据用户选项执行操作
     if (action === 'look') {
-        // 显示指向下一页的动态箭头 (这里复用原有的 sim-next-hint 元素)
         const hint = document.getElementById('sim-next-hint');
         if (hint) {
-            // 可选：将文案稍微替换得更符合“回顾”语境
             hint.innerHTML = hint.innerHTML.replace('指针口诀已掌握！', '回顾完毕后');
             hint.classList.remove('hidden');
             void hint.offsetWidth;
             hint.classList.remove('opacity-0');
         }
     } else if (action === 'task') {
-        // 如果用户直接点击去填任务单，箭头保持隐藏
         const hint = document.getElementById('sim-task-hint');
         if (hint) {
             hint.classList.add('opacity-0');
             setTimeout(() => hint.classList.add('hidden'), 500);
         }
-        // 打开侧边栏
         if (!isDrawerOpen) toggleTaskDrawer();
     }
 }
 
-function renderInteractiveArray() {
+        function renderInteractiveArray() {
             const container = document.getElementById('interactive-array-container');
             if(!container) return;
             
@@ -3219,7 +3189,6 @@ function renderInteractiveArray() {
                             btnRun.classList.remove('hover:bg-sky-600', 'active:scale-95', 'breathing-light');
                             btnRun.classList.add('opacity-80', 'cursor-not-allowed');
                             
-                            // ===== 新增：编译成功后触发箭头显示 =====
                             const nextHint = document.getElementById('slide6-next-hint');
                             if(nextHint) nextHint.classList.remove('opacity-0');
                         }
@@ -3301,7 +3270,6 @@ function renderInteractiveArray() {
             const feedback = document.getElementById('ai-feedback');
             feedback.className = "mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all text-center";
             feedback.innerHTML = `<i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型已重置。寻找极小值，建议使用折半思想！`;
-            
             // 隐藏可能已经显示出的下一页箭头提示
             const nextHint = document.getElementById('slide7-next-hint');
             if (nextHint) {
@@ -3340,12 +3308,11 @@ function renderInteractiveArray() {
                 document.getElementById('btn-ai-train').innerHTML = `<i data-lucide="check" class="w-5 h-5"></i> 训练完成`;
                 document.getElementById('btn-ai-train').className = "px-6 py-3 bg-stone-300 text-stone-500 rounded-xl font-black shadow-inner transition-all flex items-center gap-2 cursor-not-allowed";
                 
-                // 新增：2秒后展示下一页引导箭头
                 setTimeout(() => {
                     const nextHint = document.getElementById('slide7-next-hint');
                     if (nextHint) {
                         nextHint.classList.remove('hidden');
-                        void nextHint.offsetWidth; // 触发重绘
+                        void nextHint.offsetWidth;
                         nextHint.classList.remove('opacity-0');
                     }
                 }, 2000);
@@ -3436,7 +3403,6 @@ function renderInteractiveArray() {
             const btnCalc = document.getElementById('btn-calc-mid'); btnCalc.disabled = false;
             btnCalc.className = "px-8 py-3 bg-violet-600 text-white rounded-xl shadow-[0_4px_15px_rgba(124,58,237,0.4)] hover:bg-violet-700 transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light";
             
-            // 每次初始化/重置时，让气泡显示出来，并隐藏下一页箭头
             const bubble = document.getElementById('math-bridge-intro-bubble');
             if (bubble) {
                 bubble.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
@@ -3493,12 +3459,11 @@ function renderInteractiveArray() {
                 document.getElementById('math-final-ans').innerText = ((mathRootL + mathRootR) / 2).toFixed(3);
                 document.getElementById('math-pointer-l').classList.add('animate-pulse'); document.getElementById('math-pointer-r').classList.add('animate-pulse');
                 
-                // 新增：2秒后展示跳转下一页箭头
                 setTimeout(() => {
                     const hint = document.getElementById('slide8-next-hint');
                     if (hint) {
                         hint.classList.remove('hidden');
-                        void hint.offsetWidth; // 触发浏览器重绘以保证动画平滑
+                        void hint.offsetWidth;
                         hint.classList.remove('opacity-0');
                     }
                 }, 2000);
@@ -3511,184 +3476,173 @@ function renderInteractiveArray() {
         }
 
         // ================= [查字典模块] =================
-let dictL = 1; 
-let dictR = 1000; 
-let dictMid = 0; 
-let dictSteps = 0;
+        let dictL = 1; 
+        let dictR = 1000; 
+        let dictMid = 0; 
+        let dictSteps = 0;
 
-const DICT_TARGET_PAGE = 687; 
-let dictState = 'FIND_MID'; 
-let currentDictInfo = null;
+        const DICT_TARGET_PAGE = 687; 
+        let dictState = 'FIND_MID'; 
+        let currentDictInfo = null;
 
-function closeDictIntro() {
-    const bubble = document.getElementById('dict-intro-bubble');
-    if (bubble) {
-        bubble.classList.add('opacity-0', 'pointer-events-none');
-    }
-}
-
-function getDictPageData(p) {
-    if (p === DICT_TARGET_PAGE) return { char: "淼", pinyin: "miǎo", cmp: 0 };
-    
-    if (p < DICT_TARGET_PAGE) {
-        const diff = DICT_TARGET_PAGE - p;
-        if (diff <= 7) { const arr = ["庙","妙","藐","渺","秒","鹋","描"]; return { char: arr[diff-1], pinyin: (diff===6||diff===7)?"miáo": (diff<=2?"miào":"miǎo"), cmp: -1 }; }
-        if (diff <= 15) return { char: "喵", pinyin: "miāo", cmp: -1 };
-        if (diff <= 30) return { char: "面", pinyin: "mian", cmp: -1 };
-        if (diff <= 50) return { char: "门", pinyin: "men", cmp: -1 };
-        if (diff <= 80) return { char: "毛", pinyin: "mao", cmp: -1 };
-        
-        const chars = ["啊(a)", "波(b)", "吃(c)", "得(d)", "佛(f)", "哥(g)", "哈(h)", "机(j)", "科(k)", "拉(l)"];
-        let idx = Math.max(0, Math.min(chars.length - 1, Math.floor((p / (DICT_TARGET_PAGE - 120)) * chars.length)));
-        return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: -1 };
-    } else {
-        const diff = p - DICT_TARGET_PAGE;
-        if (diff === 1) return { char: "乜", pinyin: "miē", cmp: 1 };
-        if (diff === 2) return { char: "灭", pinyin: "miè", cmp: 1 };
-        if (diff <= 5) return { char: "民", pinyin: "min", cmp: 1 };
-        if (diff <= 15) return { char: "明", pinyin: "ming", cmp: 1 };
-        if (diff <= 30) return { char: "摸", pinyin: "mo", cmp: 1 };
-        if (diff <= 80) return { char: "木", pinyin: "mu", cmp: 1 };
-        
-        const chars = ["那(n)", "欧(o)", "坡(p)", "七(q)", "日(r)", "思(s)", "特(t)", "乌(w)", "西(x)", "呀(y)", "字(z)"];
-        let idx = Math.max(0, Math.min(chars.length - 1, Math.floor(((p - (DICT_TARGET_PAGE + 80)) / (1000 - (DICT_TARGET_PAGE + 80))) * chars.length)));
-        return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: 1 };
-    }
-}
-function calculateDictMid() {
-    if (dictState === 'WON') return;
-    dictSteps++;
-    const stepValEl = document.getElementById('dict-step-val');
-    if (stepValEl) {
-        stepValEl.innerText = dictSteps;
-        stepValEl.parentElement.classList.add('scale-110', 'bg-rose-100', 'border-rose-300');
-        setTimeout(() => stepValEl.parentElement.classList.remove('scale-110', 'bg-rose-100', 'border-rose-300'), 300);
-    }
-    const book = document.getElementById('dict-book-container');
-    book.classList.add('scale-95', 'opacity-80', 'rotate-1');
-    
-    setTimeout(() => {
-        book.classList.remove('scale-95', 'opacity-80', 'rotate-1');
-        dictMid = Math.floor((dictL + dictR) / 2); 
-        currentDictInfo = getDictPageData(dictMid);
-        document.getElementById('ui-page-left').innerText = dictMid; 
-        document.getElementById('ui-page-right').innerText = dictMid + 1;
-        
-        // ======================= 逻辑修改点 =======================
-        // 如果目标在右侧 (cmp === -1)，那么当前字呈现于左半边 (showOnRight = false)
-        // 如果目标在左侧 (cmp === 1)，那么当前字呈现于右半边 (showOnRight = true)
-        // 这样符合你的视觉直觉：目标在哪边，文字就会让位显示在另一边。
-        const showOnRight = currentDictInfo.cmp === 1;
-
-        if (showOnRight) {
-            document.getElementById('ui-char-right').innerText = currentDictInfo.char; 
-            document.getElementById('ui-pinyin-right').innerText = currentDictInfo.pinyin;
-            
-            document.getElementById('dict-content-right').classList.remove('scale-0', 'opacity-0'); 
-            document.getElementById('dict-content-right').classList.add('scale-100', 'opacity-100');
-            document.getElementById('dict-placeholder-right').classList.add('scale-0', 'opacity-0');
-            
-            document.getElementById('dict-content-left').classList.add('scale-0', 'opacity-0');
-            document.getElementById('dict-content-left').classList.remove('scale-100', 'opacity-100');
-            document.getElementById('dict-placeholder-left').classList.remove('scale-0', 'opacity-0');
-        } else {
-            document.getElementById('ui-char-left').innerText = currentDictInfo.char; 
-            document.getElementById('ui-pinyin-left').innerText = currentDictInfo.pinyin;
-            
-            document.getElementById('dict-content-left').classList.remove('scale-0', 'opacity-0'); 
-            document.getElementById('dict-content-left').classList.add('scale-100', 'opacity-100');
-            document.getElementById('dict-placeholder-left').classList.add('scale-0', 'opacity-0');
-            
-            document.getElementById('dict-content-right').classList.add('scale-0', 'opacity-0');
-            document.getElementById('dict-content-right').classList.remove('scale-100', 'opacity-100');
-            document.getElementById('dict-placeholder-right').classList.remove('scale-0', 'opacity-0');
+        function closeDictIntro() {
+            const bubble = document.getElementById('dict-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+            }
         }
 
-        document.getElementById('ui-cmp-current').parentNode.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4 text-rose-500 shrink-0"></i> 当前查到 <span id="ui-cmp-current" class="text-rose-600 font-black text-base lg:text-lg underline decoration-rose-300">${currentDictInfo.char}(${currentDictInfo.pinyin})</span>，目标是 <span class="text-blue-600 font-black text-base lg:text-lg underline decoration-blue-300">淼(miǎo)</span>。接下来撕哪半本？`;
-        if(typeof lucide !== 'undefined') lucide.createIcons();
-
-        if (currentDictInfo.cmp === 0) {
-            dictState = 'WON'; 
-            document.getElementById('dict-step-1').classList.add('hidden');
-            const success = document.getElementById('dict-success-msg'); 
-            success.classList.remove('hidden'); 
-            success.classList.add('animate-bounce');
-            success.innerHTML = `<i data-lucide="party-popper" class="w-5 h-5 inline mr-1 -mt-1 text-emerald-500"></i> 太棒了！用二分法，面对 1000 页字典，你仅需 <b>${dictSteps}</b> 次就成功锁定了目标！`;
+        function getDictPageData(p) {
+            if (p === DICT_TARGET_PAGE) return { char: "淼", pinyin: "miǎo", cmp: 0 };
             
-            const targetPage = showOnRight ? 'right' : 'left';
-            document.getElementById(`dict-page-${targetPage}`).classList.add('bg-emerald-50'); 
-            document.getElementById(`ui-char-${targetPage}`).classList.add('text-emerald-600');
-            document.getElementById(`ui-pinyin-${targetPage}`).className = "text-xl font-black text-white bg-emerald-500 px-4 py-1 rounded-lg shadow-md";
-
+            if (p < DICT_TARGET_PAGE) {
+                const diff = DICT_TARGET_PAGE - p;
+                if (diff <= 7) { const arr = ["庙","妙","藐","渺","秒","鹋","描"]; return { char: arr[diff-1], pinyin: (diff===6||diff===7)?"miáo": (diff<=2?"miào":"miǎo"), cmp: -1 }; }
+                if (diff <= 15) return { char: "喵", pinyin: "miāo", cmp: -1 };
+                if (diff <= 30) return { char: "面", pinyin: "mian", cmp: -1 };
+                if (diff <= 50) return { char: "门", pinyin: "men", cmp: -1 };
+                if (diff <= 80) return { char: "毛", pinyin: "mao", cmp: -1 };
+                
+                const chars = ["啊(a)", "波(b)", "吃(c)", "得(d)", "佛(f)", "哥(g)", "哈(h)", "机(j)", "科(k)", "拉(l)"];
+                let idx = Math.max(0, Math.min(chars.length - 1, Math.floor((p / (DICT_TARGET_PAGE - 120)) * chars.length)));
+                return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: -1 };
+            } else {
+                const diff = p - DICT_TARGET_PAGE;
+                if (diff === 1) return { char: "乜", pinyin: "miē", cmp: 1 };
+                if (diff === 2) return { char: "灭", pinyin: "miè", cmp: 1 };
+                if (diff <= 5) return { char: "民", pinyin: "min", cmp: 1 };
+                if (diff <= 15) return { char: "明", pinyin: "ming", cmp: 1 };
+                if (diff <= 30) return { char: "摸", pinyin: "mo", cmp: 1 };
+                if (diff <= 80) return { char: "木", pinyin: "mu", cmp: 1 };
+                
+                const chars = ["那(n)", "欧(o)", "坡(p)", "七(q)", "日(r)", "思(s)", "特(t)", "乌(w)", "西(x)", "呀(y)", "字(z)"];
+                let idx = Math.max(0, Math.min(chars.length - 1, Math.floor(((p - (DICT_TARGET_PAGE + 80)) / (1000 - (DICT_TARGET_PAGE + 80))) * chars.length)));
+                return { char: chars[idx].split('(')[0], pinyin: chars[idx].split('(')[1].replace(')',''), cmp: 1 };
+            }
+        }
+        
+        function calculateDictMid() {
+            if (dictState === 'WON') return;
+            dictSteps++;
+            const stepValEl = document.getElementById('dict-step-val');
+            if (stepValEl) {
+                stepValEl.innerText = dictSteps;
+                stepValEl.parentElement.classList.add('scale-110', 'bg-rose-100', 'border-rose-300');
+                setTimeout(() => stepValEl.parentElement.classList.remove('scale-110', 'bg-rose-100', 'border-rose-300'), 300);
+            }
+            const book = document.getElementById('dict-book-container');
+            book.classList.add('scale-95', 'opacity-80', 'rotate-1');
+            
             setTimeout(() => {
-                const hint = document.getElementById('slide9-next-hint');
-                if (hint) {
-                    hint.classList.remove('hidden');
-                    void hint.offsetWidth; 
-                    hint.classList.remove('opacity-0');
+                book.classList.remove('scale-95', 'opacity-80', 'rotate-1');
+                dictMid = Math.floor((dictL + dictR) / 2); 
+                currentDictInfo = getDictPageData(dictMid);
+                document.getElementById('ui-page-left').innerText = dictMid; 
+                document.getElementById('ui-page-right').innerText = dictMid + 1;
+                
+                const showOnRight = currentDictInfo.cmp === 1;
+
+                if (showOnRight) {
+                    document.getElementById('ui-char-right').innerText = currentDictInfo.char; 
+                    document.getElementById('ui-pinyin-right').innerText = currentDictInfo.pinyin;
+                    
+                    document.getElementById('dict-content-right').classList.remove('scale-0', 'opacity-0'); 
+                    document.getElementById('dict-content-right').classList.add('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-right').classList.add('scale-0', 'opacity-0');
+                    
+                    document.getElementById('dict-content-left').classList.add('scale-0', 'opacity-0');
+                    document.getElementById('dict-content-left').classList.remove('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-left').classList.remove('scale-0', 'opacity-0');
+                } else {
+                    document.getElementById('ui-char-left').innerText = currentDictInfo.char; 
+                    document.getElementById('ui-pinyin-left').innerText = currentDictInfo.pinyin;
+                    
+                    document.getElementById('dict-content-left').classList.remove('scale-0', 'opacity-0'); 
+                    document.getElementById('dict-content-left').classList.add('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-left').classList.add('scale-0', 'opacity-0');
+                    
+                    document.getElementById('dict-content-right').classList.add('scale-0', 'opacity-0');
+                    document.getElementById('dict-content-right').classList.remove('scale-100', 'opacity-100');
+                    document.getElementById('dict-placeholder-right').classList.remove('scale-0', 'opacity-0');
                 }
-            }, 2000);
 
-        } else {
-            dictState = 'CHOOSE_HALF'; 
-            document.getElementById('dict-step-1').classList.add('hidden');
-            document.getElementById('dict-step-2').classList.remove('hidden'); 
-            document.getElementById('dict-step-2').classList.add('flex');
+                document.getElementById('ui-cmp-current').parentNode.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4 text-rose-500 shrink-0"></i> 当前查到 <span id="ui-cmp-current" class="text-rose-600 font-black text-base lg:text-lg underline decoration-rose-300">${currentDictInfo.char}(${currentDictInfo.pinyin})</span>，目标是 <span class="text-blue-600 font-black text-base lg:text-lg underline decoration-blue-300">淼(miǎo)</span>。接下来撕哪半本？`;
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+
+                if (currentDictInfo.cmp === 0) {
+                    dictState = 'WON'; 
+                    document.getElementById('dict-step-1').classList.add('hidden');
+                    const success = document.getElementById('dict-success-msg'); 
+                    success.classList.remove('hidden'); 
+                    success.classList.add('animate-bounce');
+                    success.innerHTML = `<i data-lucide="party-popper" class="w-5 h-5 inline mr-1 -mt-1 text-emerald-500"></i> 太棒了！用二分法，面对 1000 页字典，你仅需 <b>${dictSteps}</b> 次就成功锁定了目标！`;
+                    
+                    const targetPage = showOnRight ? 'right' : 'left';
+                    document.getElementById(`dict-page-${targetPage}`).classList.add('bg-emerald-50'); 
+                    document.getElementById(`ui-char-${targetPage}`).classList.add('text-emerald-600');
+                    document.getElementById(`ui-pinyin-${targetPage}`).className = "text-xl font-black text-white bg-emerald-500 px-4 py-1 rounded-lg shadow-md";
+
+                    setTimeout(() => {
+                        const hint = document.getElementById('slide9-next-hint');
+                        if (hint) {
+                            hint.classList.remove('hidden');
+                            void hint.offsetWidth; 
+                            hint.classList.remove('opacity-0');
+                        }
+                    }, 2000);
+
+                } else {
+                    dictState = 'CHOOSE_HALF'; 
+                    document.getElementById('dict-step-1').classList.add('hidden');
+                    document.getElementById('dict-step-2').classList.remove('hidden'); 
+                    document.getElementById('dict-step-2').classList.add('flex');
+                }
+            }, 300);
         }
-    }, 300);
-}
 
-function chooseDictHalf(half) {
-    const step2 = document.getElementById('dict-step-2');
-    
-    // ======================= 纠错判断逻辑 =======================
-    // cmp === -1: 当前页偏小，目标字在【右半边】，所以正确选择是保留右半本 (RIGHT)
-    // cmp === 1 : 当前页偏大，目标字在【左半边】，所以正确选择是保留左半本 (LEFT)
-    if ((currentDictInfo.cmp === -1 && half !== 'RIGHT') || (currentDictInfo.cmp === 1 && half !== 'LEFT')) {
-        // 如果选错了，容器左右抖动，拒绝进入下一步
-        step2.classList.remove('shake-error'); 
-        void step2.offsetWidth; 
-        step2.classList.add('shake-error'); 
-        return; 
-    }
+        function chooseDictHalf(half) {
+            const step2 = document.getElementById('dict-step-2');
 
-    // 更新搜索范围边界
-    if (half === 'LEFT') {
-        dictR = dictMid - 1; 
-    } else {
-        dictL = dictMid + 1;
-    }
+            if ((currentDictInfo.cmp === -1 && half !== 'RIGHT') || (currentDictInfo.cmp === 1 && half !== 'LEFT')) {
+                step2.classList.remove('shake-error'); 
+                void step2.offsetWidth; 
+                step2.classList.add('shake-error'); 
+                return; 
+            }
 
-    document.getElementById('dict-l-val').innerText = dictL;
-    document.getElementById('dict-r-val').innerText = dictR;
+            if (half === 'LEFT') {
+                dictR = dictMid - 1; 
+            } else {
+                dictL = dictMid + 1;
+            }
 
-    // 添加范围高亮闪烁效果
-    const rangeWrapper = document.getElementById('dict-l-val').parentElement.parentElement;
-    rangeWrapper.classList.add('scale-105', 'bg-amber-100', 'border-amber-300');
-    setTimeout(() => {
-        rangeWrapper.classList.remove('scale-105', 'bg-amber-100', 'border-amber-300');
-    }, 300);
+            document.getElementById('dict-l-val').innerText = dictL;
+            document.getElementById('dict-r-val').innerText = dictR;
 
-    // 重置状态与 UI
-    dictState = 'FIND_MID';
-    step2.classList.add('hidden');
-    step2.classList.remove('flex');
-    document.getElementById('dict-step-1').classList.remove('hidden');
+            const rangeWrapper = document.getElementById('dict-l-val').parentElement.parentElement;
+            rangeWrapper.classList.add('scale-105', 'bg-amber-100', 'border-amber-300');
+            setTimeout(() => {
+                rangeWrapper.classList.remove('scale-105', 'bg-amber-100', 'border-amber-300');
+            }, 300);
 
-    // 书页闭合动画
-    const book = document.getElementById('dict-book-container');
-    book.classList.add('scale-95', 'opacity-80');
-    setTimeout(() => {
-        book.classList.remove('scale-95', 'opacity-80');
-        
-        ['left', 'right'].forEach(side => {
-            document.getElementById(`dict-content-${side}`).classList.remove('scale-100', 'opacity-100');
-            document.getElementById(`dict-content-${side}`).classList.add('scale-0', 'opacity-0');
-            document.getElementById(`dict-placeholder-${side}`).classList.remove('scale-0', 'opacity-0');
-            document.getElementById(`ui-page-${side}`).innerText = '--';
-        });
-    }, 300);
-}
+            dictState = 'FIND_MID';
+            step2.classList.add('hidden');
+            step2.classList.remove('flex');
+            document.getElementById('dict-step-1').classList.remove('hidden');
+
+            const book = document.getElementById('dict-book-container');
+            book.classList.add('scale-95', 'opacity-80');
+            setTimeout(() => {
+                book.classList.remove('scale-95', 'opacity-80');
+                
+                ['left', 'right'].forEach(side => {
+                    document.getElementById(`dict-content-${side}`).classList.remove('scale-100', 'opacity-100');
+                    document.getElementById(`dict-content-${side}`).classList.add('scale-0', 'opacity-0');
+                    document.getElementById(`dict-placeholder-${side}`).classList.remove('scale-0', 'opacity-0');
+                    document.getElementById(`ui-page-${side}`).innerText = '--';
+                });
+            }, 300);
+        }
 
 // ================= [7. 拓展：模拟 AI 豆包交互分析] =================
         let aiChatStep = 1; 
@@ -3700,8 +3654,7 @@ function chooseDictHalf(half) {
             }
         }
 
-        // 关闭拓展总结气泡的函数
-function closeAiChatOutro(stay = false) {
+        function closeAiChatOutro(stay = false) {
     const bubble = document.getElementById('ai-chat-outro-bubble');
     if (bubble) {
         bubble.classList.add('opacity-0', 'pointer-events-none');
@@ -3712,25 +3665,24 @@ function closeAiChatOutro(stay = false) {
         }
         setTimeout(() => bubble.classList.add('hidden'), 500);
 
-        // 如果用户选择了“再看看”，则展示右侧下一页箭头
         if (stay) {
             const hint = document.getElementById('slide10-next-hint');
             if(hint) {
                 hint.classList.remove('hidden');
-                void hint.offsetWidth; // 触发重绘
+                void hint.offsetWidth;
                 hint.classList.remove('opacity-0');
             }
         }
     }
 }
 
-function startAIAnalysis(event) {
+        function startAIAnalysis(event) {
             if (event) event.stopPropagation();
 
             const btn = document.getElementById('btn-ask-ai');
             const fakeInput = document.getElementById('ai-fake-input');
             const chatHistory = document.getElementById('ai-chat-history');
-            const hintArrow = document.getElementById('ai-chat-hint-arrow'); // 获取提示箭头
+            const hintArrow = document.getElementById('ai-chat-hint-arrow');
             
             const userPromptText = fakeInput.innerText;
 
@@ -3740,7 +3692,6 @@ function startAIAnalysis(event) {
             btn.classList.add('opacity-50', 'cursor-not-allowed');
             btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i>`;
             
-            // 发送消息时，暂时隐藏箭头
             if (hintArrow) hintArrow.classList.add('opacity-0');
 
             fakeInput.innerText = "发消息给 豆包...";
@@ -3825,7 +3776,6 @@ function startAIAnalysis(event) {
                         btn.classList.remove('opacity-50', 'cursor-not-allowed');
                         btn.innerHTML = `<i data-lucide="arrow-up" class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform"></i>`;
                         
-                        // AI回复完后，恢复箭头提示用户下一步
                         if (hintArrow) hintArrow.classList.remove('opacity-0');
                         if(typeof lucide !== 'undefined') lucide.createIcons();
 
@@ -3871,7 +3821,6 @@ function startAIAnalysis(event) {
                         fakeInput.classList.remove('text-slate-400');
                         fakeInput.classList.add('text-slate-700');
                         
-                        // 恢复箭头提示
                         if (hintArrow) hintArrow.classList.remove('opacity-0');
                         if(typeof lucide !== 'undefined') lucide.createIcons();
                     }, 1500);
@@ -3943,13 +3892,11 @@ function startAIAnalysis(event) {
                         fakeInput.classList.remove('text-slate-700');
                         fakeInput.classList.add('text-slate-400');
                         
-                        // 最后彻底干掉箭头
                         if (hintArrow) {
                             hintArrow.classList.add('opacity-0');
                             setTimeout(() => hintArrow.classList.add('hidden'), 300);
                         }
 
-                        // 对话完成后延迟弹出总结气泡
                         setTimeout(() => {
                             const outro = document.getElementById('ai-chat-outro-bubble');
                             if (outro) {
@@ -4090,8 +4037,7 @@ function startAIAnalysis(event) {
         }
 
         // ================= [8. 总结与考核模块] =================
-        // 1. 关闭课程尾声气泡的函数
-function closeSummaryIntro() {
+        function closeSummaryIntro() {
     const bubble = document.getElementById('summary-intro-bubble');
     if (bubble) {
         bubble.classList.add('opacity-0', 'pointer-events-none');
@@ -4101,8 +4047,7 @@ function closeSummaryIntro() {
     }
 }
 
-// 2. 完整的提交总结与触发箭头的验证函数
-function verifySummary() {
+        function verifySummary() {
     const answers = { 'sum-q1': 'sorted', 'sum-q2': 'half', 'sum-q4': 'on', 'sum-q5': 'ologn' };
     let allCorrect = true; let errorCount = 0;
 
@@ -4138,7 +4083,6 @@ function verifySummary() {
         btn.className = "px-10 py-4 bg-emerald-500 text-white rounded-2xl shadow-[0_0_30px_rgba(16,185,129,0.5)] transition-all font-black text-xl flex items-center gap-3 scale-105 cursor-default mt-4";
         btn.innerHTML = `<i data-lucide="check-circle" class="w-6 h-6"></i> 知识图谱已点亮`;
         
-        // 弹出思维跃迁面板
         const elevationPanel = document.getElementById('elevation-panel');
         elevationPanel.classList.remove('max-h-0', 'opacity-0'); 
         elevationPanel.classList.add('max-h-[500px]', 'opacity-100');
@@ -4148,7 +4092,7 @@ function verifySummary() {
             const nextHint = document.getElementById('slide11-next-hint');
             if (nextHint) {
                 nextHint.classList.remove('hidden');
-                void nextHint.offsetWidth; // 触发浏览器重绘，确保过渡动画生效
+                void nextHint.offsetWidth;
                 nextHint.classList.remove('opacity-0');
             }
         }, 1500);
@@ -4157,142 +4101,128 @@ function verifySummary() {
     if(typeof lucide !== 'undefined') lucide.createIcons();
 }
 
-let quizCompleted = false;
+        let quizCompleted = false;
 
-function checkFinalQuiz(answer, btnElement) {
-    if (quizCompleted) return;
-    
-    // 重置所有按钮样式
-    document.querySelectorAll('.quiz-btn').forEach(btn => {
-        btn.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light";
-        btn.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0";
-    });
-
-    const feedback = document.getElementById('quiz-feedback');
-    feedback.classList.remove('opacity-0');
-
-    if (answer === 'B') {
-        quizCompleted = true;
-        
-        // 选中正确的按钮样式变绿
-        btnElement.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-emerald-50 border-2 border-emerald-400 text-emerald-700 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-3 overflow-hidden cursor-default";
-        btnElement.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center border border-emerald-600 shadow-inner shrink-0";
-        btnElement.querySelector('span').innerHTML = `<i data-lucide="check" class="w-5 h-5 lg:w-6 lg:h-6"></i>`;
-        
-        feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base flex flex-col items-center justify-center transition-all bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm opacity-100";
-        feedback.innerHTML = `<div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 lg:w-6 lg:h-6"></i> 破译成功！</div><div class="text-xs lg:text-sm font-medium mt-1">推演：15 → 7 → 3 → 1，最多 4 次即可锁定或排除。</div>`;
-
-        // 金库解锁动画
-        const vaultContainer = document.getElementById('vault-lock-container');
-        vaultContainer.classList.remove('border-slate-600'); 
-        vaultContainer.classList.add('border-emerald-500', 'shadow-[inset_0_0_50px_rgba(16,185,129,0.8)]');
-        document.getElementById('vault-glow').className = "absolute inset-0 rounded-full bg-emerald-500/40 blur-2xl transition-all duration-500 animate-pulse";
-        
-        const vaultIcon = document.getElementById('vault-icon');
-        vaultIcon.setAttribute('data-lucide', 'lock-open'); 
-        vaultIcon.classList.remove('text-slate-500'); 
-        vaultIcon.classList.add('text-emerald-400', 'scale-125');
-        
-        const vaultStatus = document.getElementById('vault-status-text');
-        vaultStatus.className = "mt-6 lg:mt-8 text-emerald-400 font-black text-xl lg:text-2xl tracking-widest uppercase transition-all duration-300 drop-shadow-[0_0_10px_#34d399] text-center";
-        vaultStatus.innerText = "[ 验证通过 ACCESS GRANTED ]";
-
-        // 延迟弹出金牌徽章
-        setTimeout(() => {
-            const badge = document.getElementById('vault-badge');
-            badge.classList.remove('opacity-0', 'scale-110', 'pointer-events-none'); 
-            badge.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+        function checkFinalQuiz(answer, btnElement) {
+            if (quizCompleted) return;
             
-            // ====== 新增：徽章出现后 1 秒，飞出下一页箭头提示 ======
-            setTimeout(() => {
-                const nextHint = document.getElementById('slide12-next-hint');
-                if (nextHint) {
-                    nextHint.classList.remove('hidden');
-                    void nextHint.offsetWidth; // 触发浏览器重绘以保证过渡动画执行
-                    nextHint.classList.remove('opacity-0');
-                }
-            }, 1000);
+            document.querySelectorAll('.quiz-btn').forEach(btn => {
+                btn.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-white border-2 border-stone-200 hover:border-blue-400 hover:bg-blue-50 text-stone-600 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-sm flex items-center gap-3 overflow-hidden breathing-light";
+                btn.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-stone-100 group-hover:bg-blue-200 group-hover:text-blue-700 rounded-xl flex items-center justify-center transition-colors border border-stone-200 shrink-0";
+            });
 
-        }, 1000);
-        
-    } else {
-        // 回答错误处理逻辑
-        btnElement.classList.remove('border-stone-200', 'hover:border-blue-400', 'bg-white');
-        btnElement.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-600');
-        btnElement.querySelector('span').classList.add('bg-rose-500', 'text-white', 'border-rose-600');
-        btnElement.classList.remove('shake-error'); 
-        void btnElement.offsetWidth; 
-        btnElement.classList.add('shake-error');
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('opacity-0');
 
-        const vaultContainer = document.getElementById('vault-lock-container');
-        vaultContainer.classList.add('border-rose-500'); 
-        setTimeout(() => vaultContainer.classList.remove('border-rose-500'), 300);
+            if (answer === 'B') {
+                quizCompleted = true;
+                
+                btnElement.className = "quiz-btn group relative px-4 py-3 lg:px-5 lg:py-3.5 bg-emerald-50 border-2 border-emerald-400 text-emerald-700 rounded-2xl font-black text-lg lg:text-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-3 overflow-hidden cursor-default";
+                btnElement.querySelector('span').className = "w-8 h-8 lg:w-10 lg:h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center border border-emerald-600 shadow-inner shrink-0";
+                btnElement.querySelector('span').innerHTML = `<i data-lucide="check" class="w-5 h-5 lg:w-6 lg:h-6"></i>`;
+                
+                feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base flex flex-col items-center justify-center transition-all bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm opacity-100";
+                feedback.innerHTML = `<div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-5 h-5 lg:w-6 lg:h-6"></i> 破译成功！</div><div class="text-xs lg:text-sm font-medium mt-1">推演：15 → 7 → 3 → 1，最多 4 次即可锁定或排除。</div>`;
 
-        let hintStr = answer === 'A' ? "3 次太少了。虽然 15/2 连续除两次很小，但最坏情况下要查到区间只剩 1 个元素。" : (answer === 'C' ? "7 次是 15 折半一次的结果，但二分查找是不断折半的。" : "15 次是顺序查找的最坏情况！二分查找是“降维打击”。");
-        feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base transition-all bg-rose-50 text-rose-600 border border-rose-200 shadow-sm opacity-100 flex items-start gap-3";
-        feedback.innerHTML = `<i data-lucide="x-octagon" class="w-5 h-5 lg:w-6 lg:h-6 shrink-0 mt-0.5"></i> <div><b>指令错误：</b>${hintStr} <br><span class="text-rose-400 text-xs lg:text-sm mt-1 inline-block">提示：尝试在草稿纸上画一下每次折半后剩余的元素个数。</span></div>`;
-    }
-    
-    // 重新渲染图标
-    if(typeof lucide !== 'undefined') lucide.createIcons();
-}
+                const vaultContainer = document.getElementById('vault-lock-container');
+                vaultContainer.classList.remove('border-slate-600'); 
+                vaultContainer.classList.add('border-emerald-500', 'shadow-[inset_0_0_50px_rgba(16,185,129,0.8)]');
+                document.getElementById('vault-glow').className = "absolute inset-0 rounded-full bg-emerald-500/40 blur-2xl transition-all duration-500 animate-pulse";
+                
+                const vaultIcon = document.getElementById('vault-icon');
+                vaultIcon.setAttribute('data-lucide', 'lock-open'); 
+                vaultIcon.classList.remove('text-slate-500'); 
+                vaultIcon.classList.add('text-emerald-400', 'scale-125');
+                
+                const vaultStatus = document.getElementById('vault-status-text');
+                vaultStatus.className = "mt-6 lg:mt-8 text-emerald-400 font-black text-xl lg:text-2xl tracking-widest uppercase transition-all duration-300 drop-shadow-[0_0_10px_#34d399] text-center";
+                vaultStatus.innerText = "[ 验证通过 ACCESS GRANTED ]";
 
-function closeQuizIntro() {
-    const bubble = document.getElementById('quiz-intro-bubble');
-    if (bubble) {
-        bubble.classList.add('opacity-0', 'pointer-events-none');
-        if(typeof lucide !== 'undefined') lucide.createIcons();
-    }
-}
+                setTimeout(() => {
+                    const badge = document.getElementById('vault-badge');
+                    badge.classList.remove('opacity-0', 'scale-110', 'pointer-events-none'); 
+                    badge.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                    
+                    setTimeout(() => {
+                        const nextHint = document.getElementById('slide12-next-hint');
+                        if (nextHint) {
+                            nextHint.classList.remove('hidden');
+                            void nextHint.offsetWidth;
+                            nextHint.classList.remove('opacity-0');
+                        }
+                    }, 1000);
 
-// 关闭入场气泡
-function closeEvalIntro() {
-    const bubble = document.getElementById('eval-intro-bubble');
-    if (bubble) {
-        bubble.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => {
-            bubble.classList.add('hidden');
-        }, 500); 
-    }
-}
+                }, 1000);
+                
+            } else {
+                btnElement.classList.remove('border-stone-200', 'hover:border-blue-400', 'bg-white');
+                btnElement.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-600');
+                btnElement.querySelector('span').classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+                btnElement.classList.remove('shake-error'); 
+                void btnElement.offsetWidth; 
+                btnElement.classList.add('shake-error');
 
-// 量表单选逻辑与下一页检测
-function selectEval(btn) {
-    const group = btn.closest('.eval-group');
-    // 清除当前题目下所有按钮的选中状态
-    group.querySelectorAll('button').forEach(b => {
-        b.className = "px-1.5 md:px-2 py-1.5 rounded-xl text-[10px] md:text-xs font-bold bg-white border border-stone-200 text-stone-400 hover:bg-cyan-50 hover:text-cyan-700 transition-all active:scale-95 whitespace-nowrap";
-    });
-    // 为当前点击的按钮添加选中高亮状态
-    btn.className = "px-1.5 md:px-2 py-1.5 rounded-xl text-[10px] md:text-xs font-bold bg-cyan-500 border border-cyan-500 text-white shadow-md transition-all scale-105 z-10 whitespace-nowrap";
+                const vaultContainer = document.getElementById('vault-lock-container');
+                vaultContainer.classList.add('border-rose-500'); 
+                setTimeout(() => vaultContainer.classList.remove('border-rose-500'), 300);
 
-    // 检测是否 7 题全部填写完成
-    const allGroups = document.querySelectorAll('#slide-13 .eval-group');
-    let completedCount = 0;
-    
-    allGroups.forEach(g => {
-        if (g.querySelector('button.bg-cyan-500')) {
-            completedCount++;
-        }
-    });
-
-    // 如果 7 题全都选了
-    if (completedCount === allGroups.length) {
-        if (!window.evalCompletedHintTriggered) {
-            window.evalCompletedHintTriggered = true; // 加个锁，防止反复触发
+                let hintStr = answer === 'A' ? "3 次太少了。虽然 15/2 连续除两次很小，但最坏情况下要查到区间只剩 1 个元素。" : (answer === 'C' ? "7 次是 15 折半一次的结果，但二分查找是不断折半的。" : "15 次是顺序查找的最坏情况！二分查找是“降维打击”。");
+                feedback.className = "mt-4 lg:mt-5 p-3 lg:p-4 rounded-xl font-bold text-sm lg:text-base transition-all bg-rose-50 text-rose-600 border border-rose-200 shadow-sm opacity-100 flex items-start gap-3";
+                feedback.innerHTML = `<i data-lucide="x-octagon" class="w-5 h-5 lg:w-6 lg:h-6 shrink-0 mt-0.5"></i> <div><b>指令错误：</b>${hintStr} <br><span class="text-rose-400 text-xs lg:text-sm mt-1 inline-block">提示：尝试在草稿纸上画一下每次折半后剩余的元素个数。</span></div>`;
+            }
             
-            // 延迟 2 秒飞出箭头
-            setTimeout(() => {
-                const hint = document.getElementById('slide13-next-hint');
-                if (hint) {
-                    hint.classList.remove('hidden');
-                    void hint.offsetWidth; // 触发重绘
-                    hint.classList.remove('opacity-0');
-                }
-            }, 2000);
+            if(typeof lucide !== 'undefined') lucide.createIcons();
         }
-    }
-}
+
+        function closeQuizIntro() {
+            const bubble = document.getElementById('quiz-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        }
+
+        function closeEvalIntro() {
+            const bubble = document.getElementById('eval-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    bubble.classList.add('hidden');
+                }, 500); 
+            }
+        }
+
+        function selectEval(btn) {
+            const group = btn.closest('.eval-group');
+            group.querySelectorAll('button').forEach(b => {
+                b.className = "px-1.5 md:px-2 py-1.5 rounded-xl text-[10px] md:text-xs font-bold bg-white border border-stone-200 text-stone-400 hover:bg-cyan-50 hover:text-cyan-700 transition-all active:scale-95 whitespace-nowrap";
+            });
+            btn.className = "px-1.5 md:px-2 py-1.5 rounded-xl text-[10px] md:text-xs font-bold bg-cyan-500 border border-cyan-500 text-white shadow-md transition-all scale-105 z-10 whitespace-nowrap";
+
+            const allGroups = document.querySelectorAll('#slide-13 .eval-group');
+            let completedCount = 0;
+            
+            allGroups.forEach(g => {
+                if (g.querySelector('button.bg-cyan-500')) {
+                    completedCount++;
+                }
+            });
+
+            if (completedCount === allGroups.length) {
+                if (!window.evalCompletedHintTriggered) {
+                    window.evalCompletedHintTriggered = true;
+                    
+                    setTimeout(() => {
+                        const hint = document.getElementById('slide13-next-hint');
+                        if (hint) {
+                            hint.classList.remove('hidden');
+                            void hint.offsetWidth;
+                            hint.classList.remove('opacity-0');
+                        }
+                    }, 2000);
+                }
+            }
+        }
         
 // ================= [9. 全局初始化 (Bootloader)] =================
         document.addEventListener("DOMContentLoaded", function() {
