@@ -486,7 +486,7 @@
                 <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 tracking-wide text-center relative z-10">工程师请就位！</h3>
                 
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/60 p-5 rounded-3xl border border-orange-100 shadow-sm backdrop-blur-sm">
-                    我们先不直接学理论。<br>
+                    但我们先不直接学理论。<br>
                     现在请大家化身<span class="text-orange-600 font-black">“光缆维修工程师”</span>，利用直觉，去解决一个棘手的断连难题！
                 </p>
                 
@@ -580,7 +580,7 @@
                 <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-indigo-100 shadow-sm backdrop-blur-sm">
                     我们在光缆排查中体会到了折半的高效。<br>
                     二分查找为什么比顺序查找快呢？有没有方法可以证明？<br>
-                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">让我们见识一下 log₂n 的魅力！</span>
+                    <span class="text-indigo-600 font-black mt-2 block text-base lg:text-lg">让我们见识一下二分查找的魅力！</span>
                 </p>
                 
                 <button onclick="closeMathIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-full font-black shadow-[0_8px_20px_rgba(99,102,241,0.4)] transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-indigo-300/50">
@@ -1908,11 +1908,11 @@
                     </div>
                 </div>
             </div>
-        <button id="btn-global-prev" onclick="goToSlide(Math.max(0, currentSlide - 1))" class="fixed left-2 lg:left-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 opacity-0 pointer-events-none">
-    <i data-lucide="chevron-left" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:-translate-x-1 transition-transform"></i>
+        <button id="btn-global-prev" onclick="event.stopPropagation(); prevSlide();" class="fixed left-2 lg:left-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 opacity-0 pointer-events-none">
+            <i data-lucide="chevron-left" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:-translate-x-1 transition-transform"></i>
         </button>
 
-        <button id="btn-global-next" onclick="goToSlide(Math.min(totalSlides - 1, currentSlide + 1))" class="fixed right-2 lg:right-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 pointer-events-auto">
+        <button id="btn-global-next" onclick="event.stopPropagation(); nextSlide();" class="fixed right-2 lg:right-6 top-1/2 -translate-y-1/2 w-12 h-12 lg:w-16 lg:h-16 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-[0_8px_25px_rgba(79,70,229,0.5)] border-2 border-indigo-400/50 flex items-center justify-center transition-all duration-300 z-50 group hover:scale-110 active:scale-95 pointer-events-auto">
             <i data-lucide="chevron-right" class="w-8 h-8 lg:w-10 lg:h-10 group-hover:translate-x-1 transition-transform"></i>
         </button>
 
@@ -2547,7 +2547,7 @@ function showSlide2OutroBubble() {
                 </div>
                 <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 text-center relative z-10">思考...</h3>
                 <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-rose-100 shadow-sm">
-                    刚才你尝试“猜中间”来排除一半范围的方法，正是我们要学习的主角——<b class="text-rose-500 font-black">二分查找</b>。<br>
+                    有同学尝试“猜中间”来排除一半范围的方法，正是我们要学习的主角——<b class="text-rose-500 font-black">二分查找</b>。<br>
                     <span class="text-rose-600 mt-2 block font-black text-base lg:text-lg">核心特点：数组有序，折半查找。</span>
                 </p>
                 <div class="flex flex-col gap-3 relative z-10">
