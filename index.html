@@ -6,10 +6,7 @@
     <title>5.2.2 二分查找 教学课件</title>
     
     <script src="./tailwindcss.js"></script>
-    <script>window.tailwind || document.write('<script src="./tailwindcss.js"><\\/script>')</script>
-
     <script src="./lucide.js"></script>
-    <script>window.lucide || document.write('<script src="./lucide.js"><\\/script>')</script>
     
     <style>
         body { 
@@ -199,6 +196,14 @@
         .anim-seq { animation: seqSearch 10s infinite linear; }
         .anim-bin { animation: binSearch 10s infinite linear; }
         .anim-success-ping { animation: ripple 1.5s infinite ease-out; }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 
@@ -848,31 +853,31 @@
                 <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./5outro.jpg'); border-radius: inherit; z-index: -2;"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-emerald-50/75 to-teal-100/70" style="border-radius: inherit; z-index: -1;"></div>
 
-                <div class="w-14 h-14 bg-white text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md border border-emerald-100 relative z-10">
-                    <i data-lucide="lightbulb" class="w-7 h-7 animate-[pulse_1.5s_ease-in-out_infinite]"></i>
-                </div>
-                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-2 text-center relative z-10">引发思考...</h3>
+                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-2 text-center relative z-10 pt-2">初步推演完毕</h3>
                 <p class="text-slate-600 font-bold text-sm lg:text-base mb-4 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-emerald-100 shadow-sm backdrop-blur-sm">
-                    同学们有没有发现计算机的底层移动指针是有规律的？<br>
-                    <span class="text-emerald-600 font-black">让我们一起来总结这段“核心口诀”：</span>
+                    通过刚才的上帝视角，我们发现了计算机移动指针的<span class="text-emerald-600 font-black">“核心口诀”</span>：
                 </p>
                 
-                <div class="bg-slate-800/95 border border-emerald-500/40 p-4 rounded-2xl shadow-inner mb-6 relative z-10 w-full">
+                <div class="bg-slate-800/95 border border-emerald-500/40 p-4 rounded-2xl shadow-inner mb-4 relative z-10 w-full">
                     <div class="text-emerald-50 font-medium text-xs lg:text-sm leading-relaxed space-y-3">
                         <div class="flex items-start gap-2">
                             <div class="p-1 bg-slate-700/80 rounded mt-0.5 shrink-0"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div>
-                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">小</span>，目标在 <span class="text-amber-300 font-bold">右</span> 👉 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">左界右移</span></p>
+                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">小</span>，说明目标在 <span class="text-amber-300 font-bold">右</span> 👉 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">左界 L = Mid + 1 (舍弃左半本)</span></p>
                         </div>
                         <div class="flex items-start gap-2">
                             <div class="p-1 bg-slate-700/80 rounded mt-0.5 shrink-0"><i data-lucide="chevron-right" class="w-3 h-3 text-emerald-400"></i></div>
-                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">大</span>，目标在 <span class="text-amber-300 font-bold">左</span> 👈 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">右界左移</span></p>
+                            <p class="m-0">中值比目标 <span class="text-rose-400 font-black">大</span>，说明目标在 <span class="text-amber-300 font-bold">左</span> 👈 <br><span class="text-emerald-300 font-black bg-slate-900/80 px-2 py-1 rounded border border-slate-600 inline-block mt-1.5 shadow-sm tracking-wide">右界 R = Mid - 1 (舍弃右半本)</span></p>
                         </div>
                     </div>
                 </div>
 
+                <p class="text-emerald-700 font-black text-sm lg:text-base mb-5 leading-relaxed text-center relative z-10">
+                    纸上得来终觉浅，这套口诀在任何数据下都通用吗？<br>下一页，请你亲自设计数据来试试看！
+                </p>
+
                 <div class="flex flex-col gap-3 relative z-10">
-                    <button onclick="handleSimOutro('task')" class="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
-                        我已明白，我去填写任务单 <i data-lucide="clipboard-edit" class="w-5 h-5 inline"></i>
+                    <button onclick="handleSimOutro('next'); nextSlide();" class="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                        接受挑战，自己设计数据 <i data-lucide="arrow-right-circle" class="w-5 h-5 inline"></i>
                     </button>
                     <button onclick="handleSimOutro('look')" class="px-6 py-3 bg-white hover:bg-stone-50 text-stone-600 rounded-full font-bold border border-stone-200 shadow-sm transition-all active:scale-95 w-full flex items-center justify-center gap-2">
                         我再看看操作记录
@@ -951,6 +956,131 @@
             </div>
 
             <div id="slide-6" class="slide inactive-right absolute inset-0">
+                <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-sim.jpg');"></div>
+                
+                <div id="custom-sim-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
+                    <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
+                        <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(16,185,129,0.15),0_20px_50px_rgba(16,185,129,0.25)] z-10">
+                            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./5Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-emerald-50/75 to-teal-100/70" style="border-radius: inherit; z-index: -1;"></div>
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
+                            <div class="w-14 h-14 bg-white text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm border border-emerald-100 relative z-10">
+                                <i data-lucide="mouse-pointer-click" class="w-7 h-7"></i>
+                            </div>
+                            
+                            <h3 class="text-xl lg:text-2xl font-black text-stone-800 mb-3 text-center relative z-10">动动手：复现底层逻辑</h3>
+                            
+                            <p class="text-stone-600 text-sm lg:text-base font-bold mb-6 leading-relaxed text-center relative z-10 bg-white/50 p-5 rounded-3xl border border-emerald-100 shadow-sm backdrop-blur-sm">
+                                我们刚刚见识了计算机底层运行二分查找的逻辑。<br>
+                                <span class="text-emerald-600 font-black mt-2 block text-base lg:text-lg">现在，也让我们自己来推一遍吧！<br>请你亲自设计数据，并指挥“指针特工”执行任务。</span>
+                            </p>
+                            
+                            <button onclick="closeCustomSimIntro()" class="relative z-10 px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2 text-base breathing-light border border-emerald-300/50">
+                                开始自主推演 <i data-lucide="play-circle" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="custom-sim-outro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none hidden">
+    <div id="custom-sim-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+        <div class="relative backdrop-blur-md p-6 lg:p-8 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(16,185,129,0.25)] z-10">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./5outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-emerald-50/75 to-teal-100/70" style="border-radius: inherit; z-index: -1;"></div>
+
+            <div class="w-14 h-14 bg-white text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-md border border-emerald-100 relative z-10">
+                <i data-lucide="award" class="w-7 h-7 animate-[pulse_1.5s_ease-in-out_infinite]"></i>
+            </div>
+            <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-2 text-center relative z-10">推演通关！</h3>
+            
+            <p class="text-slate-600 font-bold text-sm lg:text-base mb-4 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-emerald-100 shadow-sm backdrop-blur-sm">
+                太棒了！通过自主推演，你不仅验证了查找过程，还完美总结出了计算机底层的<b class="text-emerald-600 font-black">核心运转规律</b>：
+            </p>
+            
+            <div class="flex flex-col gap-3 mb-6 relative z-10 w-full">
+                <div class="bg-emerald-50/90 border border-emerald-200 p-3 lg:p-4 rounded-2xl shadow-sm w-full flex items-start gap-3">
+                    <div class="bg-white p-1.5 rounded-lg shadow-sm shrink-0 border border-emerald-100 mt-0.5">
+                        <i data-lucide="git-merge" class="w-5 h-5 text-emerald-500"></i>
+                    </div>
+                    <div class="text-slate-700 text-sm leading-relaxed">
+                        <span class="font-black text-emerald-700 block mb-1">规律：指针收缩逻辑</span>
+                        <ul class="space-y-1.5 font-medium">
+                            <li>• 目标在左侧，舍弃右半边 <i data-lucide="arrow-right" class="w-3 h-3 inline text-slate-400"></i> <span class="bg-white px-1.5 py-0.5 rounded border border-emerald-100 shadow-sm font-mono text-emerald-600 font-bold text-xs">R = Mid - 1</span></li>
+                            <li>• 目标在右侧，舍弃左半边 <i data-lucide="arrow-right" class="w-3 h-3 inline text-slate-400"></i> <span class="bg-white px-1.5 py-0.5 rounded border border-emerald-100 shadow-sm font-mono text-emerald-600 font-bold text-xs">L = Mid + 1</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-3 relative z-10">
+                <button onclick="handleCustomSimOutro('task')" class="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-lg transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                    理论已掌握，去填写任务单记录 <i data-lucide="clipboard-edit" class="w-5 h-5 inline"></i>
+                </button>
+                <button onclick="handleCustomSimOutro('look')" class="px-6 py-3 bg-white hover:bg-stone-50 text-stone-600 rounded-full font-bold border border-stone-200 shadow-sm transition-all active:scale-95 w-full flex items-center justify-center gap-2">
+                    我再看看我的操作记录
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <div id="custom-sim-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                    <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
+                        推演完毕后！<br>请点击右侧箭头下一页
+                    </div>
+                    <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
+                </div>
+
+                <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto h-screen overflow-y-auto task-scrollbar">
+                    <div class="w-full max-w-5xl flex flex-col pt-4 pb-12 lg:py-8 justify-center my-auto gap-4">
+                        
+                        <div class="shrink-0 flex justify-between items-center bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-full">
+                            <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0 flex items-center gap-3">
+                                <div class="p-2 bg-emerald-50 border border-emerald-100 rounded-2xl text-emerald-600 shadow-sm"><i data-lucide="gamepad" class="w-6 h-6 lg:w-7 h-7"></i></div>
+                                算法模拟：自主推演 <span id="custom-title-target-badge" class="hidden text-white font-mono font-black bg-rose-500 border border-rose-600 px-3 py-0.5 rounded-lg shadow-sm">Target: -</span>
+                            </h2>
+                            <button onclick="initCustomInteractiveSim()" class="px-3 lg:px-4 py-2 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0 text-sm lg:text-base">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新设置</span>
+                            </button>
+                        </div>
+                        
+                        <div id="custom-interactive-array-container" class="shrink-0 flex flex-wrap gap-3 lg:gap-4 justify-center mb-2 bg-white/90 p-3 lg:p-5 rounded-2xl border border-white shadow-xl backdrop-blur-md min-h-[140px] items-center relative z-20"></div>
+
+                        <div class="shrink-0 bg-slate-900 p-5 lg:p-6 rounded-[2rem] border-[4px] border-slate-800 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-blue-500"></div>
+                            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start lg:items-center relative z-10 w-full">
+                                <div class="flex flex-col gap-2 shrink-0 bg-slate-800/80 p-3 lg:p-4 rounded-2xl border border-slate-700 min-w-[120px] lg:min-w-[140px]">
+                                    <div class="text-[10px] text-slate-400 font-black tracking-widest uppercase mb-0.5">系统变量</div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">L (Left)</span> <span id="custom-ui-val-l" class="bg-slate-900 px-2 py-0.5 rounded">-</span></div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-blue-400">R (Right)</span> <span id="custom-ui-val-r" class="bg-slate-900 px-2 py-0.5 rounded">-</span></div>
+                                    <div class="flex justify-between items-center text-slate-300 font-mono font-bold text-base lg:text-lg"><span class="text-amber-400">M (Mid)</span> <span id="custom-ui-val-m" class="bg-slate-900 px-2 py-0.5 rounded">-</span></div>
+                                </div>
+                                
+                                <div class="flex-1 w-full flex flex-col justify-center">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
+                                        <h3 class="text-emerald-400 font-black text-xs tracking-widest uppercase flex items-center gap-1.5 m-0"><i data-lucide="terminal-square" class="w-4 h-4"></i> 系统反馈与任务</h3>
+                                        <div class="text-[10px] lg:text-xs text-amber-300/90 font-bold flex items-center gap-1.5 bg-amber-400/10 px-2 py-1 rounded border border-amber-400/20 w-fit">
+                                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 shrink-0"></i> 提示: L、R 代表索引，非方块数值！
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="min-h-[70px] lg:min-h-[80px] flex flex-col justify-center">
+                                        <p id="custom-ui-prompt-text" class="text-white text-base lg:text-lg font-bold leading-relaxed m-0 transition-all"></p>
+                                    </div>
+                                    <div id="custom-ui-action-buttons" class="flex flex-wrap gap-2 lg:gap-3 hidden mt-3">
+                                        <button id="custom-btn-less" onclick="handleCustomCompare('<')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-emerald-400 text-slate-200 rounded-xl font-bold transition-all flex items-center gap-1.5"></button>
+                                        <button id="custom-btn-equal" onclick="handleCustomCompare('==')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-amber-400 text-slate-200 rounded-xl font-bold transition-all flex items-center gap-1.5"></button>
+                                        <button id="custom-btn-greater" onclick="handleCustomCompare('>')" class="px-3 py-2 lg:px-4 lg:py-2.5 bg-slate-800 border-2 border-slate-600 hover:border-rose-400 text-slate-200 rounded-xl font-bold transition-all flex items-center gap-1.5"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="slide-7" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./daima.jpg');"></div>
     
     <div id="code-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1061,7 +1191,7 @@
     </div>
             </div>
 
-            <div id="slide-7" class="slide inactive-right absolute inset-0">
+            <div id="slide-8" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
     
     <div id="ai-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1178,7 +1308,7 @@
     </div>
             </div>
 
-            <div id="slide-8" class="slide inactive-right absolute inset-0"> 
+            <div id="slide-9" class="slide inactive-right absolute inset-0"> 
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math-bridge.jpg');"></div>
                 
                 <div id="math-bridge-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1286,7 +1416,7 @@
                 </div>
             </div>
 
-            <div id="slide-9" class="slide inactive-right absolute inset-0">
+            <div id="slide-10" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-literature.jpg');"></div>
                 
                 <div id="dict-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1415,7 +1545,7 @@
 
             </div>
 
-            <div id="slide-10" class="slide inactive-right absolute inset-0">
+            <div id="slide-11" class="slide inactive-right absolute inset-0">
                 <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-extension.jpg'); background-color: #f8fafc;"></div>
                 
                 <div id="ai-chat-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1566,7 +1696,7 @@
                 </div>
             </div>
 
-            <div id="slide-11" class="slide inactive-right absolute inset-0">
+            <div id="slide-12" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./conclusion.jpg');"></div>
     
     <div id="summary-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1662,7 +1792,7 @@
     </div>
             </div>
 
-            <div id="slide-12" class="slide inactive-right absolute inset-0">
+            <div id="slide-13" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./test.jpg');"></div>
     
     <div id="quiz-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1754,7 +1884,7 @@
     </div>
             </div>
 
-            <div id="slide-13" class="slide inactive-right absolute inset-0">
+            <div id="slide-14" class="slide inactive-right absolute inset-0">
     <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./evaluation.jpg');"></div>
     
     <div id="eval-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
@@ -1898,7 +2028,7 @@
     </div>
             </div>
 
-            <div id="slide-14" class="slide inactive-right absolute inset-0">
+            <div id="slide-15" class="slide inactive-right absolute inset-0">
                 <div class="h-full w-full p-8 flex flex-col items-center justify-center">
                     <div class="text-center w-full flex flex-col items-center justify-center h-full space-y-12">
                         <div class="relative">
@@ -2172,6 +2302,7 @@
             initGame();
             initMathGame();
             initInteractiveSim();
+            initCustomInteractiveSim();
             initMathBridgeGame();
 
             document.body.addEventListener('keypress', (e) => {
@@ -2205,7 +2336,7 @@
         });
 
         // ================= [0. 核心状态与导航系统 =================
-        const totalSlides = 15; 
+        const totalSlides = 16; 
         let currentSlide = 0;
         let isDrawerOpen = false;
 
@@ -2213,7 +2344,7 @@
 
         function shouldInterceptForward(fromSlide, toSlide) {
             if (toSlide <= fromSlide) return false;
-            if ([2, 5, 6, 9].includes(fromSlide) && !taskIntercepted[fromSlide]) {
+            if ([2, 6, 7, 10].includes(fromSlide) && !taskIntercepted[fromSlide]) {
                 return true;
             }
             return false;
@@ -2227,9 +2358,9 @@
             
             let activeTaskId = null;
             if (currentSlide === 2) activeTaskId = 1;
-            if (currentSlide === 5) activeTaskId = 2; 
-            if (currentSlide === 6) activeTaskId = 3; 
-            if (currentSlide >= 7 && currentSlide <= 9) activeTaskId = 4;
+            if (currentSlide === 5 || currentSlide === 6) activeTaskId = 2;
+            if (currentSlide === 7) activeTaskId = 3;
+            if (currentSlide >= 8 && currentSlide <= 10) activeTaskId = 4;
 
             if (activeTaskId && activeTaskId > maxReachedTaskId) {
                 maxReachedTaskId = activeTaskId;
@@ -2384,10 +2515,10 @@
                 { title: "课程回顾", slides: [1] },
                 { title: "情境导入", slides: [2] },
                 { title: "算法原理", slides: [3, 4] },
-                { title: "算法模拟", slides: [5] },
-                { title: "代码实现", slides: [6] },
-                { title: "拓展", slides: [7, 8, 9, 10] }, 
-                { title: "总结", slides: [11, 12, 13] }
+                { title: "算法模拟", slides: [5, 6] },
+                { title: "代码实现", slides: [7] },
+                { title: "拓展", slides: [8, 9, 10, 11] }, 
+                { title: "总结", slides: [12, 13, 14] }
             ];
 
             progressBar.innerHTML = progressSegments.map((segment, i) => {
@@ -3044,36 +3175,37 @@
         }
 
         function handleSimOutro(action) {
-    taskIntercepted[5] = true;
+            taskIntercepted[5] = true;
 
-    const outro = document.getElementById('sim-outro-bubble');
-    if (outro) {
-        outro.classList.add('opacity-0', 'pointer-events-none');
-        const content = document.getElementById('sim-outro-content');
-        if (content) {
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-        }
-        setTimeout(() => outro.classList.add('hidden'), 500);
-    }
+            const outro = document.getElementById('sim-outro-bubble');
+            if (outro) {
+                outro.classList.add('opacity-0', 'pointer-events-none');
+                const content = document.getElementById('sim-outro-content');
+                if (content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+                setTimeout(() => outro.classList.add('hidden'), 500);
+            }
 
-    if (action === 'look') {
-        const hint = document.getElementById('sim-next-hint');
-        if (hint) {
-            hint.innerHTML = hint.innerHTML.replace('指针口诀已掌握！', '回顾完毕后');
-            hint.classList.remove('hidden');
-            void hint.offsetWidth;
-            hint.classList.remove('opacity-0');
+            if (action === 'look') {
+                const hint = document.getElementById('sim-next-hint');
+                if (hint) {
+                    hint.innerHTML = hint.innerHTML.replace('指针口诀已掌握！', '回顾完毕后');
+                    hint.classList.remove('hidden');
+                    void hint.offsetWidth;
+                    hint.classList.remove('opacity-0');
+                }
+            }
+            else if (action === 'task') {
+                const hint = document.getElementById('sim-task-hint');
+                if (hint) {
+                    hint.classList.add('opacity-0');
+                    setTimeout(() => hint.classList.add('hidden'), 500);
+                }
+                if (!isDrawerOpen) toggleTaskDrawer();
+            }
         }
-    } else if (action === 'task') {
-        const hint = document.getElementById('sim-task-hint');
-        if (hint) {
-            hint.classList.add('opacity-0');
-            setTimeout(() => hint.classList.add('hidden'), 500);
-        }
-        if (!isDrawerOpen) toggleTaskDrawer();
-    }
-}
 
         function renderInteractiveArray() {
             const container = document.getElementById('interactive-array-container');
@@ -3161,6 +3293,373 @@
             void element.offsetWidth;
             element.classList.add('shake-error');
             setTimeout(() => { element.classList.remove('shake-error'); }, 400);
+        }
+
+        // 自主推演
+        let customGameArray = [];
+        let CUSTOM_GAME_TARGET = null;
+        let customSimGameState = 'SETUP';
+        let customCurrentL = 0;
+        let customCurrentR = 7;
+        let customCurrentM = null;
+
+        function closeCustomSimIntro() {
+            const bubble = document.getElementById('custom-sim-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function initCustomInteractiveSim() {
+            customSimGameState = 'SETUP';
+            customGameArray = [];
+            CUSTOM_GAME_TARGET = null;
+            customCurrentL = 0; customCurrentR = 7; customCurrentM = null;
+            
+            const outro = document.getElementById('custom-sim-outro-bubble');
+            if (outro) {
+                outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                const content = document.getElementById('custom-sim-outro-content');
+                if(content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+            }
+            const nextHint = document.getElementById('custom-sim-next-hint');
+            if (nextHint) {
+                nextHint.classList.add('hidden', 'opacity-0');
+            }
+
+            updateCustomSimUI();
+        }
+
+        function validateAndStartCustom() {
+            const arr = [];
+            const errEl = document.getElementById('custom-setup-error');
+            errEl.innerText = "";
+
+            for (let i = 0; i < 8; i++) {
+                const val = document.getElementById(`custom-input-arr-${i}`).value;
+                if (val === '') {
+                    errEl.innerText = `请填写完整的 8 个数字！（第 ${i} 个位置为空）`;
+                    triggerErrorShake(document.getElementById(`custom-input-arr-${i}`).parentElement);
+                    return;
+                }
+                arr.push(Number(val));
+            }
+
+            // 2. 检查数组是否严格从小到大排列
+            for (let i = 0; i < 7; i++) {
+                if (arr[i] >= arr[i+1]) {
+                    errEl.innerText = "数组数字必须严格按【从小到大】的顺序排列，不能重复或变小！";
+                    triggerErrorShake(document.getElementById(`custom-input-arr-${i+1}`).parentElement);
+                    return;
+                }
+            }
+
+            // 3. 检查目标数字是否填写
+            const targetVal = document.getElementById('custom-input-target').value;
+            if (targetVal === '') {
+                errEl.innerText = "请输入你想查找的【目标数字】！";
+                triggerErrorShake(document.getElementById('custom-input-target'));
+                return;
+            }
+
+            // 4. 新增：检查目标数字是否在数组中
+            if (!arr.includes(Number(targetVal))) {
+                errEl.innerText = "目标数字必须是你在上方数组中输入过的数字哦！";
+                triggerErrorShake(document.getElementById('custom-input-target'));
+                return;
+            }
+
+            // 数据验证通过，代入系统
+            customGameArray = arr;
+            CUSTOM_GAME_TARGET = Number(targetVal);
+            
+            // 改变状态，开始第一步：找中间
+            customSimGameState = 'FIND_MID';
+            customCurrentL = 0;
+            customCurrentR = customGameArray.length - 1;
+            customCurrentM = null;
+            
+            updateCustomSimUI();
+        }
+
+        function updateCustomSimUI() {
+            document.getElementById('custom-ui-val-l').innerText = (customSimGameState === 'SETUP') ? '-' : customCurrentL;
+            document.getElementById('custom-ui-val-r').innerText = (customSimGameState === 'SETUP') ? '-' : customCurrentR;
+            document.getElementById('custom-ui-val-m').innerText = (customCurrentM !== null) ? customCurrentM : '-';
+
+            const promptEl = document.getElementById('custom-ui-prompt-text');
+            const btnArea = document.getElementById('custom-ui-action-buttons');
+            const titleBadge = document.getElementById('custom-title-target-badge');
+
+            if (customSimGameState === 'SETUP') {
+                titleBadge.classList.add('hidden');
+                promptEl.innerHTML = '请先在上方录入你设计的 <span class="text-emerald-400 font-bold">数组数据</span> 和 <span class="text-rose-400 font-bold">目标数字</span>。';
+                btnArea.classList.add('hidden');
+            } else {
+                titleBadge.innerText = `Target: ${CUSTOM_GAME_TARGET}`;
+                titleBadge.classList.remove('hidden');
+
+                if (customSimGameState === 'FIND_MID') {
+                    promptEl.innerHTML = `步骤 1：请计算中点 <span class="text-amber-400 font-mono bg-slate-800 px-1.5 rounded">Mid = (L+R)/2</span> (向下取整)，并<span class="text-emerald-400 cursor-help" title="在上方数组中直接点击对应的数字方块">点击上方对应的方块</span>（操作：猜中间）。`;
+                    btnArea.classList.add('hidden');
+                } else if (customSimGameState === 'COMPARE') {
+                    promptEl.innerHTML = `步骤 2：Mid 对应的值是 <span class="text-white font-black text-lg lg:text-xl bg-indigo-500 px-2 py-0.5 rounded shadow-md">${customGameArray[customCurrentM]}</span>。它和目标 <span class="text-white font-black text-lg lg:text-xl bg-rose-500 px-2 py-0.5 rounded shadow-md">${CUSTOM_GAME_TARGET}</span> 相比，关系是什么？（缩小哪一半）`;
+                    
+                    document.getElementById('custom-btn-less').innerHTML = `<i data-lucide="chevron-left" class="w-4 h-4 text-emerald-400"></i> 小于 ${CUSTOM_GAME_TARGET} (在右侧)`;
+                    document.getElementById('custom-btn-equal').innerHTML = `<i data-lucide="check" class="w-4 h-4 text-amber-400"></i> 等于 ${CUSTOM_GAME_TARGET} (找到了!)`;
+                    document.getElementById('custom-btn-greater').innerHTML = `大于 ${CUSTOM_GAME_TARGET} (在左侧) <i data-lucide="chevron-right" class="w-4 h-4 text-rose-400"></i>`;
+                    
+                    btnArea.classList.remove('hidden');
+                } else if (customSimGameState === 'MOVE_POINTER') {
+                    btnArea.classList.add('hidden');
+                    if (customGameArray[customCurrentM] < CUSTOM_GAME_TARGET) {
+                        promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${customGameArray[customCurrentM]} &lt; ${CUSTOM_GAME_TARGET}</span>，说明目标在右侧。请计算 <span class="text-blue-400 font-mono bg-slate-800 px-1.5 rounded">Left = Mid + 1</span>，并点击该方块更新 L。（舍弃左半边）`;
+                    } else {
+                        promptEl.innerHTML = `步骤 3：<span class="text-rose-400 font-bold">${customGameArray[customCurrentM]} &gt; ${CUSTOM_GAME_TARGET}</span>，说明目标在左侧。请计算 <span class="text-blue-400 font-mono bg-slate-800 px-1.5 rounded">Right = Mid - 1</span>，并点击该方块更新 R。（舍弃右半边）`;
+                    }
+                } else if (customSimGameState === 'WON') {
+                    btnArea.classList.add('hidden');
+                    promptEl.innerHTML = `
+                        <span class="text-emerald-400 font-black text-lg lg:text-xl flex items-center gap-2">
+                            <i data-lucide="party-popper" class="w-5 h-5 lg:w-6 lg:h-6"></i> 恭喜！成功找到目标元素 ${CUSTOM_GAME_TARGET}！
+                        </span>`;
+                    
+                    setTimeout(showCustomOutroBubble, 1000);
+                } else if (customSimGameState === 'NOT_FOUND') {
+                    btnArea.classList.add('hidden');
+                    promptEl.innerHTML = `
+                        <span class="text-rose-400 font-black text-lg lg:text-xl flex items-center gap-2">
+                            <i data-lucide="x-circle" class="w-5 h-5 lg:w-6 lg:h-6"></i> L > R (左界越过右界)，区间为空，未能找到目标元素 ${CUSTOM_GAME_TARGET}！
+                        </span>`;
+                    
+                    setTimeout(showCustomOutroBubble, 1500);
+                }
+            }
+
+            renderCustomInteractiveArray();
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function renderCustomInteractiveArray() {
+            const container = document.getElementById('custom-interactive-array-container');
+            if(!container) return;
+
+            if (customSimGameState === 'SETUP') {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center gap-4 lg:gap-5 w-full px-2 lg:px-6"> 
+                        <div class="bg-blue-50/80 px-4 py-2 rounded-lg border border-blue-200 text-blue-800 font-bold text-sm lg:text-base flex items-center gap-1.5 self-start shadow-sm"> 
+                            <i data-lucide="edit-3" class="w-4 h-4 lg:w-5 lg:h-5"></i> 步骤 1：录入从小到大排列的 8 个数字
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 lg:gap-4 justify-center w-full"> ${Array(8).fill(0).map((_, i) => `
+                                <div class="relative">
+                                    <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] lg:text-xs text-stone-400 font-mono font-bold">${i}</span> 
+                                    <input type="number" id="custom-input-arr-${i}" onblur="checkInputOrder(${i})" class="w-14 h-14 lg:w-20 lg:h-20 text-center rounded-2xl border-2 border-stone-300 font-black text-xl lg:text-3xl text-stone-700 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:outline-none shadow-sm transition-all bg-white/90" placeholder=""> 
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="w-full h-px bg-stone-200 my-2"></div> 
+                        
+                        <div class="flex flex-col sm:flex-row items-center justify-between w-full gap-4"> 
+                            <div class="flex items-center gap-3"> 
+                                <div class="bg-rose-50/80 px-4 py-2 rounded-lg border border-rose-200 text-rose-800 font-bold text-sm lg:text-base flex items-center gap-1.5 shadow-sm"> 
+                                    <i data-lucide="target" class="w-4 h-4 lg:w-5 lg:h-5"></i> 步骤 2：设定要查找的目标
+                                </div>
+                                <input type="number" id="custom-input-target" class="w-24 h-12 lg:w-32 lg:h-14 text-center rounded-2xl border-2 border-stone-300 font-black text-xl lg:text-2xl text-rose-600 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 focus:outline-none shadow-sm transition-all bg-white/90" placeholder="目标"> 
+                            </div>
+
+                            <div class="flex flex-col items-center sm:items-end">
+                                <button onclick="validateAndStartCustom()" class="px-8 py-3.5 lg:px-10 lg:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full font-black shadow-lg transition-all active:scale-95 flex items-center gap-2 text-base lg:text-lg breathing-light border border-emerald-300/50"> 
+                                    <i data-lucide="play" class="w-5 h-5"></i> 确认无误，开始模拟
+                                </button>
+                                <div id="custom-setup-error" class="text-rose-500 font-bold text-xs lg:text-sm h-4 transition-all mt-1.5"></div> 
+                            </div>
+                        </div>
+                    </div>
+                `;
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = customGameArray.map((num, idx) => {
+                const isOutOfRange = (idx < customCurrentL || idx > customCurrentR) && customSimGameState !== 'WON';
+                const isL = idx === customCurrentL; const isR = idx === customCurrentR; const isM = idx === customCurrentM;
+                const isTargetFound = (customSimGameState === 'WON' && isM);
+
+                let boxClasses = "bg-white border-stone-200 text-stone-800 hover:border-emerald-300 hover:shadow-md cursor-pointer active:scale-95";
+                let wrapperClasses = "relative transition-all duration-300 transform" + (isOutOfRange ? " dimmed-box" : "");
+                let pingDiv = "";
+
+                if (isTargetFound) {
+                    boxClasses = "bg-emerald-500 text-white border-emerald-400 scale-110 shadow-[0_0_20px_rgba(16,185,129,0.5)] z-30 pointer-events-none";
+                    pingDiv = `<div class="absolute inset-0 rounded-2xl anim-success-ping"></div>`;
+                } else if (isM) {
+                    boxClasses = "bg-amber-400 text-white border-amber-300 scale-105 shadow-lg z-20 pointer-events-none";
+                } else if (isL || isR) {
+                    boxClasses = "bg-blue-50 text-blue-800 border-blue-300 shadow-sm z-10 cursor-pointer hover:bg-blue-100";
+                }
+
+                let labels = '';
+                if (isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L</span>`;
+                if (isR && !isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">R</span>`;
+                if (isR && isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L,R</span>`;
+                if (isM && !isTargetFound) labels += `<span class="text-xs font-black text-white bg-amber-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm animate-bounce z-40">M</span>`;
+                if (isTargetFound) labels += `<span class="text-xs font-black text-white bg-rose-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm z-40 flex items-center gap-1"><i data-lucide="target" class="w-3 h-3"></i>TARGET</span>`;
+
+                return `
+                    <div class="${wrapperClasses}">
+                        <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] text-stone-400 font-mono font-bold">${idx}</span>
+                        ${pingDiv}
+                        <div id="custom-array-box-${idx}" onclick="handleCustomArrayClick(${idx})" class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-[3px] font-black transition-all duration-300 text-xl lg:text-2xl ${boxClasses} relative z-10 select-none">${num}</div>
+                        ${labels}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function checkInputOrder(index) {
+            const currentInput = document.getElementById(`custom-input-arr-${index}`);
+            const errEl = document.getElementById('custom-setup-error');
+            
+            if (!currentInput || currentInput.value === '') {
+                if (errEl.innerText.includes(`第 ${index} 个框`)) {
+                    errEl.innerText = '';
+                }
+                return;
+            }
+            
+            const currentVal = Number(currentInput.value);
+            let isValid = true;
+            let errorMsg = '';
+
+            if (index > 0) {
+                const prevInput = document.getElementById(`custom-input-arr-${index - 1}`);
+                if (prevInput && prevInput.value !== '') {
+                    const prevVal = Number(prevInput.value);
+                    if (currentVal <= prevVal) {
+                        isValid = false;
+                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须大于前一个数字 (${prevVal})！`;
+                    }
+                }
+            }
+
+            if (isValid && index < 7) {
+                const nextInput = document.getElementById(`custom-input-arr-${index + 1}`);
+                if (nextInput && nextInput.value !== '') {
+                    const nextVal = Number(nextInput.value);
+                    if (currentVal >= nextVal) {
+                        isValid = false;
+                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须小于后一个数字 (${nextVal})！`;
+                    }
+                }
+            }
+
+            if (!isValid) {
+                errEl.innerText = errorMsg;
+                
+                triggerErrorShake(currentInput.parentElement);
+                
+                currentInput.classList.replace('border-stone-300', 'border-rose-500');
+                currentInput.classList.add('text-rose-500');
+                
+                currentInput.value = ''; 
+                
+                setTimeout(() => {
+                    currentInput.classList.replace('border-rose-500', 'border-stone-300');
+                    currentInput.classList.remove('text-rose-500');
+                }, 2000);
+            } else {
+                if (errEl.innerText.includes(`第 ${index} 个框`)) {
+                    errEl.innerText = '';
+                }
+            }
+        }        
+        
+        function handleCustomArrayClick(idx) {
+            const boxEl = document.getElementById(`custom-array-box-${idx}`);
+            if (customSimGameState === 'FIND_MID') {
+                const correctMid = Math.floor((customCurrentL + customCurrentR) / 2);
+                if (idx === correctMid) {
+                    customCurrentM = correctMid;
+                    customSimGameState = 'COMPARE';
+                    updateCustomSimUI();
+                } else {
+                    triggerErrorShake(boxEl);
+                }
+            } else if (customSimGameState === 'MOVE_POINTER') {
+                const val = customGameArray[customCurrentM];
+                let expectedIdx = val < CUSTOM_GAME_TARGET ? customCurrentM + 1 : customCurrentM - 1;
+                
+                if (idx === expectedIdx) {
+                    if (val < CUSTOM_GAME_TARGET) customCurrentL = idx;
+                    else customCurrentR = idx;
+                    customCurrentM = null;
+
+                    if (customCurrentL > customCurrentR) {
+                        customSimGameState = 'NOT_FOUND';
+                    } else {
+                        customSimGameState = 'FIND_MID';
+                    }
+                    updateCustomSimUI();
+                } else {
+                    triggerErrorShake(boxEl);
+                }
+            }
+        }
+
+        function handleCustomCompare(type) {
+            const val = customGameArray[customCurrentM];
+            const btnArea = document.getElementById('custom-ui-action-buttons');
+            let isCorrect = (type === '<' && val < CUSTOM_GAME_TARGET) || (type === '>' && val > CUSTOM_GAME_TARGET) || (type === '==' && val === CUSTOM_GAME_TARGET);
+
+            if (isCorrect) {
+                customSimGameState = (type === '==') ? 'WON' : 'MOVE_POINTER';
+                updateCustomSimUI();
+            } else {
+                triggerErrorShake(btnArea);
+            }
+        }
+
+        function showCustomOutroBubble() {
+            const outro = document.getElementById('custom-sim-outro-bubble');
+            if (outro) {
+                outro.classList.remove('hidden');
+                void outro.offsetWidth;
+                outro.classList.remove('opacity-0', 'pointer-events-none');
+                const content = document.getElementById('custom-sim-outro-content');
+                if (content) {
+                    content.classList.remove('scale-95');
+                    content.classList.add('scale-100');
+                }
+            }
+        }
+
+        function handleCustomSimOutro(action) {
+            const outro = document.getElementById('custom-sim-outro-bubble');
+            if (outro) {
+                outro.classList.add('opacity-0', 'pointer-events-none');
+                const content = document.getElementById('custom-sim-outro-content');
+                if (content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+                setTimeout(() => outro.classList.add('hidden'), 500);
+            }
+
+            if (action === 'look') {
+                const hint = document.getElementById('custom-sim-next-hint');
+                if (hint) {
+                    hint.classList.remove('hidden');
+                    void hint.offsetWidth;
+                    hint.classList.remove('opacity-0');
+                }
+            } else if (action === 'task') {
+                if (!isDrawerOpen) toggleTaskDrawer();
+            }
         }
 
         // ================= [5. 代码实操] =================
