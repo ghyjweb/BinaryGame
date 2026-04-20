@@ -26,11 +26,9 @@
         .task-scrollbar::-webkit-scrollbar { width: 6px; }
         .task-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .task-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
-
         html {
             font-size: clamp(12px, 0.8vw + 0.5vh, 18px) !important; 
         }
-
         .slide > div:not(.absolute.inset-0.z-0) {
             padding: 4% 5% !important; 
             box-sizing: border-box;
@@ -41,7 +39,6 @@
             height: 100%; 
             overflow: hidden;
         }
-
         .slide > div:not(.absolute.inset-0.z-0) > div[class*="max-w-"] {
             width: 100%;
             max-height: 100%; 
@@ -51,9 +48,7 @@
             flex-direction: column;
             justify-content: center;
         }
-
         .slide > div:not(.absolute.inset-0.z-0) > div[class*="max-w-"]::-webkit-scrollbar { width: 0px; background: transparent; }
-
         #slides-wrapper {
             backface-visibility: hidden;
             -webkit-font-smoothing: antialiased;
@@ -72,10 +67,8 @@
             opacity: 0; transform: translateX(-50px) scale(0.98); z-index: 0; pointer-events: none; 
         }
         .slide > div { border-radius: 0 !important; }
-
         .progress-segment { transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .progress-segment.active { box-shadow: inset 0 -3px 0 #4f46e5; }
-
         .task-card { transition: all 0.4s ease; border: 2px solid transparent; }
         .task-card.active-task {
             border-color: #6366f1;
@@ -96,9 +89,7 @@
         .task-input:focus { border-bottom-color: #4f46e5; width: 4rem; }
         .task-input.wide { width: 5rem; }
         .task-input.wide:focus { width: 6.5rem; }
-
         .sum-select { text-align-last: center; }
-
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             height: 28px;
@@ -111,7 +102,6 @@
             transition: transform 0.1s;
         }
         input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-
         .code-line {
             display: block;
             padding: 0.05rem 1rem;
@@ -133,19 +123,15 @@
             background-color: transparent;
             transform: translateX(0);
         }
-
         .dimmed-box { 
             opacity: 0.3; filter: grayscale(100%); transform: scale(0.95); transition: all 0.5s ease; pointer-events: none; 
         }
-
         .breathing-light { animation: breathingLight 2s infinite ease-in-out; }
-
         .shake-animation { animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both; }
         .shake-error { 
             animation: shakeError 0.4s cubic-bezier(.36,.07,.19,.97) both; 
             border-color: #ef4444 !important; background-color: #fef2f2 !important; color: #ef4444 !important; 
         }
-
         @keyframes breathingLight {
             0%, 100% { transform: scale(1); filter: brightness(1); }
             50% { transform: scale(1.03); filter: brightness(1.15); }
@@ -199,7 +185,6 @@
         76%  { left: 62.5%; background-color: #3b82f6; transform: translate(-50%, -50%) scale(1); box-shadow: none; }
         78%, 100% { left: 62.5%; background-color: #ef4444; transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 15px rgba(239,68,68,0.5), 0 0 0 6px rgba(239,68,68,0.2); }
         }
-
         @keyframes binSearch {
         0%   { left: 0%; background-color: #3b82f6; transform: translate(-50%, -50%) scale(1); box-shadow: none; }
         4%   { left: 50%; background-color: #3b82f6; transform: translate(-50%, -50%) scale(1); box-shadow: none; }
@@ -211,7 +196,6 @@
         28%  { left: 62.5%; background-color: #3b82f6; transform: translate(-50%, -50%) scale(1); box-shadow: none; }
         30%, 100% { left: 62.5%; background-color: #ef4444; transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 15px rgba(239,68,68,0.5), 0 0 0 6px rgba(239,68,68,0.2); }
         }
-
         .anim-seq { animation: seqSearch 10s infinite linear; }
         .anim-bin { animation: binSearch 10s infinite linear; }
         .anim-success-ping { animation: ripple 1.5s infinite ease-out; }
@@ -1123,7 +1107,7 @@
                 <div class="w-full flex justify-between items-end mb-4 relative z-10">
                     <div class="text-left">
                         <h3 class="text-xl lg:text-2xl font-black text-stone-800 flex items-center gap-2 mb-2"><i data-lucide="target" class="text-fuchsia-500 w-6 h-6"></i> 寻找深度学习的最佳学习率</h3>
-                        <p class="text-stone-500 font-bold text-sm">任务：输入 1-100 之间的参数。若达到最佳参数，模型精度、稳定性都变高。但参数太大导致梯度爆炸（数值大到报错，完全失控），太小导致学习停滞（练了半天模型还是个笨蛋，完全没进步）。<b style="color:red;">因为学习率处于连续且有序的数值范围，所以可以用折半法找出完美参数！</b></p>
+                        <p class="text-stone-500 font-bold text-sm">任务：输入 1-100 之间的参数。若达到最佳参数，模型精度、稳定性都变高。但参数太大导致梯度爆炸（数值大到报错，完全失控），太小导致学习停滞（练了半天模型还是个笨蛋，完全没进步）。<b style="color:red;">因为学习率处于连续且有序的数值范围，所以可以用折半法找出最佳参数！</b></p>
                     </div>
                     <div class="px-4 py-2 bg-slate-100 rounded-xl border border-slate-200 shadow-inner flex items-center gap-2 text-slate-500 font-bold text-sm shrink-0">
                         <i data-lucide="activity" class="w-4 h-4"></i> 训练次数：<span id="ai-epoch-count" class="text-fuchsia-600 font-black text-lg">0</span>
@@ -2032,11 +2016,43 @@
         </div>
         
         <div id="drawer-overlay" onclick="toggleTaskDrawer()" class="fixed inset-0 bg-slate-900/20 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500" style="z-index: 104;"></div>
+        
+        <div id="ai-helper-hint" class="fixed bottom-24 right-4 lg:right-6 z-[90] flex flex-col items-end gap-2 opacity-0 transition-opacity duration-700 pointer-events-none">
+    <div class="bg-blue-50/95 text-blue-600 text-xs lg:text-sm font-black px-4 py-3 rounded-2xl rounded-br-none border-2 border-blue-200 shadow-[0_8px_20px_rgba(59,130,246,0.3)] backdrop-blur-md relative cursor-pointer pointer-events-auto hover:bg-blue-100 transition-colors animate-[breathingLight_3s_infinite_ease-in-out]" onclick="this.parentElement.remove()">
+        <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="bot" class="w-4 h-4"></i>
+            <span>遇到听不懂的地方？</span>
+        </div>
+        <span>随时点击右下角召唤 AI 助教！</span>
+        <div class="mt-2 text-[10px] text-blue-400/80 font-bold flex items-center justify-end gap-1">
+            <i data-lucide="x" class="w-3 h-3"></i> 知道了，点此关闭
+        </div>
+    </div>
+    <i data-lucide="arrow-down" class="w-8 h-8 text-blue-500 drop-shadow-md animate-bounce mr-2"></i>
+        </div>
     </div>
 
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+    <script>
+    new CozeWebSDK.WebChatClient({
+        config: {
+        bot_id: '7630680205866041384',
+        },
+        componentProps: {
+        title: 'Coze',
+        },
+        auth: {
+        type: 'token',
+        token: 'pat_36xT6Qk46Rk7umR5Kz1OARmyHeD6c1cg6az74MO5SNYzDhMjz7KJzj4lcxAivCRX',
+        onRefreshToken: function () {
+            return 'pat_36xT6Qk46Rk7umR5Kz1OARmyHeD6c1cg6az74MO5SNYzDhMjz7KJzj4lcxAivCRX'
+        }
+        }
+    });
+    </script>
     <script>
         /**
-         * 【全局配置】点击屏幕两侧翻页防误触拦截
+         * 【全局配置】
          */
         document.addEventListener('click', (e) => {
             if (e.target.closest('#task-drawer') || 
@@ -2054,12 +2070,138 @@
 
             const clickX = e.clientX;
             const screenWidth = window.innerWidth;
-            
-            if (clickX < screenWidth * 0.1) {
-                if (typeof prevSlide === 'function') prevSlide();
-            } else if (clickX > screenWidth * 0.9) {
-                if (typeof nextSlide === 'function') nextSlide();
+        });
+
+        function toggleTaskDrawer() {
+            const drawer = document.getElementById('task-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            isDrawerOpen = !isDrawerOpen;
+
+            if (isDrawerOpen) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                
+                const simHint = document.getElementById('sim-task-hint');
+                if (simHint) {
+                    simHint.classList.add('opacity-0');
+                    setTimeout(() => simHint.classList.add('hidden'), 500);
+                }
+
+                highlightActiveTask();
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+
+                if (currentSlide === 2 && typeof gameWon !== 'undefined' && gameWon && !document.getElementById('game-outro-bubble')) {
+                    setTimeout(() => {
+                        if (typeof showSlide2OutroBubble === 'function') {
+                            showSlide2OutroBubble();
+                        }
+                    }, 300);
+                }
+
+                if (currentSlide === 5) {
+                    const nextHint = document.getElementById('sim-next-hint');
+                    if (nextHint) {
+                        setTimeout(() => {
+                            nextHint.classList.remove('hidden');
+                            void nextHint.offsetWidth;
+                            nextHint.classList.remove('opacity-0');
+                        }, 300);
+                    }
+                }
             }
+        }
+
+        function checkTaskAnswer(el) {
+            const isCorrect = el.value === el.dataset.answer;
+            const parentBlock = el.closest('.question-block');
+            
+            if (!parentBlock) return;
+
+            let feedbackEl = parentBlock.querySelector('.task-feedback');
+            if (!feedbackEl) {
+                feedbackEl = document.createElement('div');
+                parentBlock.appendChild(feedbackEl);
+            }
+            
+            if (isCorrect) {
+                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+                feedbackEl.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 inline align-text-bottom mr-1.5"></i><b>回答正确！</b>';
+                
+                el.style.color = '#059669'; 
+                el.style.borderColor = '#34d399'; 
+                
+            } else {
+                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
+                feedbackEl.innerHTML = '<div class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><b>哎呀，选错了。解析：</b>' + el.dataset.explanation + '</div></div>';
+                
+                el.style.color = '#e11d48';
+                el.style.borderColor = '#fb7185'; 
+                
+                el.classList.remove('shake-error');
+                void el.offsetWidth; 
+                el.classList.add('shake-error');
+            }
+            
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+            
+            renderProgressBar();
+            updateSlides('next');
+            
+            const rangePanel = document.getElementById('dict-l-val');
+            if (rangePanel) {
+                const rangeBox = rangePanel.parentElement.parentElement;
+                const statusContainer = document.createElement('div');
+                statusContainer.className = "flex items-center gap-2 shrink-0 ml-2";
+                rangeBox.classList.remove('ml-2');
+                const stepBox = document.createElement('div');
+                stepBox.id = 'dict-step-counter';
+                stepBox.className = "px-3 py-1.5 bg-rose-50 rounded-xl border border-rose-200 shadow-inner flex flex-col items-center gap-0.5 transition-all duration-300";
+                stepBox.innerHTML = `<span class="text-[9px] lg:text-[10px] font-black tracking-widest text-rose-400 uppercase">已翻开次数</span><span class="text-sm lg:text-base font-black text-rose-600 font-mono" id="dict-step-val">0</span>`;
+                rangeBox.parentNode.insertBefore(statusContainer, rangeBox);
+                statusContainer.appendChild(stepBox); statusContainer.appendChild(rangeBox);
+            }
+            
+            initSeqGame();
+            updateLogScale();
+            initGame();
+            initMathGame();
+            initInteractiveSim();
+            initMathBridgeGame();
+
+            document.body.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const targetId = e.target.id;
+                    if (targetId === 'math-initial-n') {
+                        initMathGame();
+                        e.target.blur();
+                    } else if (targetId === 'guess-input') {
+                        makeGuess();
+                    } else if (targetId === 'ai-lr-input') {
+                        trainAIModel();
+                    }
+                }
+            });
+
+            document.body.addEventListener('change', (e) => {
+                if (e.target.classList.contains('sum-select')) {
+                    e.target.classList.remove('border-rose-400', 'text-rose-500', 'bg-rose-50');
+                    e.target.classList.add('border-slate-300', 'bg-white'); 
+                    document.getElementById('sum-error-msg').classList.add('opacity-0');
+                }
+            });
+            
+            setTimeout(() => {
+                const aiHint = document.getElementById('ai-helper-hint');
+                if (aiHint) {
+                    aiHint.classList.remove('opacity-0');
+                }
+            }, 3000);
         });
 
         // ================= [0. 核心状态与导航系统 =================
@@ -2100,11 +2242,9 @@
                 tipDiv.className = 'bg-indigo-50 text-indigo-600 p-3 lg:p-4 rounded-xl border border-indigo-200 flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:bg-indigo-100 transition-all font-bold text-sm mt-4 active:scale-95 group shrink-0';
                 tipDiv.innerHTML = '<i data-lucide="check-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i> 本项任务已完成，点击关闭任务单';
                 
-                // 修改点：加入当前页判断，避免 Slide 2 强制翻页
                 tipDiv.onclick = function() {
                     toggleTaskDrawer();
                     
-                    // 如果是 Slide 2（或 Slide 5 这种需要留在本页看提示的），则阻止自动翻页
                     if (currentSlide === 2 || currentSlide === 5) {
                         return; 
                     }
@@ -2275,83 +2415,6 @@
             
             if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
         });
-
-        // ================= [全局控制：任务单开关] =================
-        function toggleTaskDrawer() {
-            const drawer = document.getElementById('task-drawer');
-            const overlay = document.getElementById('drawer-overlay');
-            isDrawerOpen = !isDrawerOpen;
-
-            if (isDrawerOpen) {
-                drawer.classList.remove('translate-x-full');
-                overlay.classList.remove('opacity-0', 'pointer-events-none');
-                
-                const simHint = document.getElementById('sim-task-hint');
-                if (simHint) {
-                    simHint.classList.add('opacity-0');
-                    setTimeout(() => simHint.classList.add('hidden'), 500);
-                }
-
-                highlightActiveTask();
-            } else {
-                drawer.classList.add('translate-x-full');
-                overlay.classList.add('opacity-0', 'pointer-events-none');
-
-                if (currentSlide === 2 && typeof gameWon !== 'undefined' && gameWon && !document.getElementById('game-outro-bubble')) {
-                    setTimeout(() => {
-                        if (typeof showSlide2OutroBubble === 'function') {
-                            showSlide2OutroBubble();
-                        }
-                    }, 300);
-                }
-
-                if (currentSlide === 5) {
-                    const nextHint = document.getElementById('sim-next-hint');
-                    if (nextHint) {
-                        setTimeout(() => {
-                            nextHint.classList.remove('hidden');
-                            void nextHint.offsetWidth;
-                            nextHint.classList.remove('opacity-0');
-                        }, 300);
-                    }
-                }
-            }
-        }
-
-        // ================= [全局控制：检查任务答案] =================
-        function checkTaskAnswer(el) {
-            const isCorrect = el.value === el.dataset.answer;
-            const parentBlock = el.closest('.question-block');
-            
-            if (!parentBlock) return;
-
-            let feedbackEl = parentBlock.querySelector('.task-feedback');
-            if (!feedbackEl) {
-                feedbackEl = document.createElement('div');
-                parentBlock.appendChild(feedbackEl);
-            }
-            
-            if (isCorrect) {
-                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
-                feedbackEl.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4 inline align-text-bottom mr-1.5"></i><b>回答正确！</b>';
-                
-                el.style.color = '#059669'; 
-                el.style.borderColor = '#34d399'; 
-                
-            } else {
-                feedbackEl.className = 'task-feedback text-sm mt-2 p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block shadow-sm animate-[slideInRight_0.3s_ease-out]';
-                feedbackEl.innerHTML = '<div class="flex items-start gap-1.5"><i data-lucide="help-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><b>哎呀，选错了。解析：</b>' + el.dataset.explanation + '</div></div>';
-                
-                el.style.color = '#e11d48';
-                el.style.borderColor = '#fb7185'; 
-                
-                el.classList.remove('shake-error');
-                void el.offsetWidth; 
-                el.classList.add('shake-error');
-            }
-            
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-        }
 
         // ================= [1. 课程回顾模块：顺序查找盲盒] =================
         const seqArrayData = [11, 12, 23, 34, 45, 56, 67, 78, 89, 90];
@@ -2642,7 +2705,6 @@
             if (guess === secretFault) {
                 gameWon = true;
                 
-                // 【修复核心】标记当前页面的任务单拦截机制已完成，防止点击下一页时重复弹出
                 taskIntercepted[2] = true; 
                 
                 markerColor = "bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.6)] animate-pulse";
@@ -2653,7 +2715,6 @@
                 
                 document.querySelectorAll('.right-pointing-arrow, .left-pointing-arrow').forEach(el => el.remove());
 
-                // 弹出成功提示 (加入了排查次数的显示)
                 const toast = document.createElement('div');
                 toast.id = 'success-toast';
                 toast.className = "fixed top-24 right-4 lg:right-8 z-[90] bg-emerald-50 border border-emerald-200 shadow-[0_10px_30px_rgba(16,185,129,0.3)] rounded-2xl p-4 flex items-center gap-3 transform transition-transform duration-500";
@@ -2670,7 +2731,6 @@
                 if(typeof lucide !== 'undefined') lucide.createIcons();
                 requestAnimationFrame(() => toast.classList.add('translate-x-0'));
 
-                // 仅自动打开任务单，不再重复设置定时器触发气泡
                 setTimeout(() => {
                     if (!isDrawerOpen) toggleTaskDrawer();
                 }, 1000);
@@ -2730,34 +2790,34 @@
     }
 }
         
-function closeMathOutro(showHint = false) {
-    const outro = document.getElementById('math-outro-bubble');
-    if (outro) {
-        outro.classList.add('opacity-0', 'pointer-events-none');
-        const content = document.getElementById('math-outro-content');
-        if (content) {
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-        }
-        setTimeout(() => outro.classList.add('hidden'), 500);
+        function closeMathOutro(showHint = false) {
+            const outro = document.getElementById('math-outro-bubble');
+            if (outro) {
+                outro.classList.add('opacity-0', 'pointer-events-none');
+                const content = document.getElementById('math-outro-content');
+                if (content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+                setTimeout(() => outro.classList.add('hidden'), 500);
 
-        if (showHint) {
-            const hint = document.getElementById('slide3-next-hint');
-            if (hint) {
-                hint.classList.remove('hidden');
-                void hint.offsetWidth;
-                hint.classList.remove('opacity-0');
+                if (showHint) {
+                    const hint = document.getElementById('slide3-next-hint');
+                    if (hint) {
+                        hint.classList.remove('hidden');
+                        void hint.offsetWidth;
+                        hint.classList.remove('opacity-0');
+                    }
+                }
             }
         }
-    }
-}
-        
-function closeLogIntro() {
-    const bubble = document.getElementById('log-intro-bubble');
-    if (bubble) {
-        bubble.classList.add('opacity-0', 'pointer-events-none');
-    }
-}
+                
+        function closeLogIntro() {
+            const bubble = document.getElementById('log-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
 
         function initMathGame() {
     const inputVal = parseInt(document.getElementById('math-initial-n').value);
@@ -3270,7 +3330,6 @@ function closeLogIntro() {
             const feedback = document.getElementById('ai-feedback');
             feedback.className = "mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all text-center";
             feedback.innerHTML = `<i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型已重置。寻找极小值，建议使用折半思想！`;
-            // 隐藏可能已经显示出的下一页箭头提示
             const nextHint = document.getElementById('slide7-next-hint');
             if (nextHint) {
                 nextHint.classList.add('hidden', 'opacity-0');
@@ -3644,7 +3703,7 @@ function closeLogIntro() {
             }, 300);
         }
 
-// ================= [7. 拓展：模拟 AI 豆包交互分析] =================
+    // ================= [7. 拓展：模拟 AI 豆包交互分析] =================
         let aiChatStep = 1; 
 
         function closeAiChatIntro() {
@@ -3686,7 +3745,7 @@ function closeLogIntro() {
             
             const userPromptText = fakeInput.innerText;
 
-            if (userPromptText === "给豆包发送消息..." || userPromptText === "对话已结束") return;
+            if (userPromptText === "给豆包发送消息" || userPromptText === "对话已结束") return;
 
             btn.disabled = true;
             btn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -3694,7 +3753,7 @@ function closeLogIntro() {
             
             if (hintArrow) hintArrow.classList.add('opacity-0');
 
-            fakeInput.innerText = "发消息给 豆包...";
+            fakeInput.innerText = "发消息给豆包";
             fakeInput.classList.remove('text-slate-700');
             fakeInput.classList.add('text-slate-400');
 
@@ -3918,125 +3977,124 @@ function closeLogIntro() {
         }
 
         function initSheepCanvas() {
-            const canvas = document.getElementById('sheepDemoCanvas');
-            const wrapper = document.getElementById('sheep-canvas-wrapper');
-            const slider = document.getElementById('sheep-slider-r');
-            const rValDisplay = document.getElementById('sheep-r-value');
-            const statusBadge = document.getElementById('sheep-status-badge');
+    const canvas = document.getElementById('sheepDemoCanvas');
+    const wrapper = document.getElementById('sheep-canvas-wrapper');
+    const slider = document.getElementById('sheep-slider-r');
+    const rValDisplay = document.getElementById('sheep-r-value');
+    const statusBadge = document.getElementById('sheep-status-badge');
+    
+    if (!canvas || !wrapper || !slider) return;
+    const ctx = canvas.getContext('2d');
+
+    const sheepPositions = [1, 3, 5, 8, 12, 15, 17, 19]; 
+    const maxK = 3; 
+    const minCoord = 0; 
+    const maxCoord = 22;
+
+    function resizeCanvas() {
+        if (!document.getElementById('sheepDemoCanvas')) return; 
+        const rect = wrapper.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+        draw();
+    }
+
+    function getXPixel(val, width) {
+        const marginX = 25; 
+        return marginX + ((val - minCoord) / (maxCoord - minCoord)) * (width - 2 * marginX);
+    }
+
+    function draw() {
+        const width = wrapper.clientWidth;
+        const height = wrapper.clientHeight;
+        const R = parseFloat(slider.value);
+        const axisY = height - 35; 
+
+        ctx.clearRect(0, 0, width, height);
+
+        let posts = []; let intervals = []; let i = 0;
+        while (i < sheepPositions.length) {
+            let firstUncoveredSheep = sheepPositions[i];
+            let postPosition = firstUncoveredSheep + R;
+            let coverStart = firstUncoveredSheep;
+            let coverEnd = postPosition + R; 
             
-            if (!canvas || !wrapper || !slider) return;
-            const ctx = canvas.getContext('2d');
+            posts.push(postPosition);
+            intervals.push({ start: coverStart, end: coverEnd });
 
-            const sheepPositions = [1, 3, 5, 8, 12, 15, 17, 19]; 
-            const maxK = 3; 
-            const minCoord = 0; 
-            const maxCoord = 22;
-
-            function resizeCanvas() {
-                if (!document.getElementById('sheepDemoCanvas')) return; 
-                const rect = wrapper.getBoundingClientRect();
-                const dpr = window.devicePixelRatio || 1;
-                canvas.width = rect.width * dpr;
-                canvas.height = rect.height * dpr;
-                ctx.scale(dpr, dpr);
-                draw();
-            }
-
-            function getXPixel(val, width) {
-                const marginX = 25; 
-                return marginX + ((val - minCoord) / (maxCoord - minCoord)) * (width - 2 * marginX);
-            }
-
-            function draw() {
-                const width = wrapper.clientWidth;
-                const height = wrapper.clientHeight;
-                const R = parseFloat(slider.value);
-                const axisY = height - 35; 
-
-                ctx.clearRect(0, 0, width, height);
-
-                let posts = []; let intervals = []; let i = 0;
-                while (i < sheepPositions.length) {
-                    let firstUncoveredSheep = sheepPositions[i];
-                    let postPosition = firstUncoveredSheep + R;
-                    let coverStart = firstUncoveredSheep;
-                    let coverEnd = postPosition + R; 
-                    
-                    posts.push(postPosition);
-                    intervals.push({ start: coverStart, end: coverEnd });
-
-                    while (i < sheepPositions.length && sheepPositions[i] <= coverEnd) i++;
-                }
-
-                const isSuccess = posts.length <= maxK;
-
-                ctx.beginPath();
-                ctx.moveTo(getXPixel(minCoord, width), axisY);
-                ctx.lineTo(getXPixel(maxCoord, width), axisY);
-                ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
-
-                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-                ctx.fillStyle = '#64748b'; ctx.font = '11px monospace';
-                for (let val = minCoord; val <= maxCoord; val += 2) {
-                    const x = getXPixel(val, width);
-                    ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY + 5);
-                    ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1; ctx.stroke();
-                    ctx.fillText(val, x, axisY + 8);
-                }
-
-                const intervalColor = isSuccess ? 'rgba(52, 211, 153, 0.25)' : 'rgba(251, 113, 133, 0.25)'; 
-                const intervalBorderColor = isSuccess ? 'rgba(16, 185, 129, 0.8)' : 'rgba(225, 29, 72, 0.8)';
-
-                intervals.forEach(inv => {
-                    const xStart = getXPixel(inv.start, width);
-                    const xEnd = getXPixel(inv.end, width);
-                    const rectWidth = Math.max(xEnd - xStart, 1); 
-                    
-                    const blockHeight = 55;
-                    const blockY = axisY - blockHeight - 25; 
-                    
-                    ctx.fillStyle = intervalColor;
-                    ctx.fillRect(xStart, blockY, rectWidth, blockHeight);
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(xStart, blockY + 5); ctx.lineTo(xStart, blockY);
-                    ctx.lineTo(xEnd, blockY); ctx.lineTo(xEnd, blockY + 5);
-                    ctx.strokeStyle = intervalBorderColor; ctx.lineWidth = 2; ctx.stroke();
-                    
-                    ctx.fillStyle = intervalBorderColor; ctx.font = 'bold 12px sans-serif';
-                    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-                    ctx.fillText(`${(2*R).toFixed(1)}`, (xStart + xEnd) / 2, blockY - 5);
-                });
-
-                ctx.font = '18px sans-serif'; ctx.textBaseline = 'bottom';
-                sheepPositions.forEach(pos => { ctx.fillText('🐑', getXPixel(pos, width), axisY - 2); });
-
-                ctx.font = '18px sans-serif';
-                posts.forEach((pos) => {
-                    const x = getXPixel(pos, width);
-                    ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY - 80);
-                    ctx.setLineDash([4, 4]); ctx.strokeStyle = isSuccess ? '#059669' : '#e11d48';
-                    ctx.lineWidth = 1.5; ctx.stroke(); ctx.setLineDash([]);
-                    ctx.fillText('📍', x, axisY - 35);
-                });
-
-                rValDisplay.innerText = R.toFixed(1);
-                if (isSuccess) {
-                    statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-emerald-500 text-white";
-                    statusBadge.innerText = `✅ 合法 (需 ${posts.length} 根)`;
-                } else {
-                    statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-rose-500 text-white";
-                    statusBadge.innerText = `❌ 超出 (需 ${posts.length} 根)`;
-                }
-            }
-
-            slider.addEventListener('input', draw);
-            window.addEventListener('resize', resizeCanvas);
-            
-            setTimeout(resizeCanvas, 50);
+            while (i < sheepPositions.length && sheepPositions[i] <= coverEnd) i++;
         }
 
-        // ================= [8. 总结与考核模块] =================
+        const isSuccess = posts.length <= maxK;
+
+        ctx.beginPath();
+        ctx.moveTo(getXPixel(minCoord, width), axisY);
+        ctx.lineTo(getXPixel(maxCoord, width), axisY);
+        ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        ctx.fillStyle = '#64748b'; ctx.font = '11px monospace';
+        for (let val = minCoord; val <= maxCoord; val += 2) {
+            const x = getXPixel(val, width);
+            ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY + 5);
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.fillText(val, x, axisY + 8);
+        }
+
+        const intervalColor = isSuccess ? 'rgba(52, 211, 153, 0.25)' : 'rgba(251, 113, 133, 0.25)'; 
+        const intervalBorderColor = isSuccess ? 'rgba(16, 185, 129, 0.8)' : 'rgba(225, 29, 72, 0.8)';
+
+        intervals.forEach(inv => {
+            const xStart = getXPixel(inv.start, width);
+            const xEnd = getXPixel(inv.end, width);
+            const rectWidth = Math.max(xEnd - xStart, 1); 
+            
+            const blockHeight = 55;
+            const blockY = axisY - blockHeight - 25; 
+            
+            ctx.fillStyle = intervalColor;
+            ctx.fillRect(xStart, blockY, rectWidth, blockHeight);
+            
+            ctx.beginPath();
+            ctx.moveTo(xStart, blockY + 5); ctx.lineTo(xStart, blockY);
+            ctx.lineTo(xEnd, blockY); ctx.lineTo(xEnd, blockY + 5);
+            ctx.strokeStyle = intervalBorderColor; ctx.lineWidth = 2; ctx.stroke();
+            
+            ctx.fillStyle = intervalBorderColor; ctx.font = 'bold 12px sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            ctx.fillText(`${(2*R).toFixed(1)}`, (xStart + xEnd) / 2, blockY - 5);
+        });
+
+        ctx.font = '18px sans-serif'; ctx.textBaseline = 'bottom';
+        sheepPositions.forEach(pos => { ctx.fillText('🐑', getXPixel(pos, width), axisY - 2); });
+
+        ctx.font = '18px sans-serif';
+        posts.forEach((pos) => {
+            const x = getXPixel(pos, width);
+            ctx.beginPath(); ctx.moveTo(x, axisY); ctx.lineTo(x, axisY - 80);
+            ctx.setLineDash([4, 4]); ctx.strokeStyle = isSuccess ? '#059669' : '#e11d48';
+            ctx.lineWidth = 1.5; ctx.stroke(); ctx.setLineDash([]);
+            ctx.fillText('📍', x, axisY - 35);
+        });
+
+        rValDisplay.innerText = R.toFixed(1);
+        if (isSuccess) {
+            statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-emerald-500 text-white";
+            statusBadge.innerText = `✅ 合法 (需 ${posts.length} 根)`;
+        } else {
+            statusBadge.className = "text-[10px] font-black px-2 py-1 rounded shadow-sm transition-colors bg-rose-500 text-white";
+            statusBadge.innerText = `❌ 超出 (需 ${posts.length} 根)`;
+        }
+    }
+    slider.oninput = draw;
+    window.onresize = resizeCanvas;
+    
+    setTimeout(resizeCanvas, 50);
+}
+
+    // ================= [8. 总结与考核模块] =================
         function closeSummaryIntro() {
     const bubble = document.getElementById('summary-intro-bubble');
     if (bubble) {
@@ -4224,52 +4282,6 @@ function closeLogIntro() {
             }
         }
         
-// ================= [9. 全局初始化 (Bootloader)] =================
-        document.addEventListener("DOMContentLoaded", function() {
-            if(typeof lucide !== 'undefined') lucide.createIcons();
-            
-            renderProgressBar();
-            updateSlides('next');
-            
-            const rangePanel = document.getElementById('dict-l-val');
-            if (rangePanel) {
-                const rangeBox = rangePanel.parentElement.parentElement;
-                const statusContainer = document.createElement('div');
-                statusContainer.className = "flex items-center gap-2 shrink-0 ml-2";
-                rangeBox.classList.remove('ml-2');
-                const stepBox = document.createElement('div');
-                stepBox.id = 'dict-step-counter';
-                stepBox.className = "px-3 py-1.5 bg-rose-50 rounded-xl border border-rose-200 shadow-inner flex flex-col items-center gap-0.5 transition-all duration-300";
-                stepBox.innerHTML = `<span class="text-[9px] lg:text-[10px] font-black tracking-widest text-rose-400 uppercase">已翻开次数</span><span class="text-sm lg:text-base font-black text-rose-600 font-mono" id="dict-step-val">0</span>`;
-                rangeBox.parentNode.insertBefore(statusContainer, rangeBox);
-                statusContainer.appendChild(stepBox); statusContainer.appendChild(rangeBox);
-            }
-            
-            initSeqGame();
-            updateLogScale();
-            initGame();
-            initMathGame();
-            initInteractiveSim();
-            initMathBridgeGame();
-            
-            const inputN = document.getElementById('math-initial-n');
-            if(inputN) inputN.addEventListener('keypress', e => { if (e.key === 'Enter') { initMathGame(); inputN.blur(); }});
-            
-            const inputGuess = document.getElementById('guess-input');
-            if(inputGuess) inputGuess.addEventListener('keypress', e => { if (e.key === 'Enter') makeGuess(); });
-
-            const inputLR = document.getElementById('ai-lr-input');
-            if(inputLR) inputLR.addEventListener('keypress', e => { if (e.key === 'Enter') trainAIModel(); });
-
-            document.querySelectorAll('.sum-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    this.classList.remove('border-rose-400', 'text-rose-500', 'bg-rose-50');
-                    this.classList.add('border-slate-300', 'bg-white'); 
-                    document.getElementById('sum-error-msg').classList.add('opacity-0');
-                });
-            });
-        });
-
     </script>
 </body>
 </html>
