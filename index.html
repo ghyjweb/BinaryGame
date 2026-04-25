@@ -350,7 +350,7 @@
             
             <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(244,63,94,0.15),0_20px_50px_rgba(244,63,94,0.25)] z-10">
                 
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./1outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./1Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-rose-50/75 to-pink-100/70" style="border-radius: inherit; z-index: -1;"></div>
                 
                 <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none z-0"></div>
@@ -394,13 +394,18 @@
             <div class="shrink-0 bg-white/95 p-5 lg:p-6 rounded-[2rem] lg:rounded-[2.5rem] border border-stone-100 shadow-xl mb-5 relative z-20 overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-300 to-blue-400"></div>
 
-                <div class="flex justify-between items-center mb-6">
-                    <div class="text-base lg:text-lg font-bold text-stone-600 flex items-center gap-2">
+                <div class="flex justify-between items-center mb-6 gap-2">
+                    <div class="text-base lg:text-lg font-bold text-stone-600 flex items-center gap-2 shrink-0">
                         <i data-lucide="search" class="text-blue-500 w-5 h-5"></i>
                         任务：在盒子中寻找数值 <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-lg font-black text-lg lg:text-xl shadow-sm border border-rose-200">89</span>
                     </div>
-                    <div class="text-sm font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
-                        当前比对次数：<span id="seq-step-count" class="text-blue-600 text-lg lg:text-xl font-black ml-1">0</span>
+                    <div class="flex items-center gap-2 lg:gap-3">
+                        <div class="text-sm font-bold text-slate-400 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                            当前比对次数：<span id="seq-step-count" class="text-blue-600 text-lg lg:text-xl font-black ml-1">0</span>
+                        </div>
+                        <button onclick="resetSeqGame()" class="px-3 lg:px-4 py-1.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-slate-600 font-bold text-sm lg:text-base transition-all shadow-sm flex items-center gap-2 active:scale-95 shrink-0">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span class="hidden sm:inline">重新开始</span>
+                        </button>
                     </div>
                 </div>
                 
@@ -445,11 +450,10 @@
         </div>
     </div>
 
-    <div id="slide1-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide1-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-cyan-50/90 text-cyan-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-cyan-200 shadow-md backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             回顾完毕后<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-cyan-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -492,8 +496,8 @@
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
         <div class="w-full max-w-5xl flex flex-col max-h-full overflow-y-auto task-scrollbar pt-4 pb-12 lg:py-8 lg:justify-center">
             
-            <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
-                <div class="p-2 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-6 h-6 lg:w-7 lg:h-7"></i></div>
+            <div class="shrink-0 flex items-center gap-3 lg:gap-4 mb-1 bg-white/80 backdrop-blur-md px-5 py-0.5 rounded-2xl border border-white/50 shadow-sm w-fit mx-auto lg:mx-0">
+                <div class="p-2 bg-red-50 border border-red-100 rounded-2xl text-red-500 shadow-sm"><i data-lucide="gamepad-2" class="w-6 h-6 lg:w-6 lg:h-6"></i></div>
                 <h2 class="text-xl lg:text-3xl font-black text-stone-800 m-0">2. 情境探究：光缆维修模拟</h2>
             </div>
             
@@ -503,7 +507,7 @@
                 <div class="w-full mb-5 p-3 lg:p-4 bg-slate-50/80 border border-slate-200 rounded-2xl text-sm lg:text-base text-stone-600 font-medium flex items-start gap-3 shadow-inner shrink-0">
                     <div class="p-1.5 bg-blue-50 rounded-full shrink-0 border border-blue-100 mt-0.5"><i data-lucide="info" class="w-5 h-5 text-blue-500"></i></div>
                     <p class="leading-relaxed m-0">
-                        <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连。请派遣无人机前往坐标检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。
+                        <b class="text-stone-800">任务说明：</b>东莞至广州的 100km 光缆突发断连，<b class="text-stone-800">我们需要尽快找到断点！</b>请派遣无人机前往坐标检测：若<span class="text-emerald-600 font-bold">信号正常</span>，说明断点还在前方；若<span class="text-amber-600 font-bold">无信号</span>，说明断点在后方。
                     </p>
                 </div>
 
@@ -523,7 +527,7 @@
                     <div class="absolute right-4 lg:right-5 text-xs lg:text-sm font-black text-slate-500 pointer-events-none -top-6">广州(100km)</div>
                     
                     <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-blue-500 flex items-center gap-1 pointer-events-none z-20">
-                        <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标轴快速定位并派遣
+                        <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击下方坐标轴👇快速定位并派遣（蓝色代表剩余搜索范围）
                     </div>
 
                     <div class="w-full h-2.5 lg:h-3 bg-slate-300 rounded-full relative" id="cable-core">
@@ -557,16 +561,15 @@
         </div>
     </div>
 
-    <div id="slide2-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide2-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-rose-50/90 text-rose-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-rose-200 shadow-md backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             回顾完毕后<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-rose-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
             <div id="slide-3" class="slide inactive-right absolute inset-0">
-    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-math.jpg');"></div>
+    <div class="absolute inset-0 z-0 opacity-30 bg-cover bg-center bg-no-repeat" style="background-image: url('./daima.jpg');"></div>
 
     <div id="math-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
         <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
@@ -606,7 +609,7 @@
         <div id="math-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
             <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(99,102,241,0.15),0_20px_50px_rgba(99,102,241,0.25)] z-10">
                 
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./3outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./3Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-indigo-50/75 to-purple-100/70" style="border-radius: inherit; z-index: -1;"></div>
                 
                 <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
@@ -630,7 +633,7 @@
                 </button>
                 
                 <div class="relative z-10 w-full text-center mt-4">
-                    <button onclick="closeMathOutro();" class="text-xs lg:text-sm font-bold text-stone-400 hover:text-stone-600 transition-colors tracking-widest underline decoration-stone-300 hover:decoration-stone-500 underline-offset-4">
+                    <button onclick="closeMathOutro(true);" class="text-xs lg:text-sm font-bold text-stone-400 hover:text-stone-600 transition-colors tracking-widest underline decoration-stone-300 hover:decoration-stone-500 underline-offset-4">
                         先不翻页，再看看本页
                     </button>
                 </div>
@@ -664,10 +667,17 @@
                         <div id="slash-effect" class="absolute inset-0 bg-white opacity-0 rounded-[1.5rem] lg:rounded-[2rem] pointer-events-none transition-opacity duration-100"></div>
                     </div>
                     <div class="relative z-10 flex flex-col items-center shrink-0">
-                        <button id="btn-halve-strike" onclick="executeHalve()" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light">
-                            <div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
-                            <i data-lucide="scissors" class="w-6 h-6 lg:w-7 lg:h-7"></i> 折半劈砍！
-                        </button>
+                        <div class="relative flex items-center">
+                            <div id="halve-arrow-hint" class="absolute right-full mr-4 top-1/2 -translate-y-1/2 flex flex-row items-center animate-bounce z-30 pointer-events-none transition-opacity duration-300">
+                                <span class="text-xs font-black text-rose-600 tracking-widest whitespace-nowrap bg-rose-100 px-2 py-0.5 rounded border border-rose-300 shadow-sm">点此劈砍</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5 lg:w-6 lg:h-6 text-rose-500 drop-shadow-md ml-1"></i>
+                            </div>
+                            
+                            <button id="btn-halve-strike" onclick="executeHalve(); document.getElementById('halve-arrow-hint').style.opacity='0';" class="group relative px-6 py-3 lg:px-8 lg:py-4 bg-rose-500 text-white rounded-2xl font-black text-xl lg:text-2xl shadow-[0_8px_20px_rgba(244,63,94,0.4)] hover:bg-rose-600 hover:shadow-[0_10px_25px_rgba(244,63,94,0.6)] transition-all active:scale-90 active:translate-y-2 flex items-center gap-2 lg:gap-3 overflow-hidden breathing-light">
+                                <div class="absolute inset-0 bg-white/20 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div>
+                                <i data-lucide="scissors" class="w-6 h-6 lg:w-7 lg:h-7"></i> 折半劈砍！
+                            </button>
+                        </div>
                         <p class="text-stone-400 font-medium text-xs lg:text-sm mt-2 lg:mt-3 text-center">疯狂点击直到数据变为 1，感受算法的威力</p>
                     </div>
                 </div>
@@ -700,11 +710,10 @@
         </div>
     </div>
 
-    <div id="slide3-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide3-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-indigo-50/90 text-indigo-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-indigo-200 shadow-md backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             回顾完毕后<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-indigo-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -810,11 +819,10 @@
                     </div>
                 </div>
 
-                <div class="absolute right-[4.5rem] lg:right-[5.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none animate-pulse flex flex-row items-center gap-1.5">
+                <div class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none animate-pulse flex flex-row items-center gap-1.5">
                     <div class="bg-indigo-50/90 text-indigo-600 text-[11px] lg:text-xs font-black px-2.5 py-1.5 rounded-xl border border-indigo-200 shadow-sm backdrop-blur-md whitespace-nowrap text-right w-fit leading-tight">
                         感受完降维打击后<br>请点击右侧按钮
                     </div>
-                    <i data-lucide="chevrons-right" class="w-7 h-7 lg:w-8 lg:h-8 text-indigo-500 drop-shadow-md -ml-0.5"></i>
                 </div>
 
             </div>
@@ -850,7 +858,7 @@
         <div id="sim-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
             <div class="relative backdrop-blur-md p-6 lg:p-8 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(16,185,129,0.25)] z-10">
                 
-                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./5outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./5Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-emerald-50/75 to-teal-100/70" style="border-radius: inherit; z-index: -1;"></div>
 
                 <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-2 text-center relative z-10 pt-2">初步推演完毕</h3>
@@ -894,11 +902,10 @@
         <i data-lucide="arrow-right" class="w-10 h-10 lg:w-12 lg:h-12 text-amber-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
 
-    <div id="sim-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="sim-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             回顾完毕后！<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
 
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto">
@@ -1024,11 +1031,10 @@
     </div>
 </div>
 
-                <div id="custom-sim-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                <div id="custom-sim-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
                     <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
                         推演完毕后！<br>请点击右侧箭头下一页
                     </div>
-                    <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
                 </div>
 
                 <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center pointer-events-auto h-screen overflow-y-auto task-scrollbar">
@@ -1183,11 +1189,10 @@
         </div>
     </div>
 
-    <div id="slide6-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2">
+    <div id="slide6-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2">
         <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             代码编译成功！<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -1226,6 +1231,45 @@
             <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-fuchsia-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(217,70,239,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
         </div>
     </div>
+
+    <div id="ai-outro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-all duration-500 opacity-0 pointer-events-none hidden">
+        <div id="ai-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
+            <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),inset_0_-15px_20px_rgba(217,70,239,0.15),0_20px_50px_rgba(217,70,239,0.25)] z-10">
+                
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./7Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-fuchsia-50/75 to-purple-100/70" style="border-radius: inherit; z-index: -1;"></div>
+                
+                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none z-0"></div>
+                
+                <i data-lucide="sparkles" class="absolute top-8 left-8 w-6 h-6 text-fuchsia-400 fill-fuchsia-400 opacity-60 animate-pulse z-0"></i>
+                <i data-lucide="lightbulb" class="absolute bottom-10 right-8 w-5 h-5 text-purple-300 opacity-80 animate-pulse z-0"></i>
+
+                <div class="w-14 h-14 bg-white text-fuchsia-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_5px_15px_rgba(217,70,239,0.2)] border border-fuchsia-100 relative z-10">
+                    <i data-lucide="lightbulb" class="w-7 h-7 animate-[pulse_1.5s_ease-in-out_infinite]"></i>
+                </div>
+                <h3 class="text-xl lg:text-2xl font-black text-slate-700 mb-3 tracking-widest text-center relative z-10">思考...</h3>
+                <p class="text-slate-600 font-bold text-sm lg:text-base mb-6 leading-relaxed text-center relative z-10 bg-white/60 p-4 rounded-3xl border border-fuchsia-100 shadow-sm backdrop-blur-sm">
+                    你看，即使在这个看似与找数字毫不相干的“模型调参”里，参数空间也是连续且有序的。<br>
+                    <span class="text-fuchsia-600 mt-2 block font-black text-base lg:text-lg">在这种情况下，查找最佳参数的时候，二分查找是不是比顺序查找（一个一个试）快得多呢？</span>
+                </p>
+                
+                <div class="flex flex-col gap-3 relative z-10">
+                    <button onclick="closeAiOutro(true); nextSlide();" class="px-8 py-3.5 bg-gradient-to-r from-stone-700 to-stone-900 hover:from-stone-800 hover:to-black text-white rounded-full font-black shadow-[0_8px_20px_rgba(30,41,59,0.4)] transition-all active:scale-95 text-base w-full flex items-center justify-center gap-2 breathing-light border border-stone-600">
+                        带着结论进入下一页 <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+                    </button>
+                    <div class="relative z-10 w-full text-center mt-2">
+                        <button onclick="closeAiOutro(true);" class="text-xs lg:text-sm font-bold text-stone-400 hover:text-stone-600 transition-colors tracking-widest underline decoration-stone-300 hover:decoration-stone-500 underline-offset-4">
+                            先不翻页，再看看本页
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute -bottom-6 left-20 w-8 h-8 rounded-full bg-gradient-to-br from-white via-fuchsia-50 to-purple-100 border border-white/60 shadow-[inset_0_5px_10px_rgba(255,255,255,0.9),0_10px_20px_rgba(217,70,239,0.2)] z-0 animate-bounce" style="animation-duration: 2s;"></div>
+            <div class="absolute -bottom-14 left-14 w-4 h-4 rounded-full bg-gradient-to-br from-white via-fuchsia-50 to-purple-100 border border-white/60 shadow-[inset_0_2px_5px_rgba(255,255,255,0.9),0_5px_10px_rgba(217,70,239,0.2)] z-0 animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.2s;"></div>
+        </div>
+    </div>
+
     <div class="relative z-10 h-full w-full p-4 lg:p-8 flex flex-col items-center justify-center pointer-events-auto">
         <div class="text-center w-full max-w-5xl flex flex-col h-full justify-center items-center">
             <div class="flex items-center justify-center gap-4 mb-4 bg-white/80 backdrop-blur-md px-8 py-3 rounded-2xl border border-white/50 shadow-sm mx-auto w-fit">
@@ -1266,7 +1310,7 @@
                     <div class="absolute right-4 lg:right-5 text-xs lg:text-sm font-black text-slate-500 pointer-events-none -top-6">LR=100</div>
                     
                     <div class="absolute left-1/2 -top-6 -translate-x-1/2 text-xs lg:text-sm font-bold text-fuchsia-500 flex items-center gap-1 pointer-events-none z-20">
-                        <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击坐标快速输入并训练
+                        <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 点击下方坐标👇快速输入并训练
                     </div>
 
                     <div class="w-full h-3 bg-slate-300 rounded-full relative" id="ai-lr-core">
@@ -1289,7 +1333,7 @@
                     <span class="font-black text-fuchsia-900 text-base lg:text-lg">输入 LR 参数：</span>
                     <input type="number" id="ai-lr-input" min="1" max="100" class="w-24 lg:w-32 text-center font-black text-2xl text-fuchsia-600 border-2 border-fuchsia-300 rounded-xl focus:outline-none focus:border-fuchsia-600 focus:ring-4 focus:ring-fuchsia-100 py-2 shadow-sm transition-all bg-white" placeholder="1-100">
                     <button onclick="trainAIModel()" id="btn-ai-train" class="px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 hover:shadow-[0_6px_20px_rgba(217,70,239,0.6)] transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light">
-                        <i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个
+                        <i data-lucide="play-circle" class="w-5 h-5"></i> 测试
                     </button>
                     <button onclick="resetAIGame()" class="px-4 py-3 bg-white border border-stone-200 text-stone-500 hover:bg-stone-50 rounded-xl font-bold transition-all active:scale-95 shadow-sm">重置</button>
                 </div>
@@ -1300,11 +1344,10 @@
         </div>
     </div>
 
-    <div id="slide7-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide7-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-fuchsia-50/90 text-fuchsia-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-fuchsia-200 shadow-[0_5px_15px_rgba(217,70,239,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             最佳参数已找到！<br>请点击右侧箭头下一页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-fuchsia-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -1408,16 +1451,15 @@
                     </div>
                 </div>
 
-                <div id="slide8-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                <div id="slide8-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
                     <div class="bg-violet-50/90 text-violet-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-violet-200 shadow-[0_5px_15px_rgba(139,92,246,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
                         破译成功啦！<br>请点击右侧箭头下一页
                     </div>
-                    <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-violet-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
                 </div>
             </div>
 
             <div id="slide-10" class="slide inactive-right absolute inset-0">
-                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-literature.jpg');"></div>
+                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center bg-no-repeat" style="background-image: url('./conclusion.jpg');"></div>
                 
                 <div id="dict-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
                     <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
@@ -1460,16 +1502,22 @@
                         </div>
                         <div class="bg-white/95 p-4 lg:p-6 rounded-[2rem] border border-stone-200 shadow-xl backdrop-blur-md w-full max-w-4xl transition-all duration-500 relative overflow-hidden">
                             <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-amber-100/40 rounded-full blur-[60px] pointer-events-none"></div>
-                            <div class="flex justify-between items-start sm:items-end mb-3 lg:mb-4 relative z-10">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-3 lg:mb-4 relative z-10 gap-3">
                                 <div class="text-left flex-1">
                                     <h3 class="text-lg lg:text-xl font-black text-stone-800 flex items-center gap-2 mb-1">
                                         <i data-lucide="search" class="text-amber-500 w-5 h-5"></i> 寻找生僻字：<span class="bg-rose-100 text-rose-600 px-2 py-0.5 rounded-lg border border-rose-200 shadow-sm">淼 (m 开头)</span>
                                     </h3>
                                     <p class="text-stone-500 font-bold text-xs lg:text-sm">任务：假设字典共 1000 页。请利用二分法，快速翻出目标汉字！</p>
                                 </div>
-                                <div class="px-3 py-1.5 bg-stone-100 rounded-xl border border-stone-200 shadow-inner flex flex-col items-end gap-0.5 shrink-0 ml-2">
-                                    <span class="text-[9px] lg:text-[10px] font-black tracking-widest text-stone-400 uppercase">当前搜索范围</span>
-                                    <span class="text-sm lg:text-base font-black text-amber-600 font-mono">第 <span id="dict-l-val">1</span> ~ <span id="dict-r-val">1000</span> 页</span>
+                                
+                                <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                                    <button onclick="resetDictGame()" class="px-3 py-1.5 bg-white hover:bg-stone-50 border border-stone-200 rounded-xl text-stone-600 font-bold transition-all shadow-sm flex items-center gap-1.5 active:scale-95 shrink-0 text-sm h-full">
+                                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> 重新开始
+                                    </button>
+                                    <div class="px-3 py-1.5 bg-stone-100 rounded-xl border border-stone-200 shadow-inner flex flex-col items-end gap-0.5 shrink-0">
+                                        <span class="text-[9px] lg:text-[10px] font-black tracking-widest text-stone-400 uppercase">当前搜索范围</span>
+                                        <span class="text-sm lg:text-base font-black text-amber-600 font-mono">第 <span id="dict-l-val">1</span> ~ <span id="dict-r-val">1000</span> 页</span>
+                                    </div>
                                 </div>
                             </div>
                             <div id="dict-book-container" class="relative w-full h-36 lg:h-44 bg-[#e8dcc4] rounded-xl border-[4px] lg:border-[6px] border-[#8b5a2b] shadow-[0_15px_30px_rgba(0,0,0,0.3)] mb-4 flex perspective-[1200px] transition-all duration-500">
@@ -1536,11 +1584,10 @@
                     </div>
                 </div>
 
-                <div id="slide9-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                <div id="slide9-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
                     <div class="bg-amber-50/90 text-amber-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-amber-200 shadow-[0_5px_15px_rgba(245,158,11,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
                         查字典真快！<br>请点击右侧箭头下一页
                     </div>
-                    <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-amber-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
                 </div>
 
             </div>
@@ -1586,7 +1633,7 @@
                     <div id="ai-chat-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
                         <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(59,130,246,0.25)] z-10">
                             
-                            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./10outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./10Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
                             <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-blue-50/75 to-slate-100/70" style="border-radius: inherit; z-index: -1;"></div>
 
                             <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none"></div>
@@ -1611,11 +1658,10 @@
                     </div>
                 </div>
                 
-                <div id="slide10-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                <div id="slide10-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
                     <div class="bg-blue-50/90 text-blue-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-blue-200 shadow-[0_5px_15px_rgba(59,130,246,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
                         拓展学习完成！<br>请点击右侧箭头下一页
                     </div>
-                    <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-blue-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
                 </div>
 
                 <div class="relative z-10 w-full flex flex-col items-center pointer-events-auto" style="justify-content: flex-start !important; padding-top: 2.5% !important; padding-bottom: 2.5% !important; height: 100% !important;">
@@ -1784,16 +1830,15 @@
         </div>
     </div>
 
-    <div id="slide11-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide11-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-emerald-50/90 text-emerald-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-emerald-200 shadow-[0_5px_15px_rgba(16,185,129,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             知识图谱已点亮！<br>请点击右侧进入终极考核
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-emerald-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
             <div id="slide-13" class="slide inactive-right absolute inset-0">
-    <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./test.jpg');"></div>
+    <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center bg-no-repeat" style="background-image: url('./bg-ai.jpg');"></div>
     
     <div id="quiz-intro-bubble" class="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500">
         <div class="relative w-full max-w-lg px-4 transform transition-transform duration-300">
@@ -1876,11 +1921,10 @@
         </div>
     </div>
 
-    <div id="slide12-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide12-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-rose-50/90 text-rose-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-rose-200 shadow-[0_5px_15px_rgba(244,63,94,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             考核完成！<br>请点击右侧箭头查看评价
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-rose-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -2020,11 +2064,10 @@
         </div>
     </div>
 
-    <div id="slide13-next-hint" class="absolute right-[4.5rem] lg:right-[6.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+    <div id="slide13-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
         <div class="bg-cyan-50/90 text-cyan-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-cyan-200 shadow-[0_5px_15px_rgba(6,182,212,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
             评价完成啦！<br>请点击右侧进入致谢页
         </div>
-        <i data-lucide="chevrons-right" class="w-10 h-10 lg:w-12 lg:h-12 text-cyan-500 drop-shadow-md animate-[shake_1s_infinite]"></i>
     </div>
             </div>
 
@@ -2151,9 +2194,9 @@
     <div class="bg-blue-50/95 text-blue-600 text-xs lg:text-sm font-black px-4 py-3 rounded-2xl rounded-br-none border-2 border-blue-200 shadow-[0_8px_20px_rgba(59,130,246,0.3)] backdrop-blur-md relative cursor-pointer pointer-events-auto hover:bg-blue-100 transition-colors animate-[breathingLight_3s_infinite_ease-in-out]" onclick="this.parentElement.remove()">
         <div class="flex items-center gap-2 mb-1">
             <i data-lucide="bot" class="w-4 h-4"></i>
-            <span>遇到听不懂的地方？</span>
+            <span>有没有遇到听不懂的地方？</span>
         </div>
-        <span>随时点击右下角召唤 AI 助教！</span>
+        <span>不会的随时来问我（扣子AI助教）哦！</span>
         <div class="mt-2 text-[10px] text-blue-400/80 font-bold flex items-center justify-end gap-1">
             <i data-lucide="x" class="w-3 h-3"></i> 知道了，点此关闭
         </div>
@@ -2376,7 +2419,7 @@
                 tipDiv.onclick = function() {
                     toggleTaskDrawer();
                     
-                    if (currentSlide === 2 || currentSlide === 5) {
+                    if (currentSlide === 2 || currentSlide === 5 || currentSlide === 6) {
                         return; 
                     }
                     
@@ -2540,10 +2583,9 @@
         let maxReachedTaskId = 0;
 
         window.addEventListener('keydown', (e) => {
-            if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
             
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
-            
             if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
         });
 
@@ -2603,6 +2645,37 @@
                     renderSeqArray();
                     if(typeof lucide !== 'undefined') lucide.createIcons();
                 }
+
+        function resetSeqGame() {
+    seqCurrentIndex = 0;
+    seqGameWon = false;
+    isSeqAnimating = false;
+    
+    document.getElementById('seq-step-count').innerText = "0";
+    
+    const btn = document.getElementById('btn-inspect-next');
+    btn.disabled = false;
+    btn.className = "group relative px-6 py-3 lg:px-8 lg:py-4 bg-slate-800 text-white rounded-2xl font-black text-lg lg:text-xl shadow-[0_8px_20px_rgba(30,41,59,0.3)] hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-3 overflow-hidden breathing-light shrink-0";
+    btn.innerHTML = `<div class="absolute inset-0 bg-white/10 w-full transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_0.5s_forwards]"></div><i data-lucide="scan-line" class="w-5 h-5 lg:w-6 lg:h-6 text-blue-400 group-hover:animate-pulse"></i> <span>执行 arr[<span id="seq-current-i">0</span>] 检查</span>`;
+
+    const outro = document.getElementById('seq-outro-bubble');
+    if (outro) {
+        outro.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+    }
+    
+    const feedbackText = document.getElementById('seq-feedback-text');
+    feedbackText.innerText = "规则：从左到右，按顺序逐个开箱比对";
+    feedbackText.className = "text-stone-600 font-bold text-sm lg:text-base bg-white/60 px-5 py-2.5 rounded-full backdrop-blur-md border border-white shadow-sm transition-all shrink-0";
+
+    const efficiencyPanel = document.getElementById('review-efficiency');
+    if (efficiencyPanel) {
+        efficiencyPanel.classList.add('opacity-0', 'translate-y-8', 'scale-95', 'pointer-events-none');
+        efficiencyPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100', 'pointer-events-auto');
+    }
+
+    renderSeqArray();
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
 
         function renderSeqArray() {
             const container = document.getElementById('seq-array-container');
@@ -2731,7 +2804,7 @@
                 <div id="game-outro-content" class="relative w-full max-w-lg px-4 transform scale-95 transition-transform duration-500">
                     <div class="relative backdrop-blur-md p-8 lg:p-10 rounded-[3.5rem] border border-white/60 shadow-[inset_0_15px_20px_rgba(255,255,255,0.9),0_20px_50px_rgba(244,63,94,0.25)] z-10">
                         
-                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./2outro.jpg'); border-radius: inherit; z-index: -2;"></div>
+                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./2Intro.jpg'); border-radius: inherit; z-index: -2;"></div>
                         <div class="absolute inset-0 bg-gradient-to-br from-white/85 via-rose-50/75 to-pink-100/70" style="border-radius: inherit; z-index: -1;"></div>
                         
                         <div class="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-gradient-to-b from-white/80 to-transparent rounded-[100%] pointer-events-none z-0"></div>
@@ -3224,15 +3297,20 @@
                 }
 
                 let labels = '';
-                if (isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L</span>`;
-                if (isR && !isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">R</span>`;
-                if (isR && isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L,R</span>`;
-                if (isM && !isTargetFound) labels += `<span class="text-xs font-black text-white bg-amber-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm animate-bounce z-40">M</span>`;
-                if (isTargetFound) labels += `<span class="text-xs font-black text-white bg-rose-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm z-40 flex items-center gap-1"><i data-lucide="target" class="w-3 h-3"></i>TARGET</span>`;
+                
+                if (isL && !isR) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">L</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
+                if (isR && !isL) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
+                if (isR && isL)  labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-600 px-1.5 py-0.5 rounded shadow-md leading-none">L,R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-600 -mt-0.5 drop-shadow-sm"></i></div>`;
+
+                if (isM && !isTargetFound) labels += `<div class="absolute -bottom-8 lg:-bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all animate-bounce"><i data-lucide="arrow-up" class="w-3 h-3 lg:w-4 lg:h-4 text-amber-500 -mb-0.5 drop-shadow-sm"></i><span class="text-[10px] lg:text-xs font-black text-white bg-amber-500 px-1.5 py-0.5 rounded shadow-md leading-none">Mid</span></div>`;
+                if (isTargetFound) labels += `<div class="absolute -bottom-8 lg:-bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><i data-lucide="arrow-up" class="w-3 h-3 lg:w-4 lg:h-4 text-rose-500 -mb-0.5 drop-shadow-sm"></i><span class="text-[10px] lg:text-xs font-black text-white bg-rose-500 px-1.5 py-0.5 rounded shadow-md flex items-center gap-1 leading-none"><i data-lucide="target" class="w-3 h-3"></i>TARGET</span></div>`;
+
+                let indexColor = (isL || isR) ? "text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded shadow-sm z-20" : "text-stone-400";
+                let indexHtml = `<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] ${indexColor} font-mono font-bold transition-all">${idx}</span>`;
 
                 return `
                     <div class="${wrapperClasses}">
-                        <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] text-stone-400 font-mono font-bold">${idx}</span>
+                        ${indexHtml}
                         ${pingDiv}
                         <div id="array-box-${idx}" onclick="handleArrayClick(${idx})" class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-[3px] font-black transition-all duration-300 text-xl lg:text-2xl ${boxClasses} relative z-10 select-none">${num}</div>
                         ${labels}
@@ -3451,7 +3529,13 @@
                         <div class="flex flex-wrap gap-2 lg:gap-4 justify-center w-full"> ${Array(8).fill(0).map((_, i) => `
                                 <div class="relative">
                                     <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] lg:text-xs text-stone-400 font-mono font-bold">${i}</span> 
-                                    <input type="number" id="custom-input-arr-${i}" onblur="checkInputOrder(${i})" class="w-14 h-14 lg:w-20 lg:h-20 text-center rounded-2xl border-2 border-stone-300 font-black text-xl lg:text-3xl text-stone-700 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:outline-none shadow-sm transition-all bg-white/90" placeholder=""> 
+                                    <input type="number" id="custom-input-arr-${i}" 
+                                        onfocus="updateAllInputRanges()" 
+                                        onclick="updateAllInputRanges()" 
+                                        onkeyup="updateAllInputRanges()"
+                                        onblur="checkInputOrder(${i})" 
+                                        class="w-14 h-14 lg:w-20 lg:h-20 text-center rounded-2xl border-2 border-stone-300 font-black text-lg lg:text-2xl text-stone-700 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-200 focus:outline-none shadow-sm transition-all bg-white/90 placeholder:text-[11px] lg:placeholder:text-sm placeholder:font-bold placeholder:text-stone-400" 
+                                        placeholder="任意"> 
                                 </div>
                             `).join('')}
                         </div>
@@ -3463,7 +3547,12 @@
                                 <div class="bg-rose-50/80 px-4 py-2 rounded-lg border border-rose-200 text-rose-800 font-bold text-sm lg:text-base flex items-center gap-1.5 shadow-sm"> 
                                     <i data-lucide="target" class="w-4 h-4 lg:w-5 lg:h-5"></i> 步骤 2：设定要查找的目标
                                 </div>
-                                <input type="number" id="custom-input-target" class="w-24 h-12 lg:w-32 lg:h-14 text-center rounded-2xl border-2 border-stone-300 font-black text-xl lg:text-2xl text-rose-600 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 focus:outline-none shadow-sm transition-all bg-white/90" placeholder="目标"> 
+                                <input type="number" id="custom-input-target" 
+                                    onfocus="updateAllInputRanges()" 
+                                    onclick="updateAllInputRanges()" 
+                                    onkeyup="updateAllInputRanges()"
+                                    class="w-24 h-12 lg:w-32 lg:h-14 text-center rounded-2xl border-2 border-stone-300 font-black text-lg lg:text-2xl text-rose-600 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 focus:outline-none shadow-sm transition-all bg-white/90 placeholder:text-sm lg:placeholder:text-base placeholder:font-bold placeholder:text-rose-300" 
+                                    placeholder="请输入">
                             </div>
 
                             <div class="flex flex-col items-center sm:items-end">
@@ -3498,15 +3587,20 @@
                 }
 
                 let labels = '';
-                if (isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L</span>`;
-                if (isR && !isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">R</span>`;
-                if (isR && isL) labels += `<span class="text-xs font-black text-blue-600 bg-blue-100 px-1.5 rounded border border-blue-200 absolute -bottom-3 left-1/2 -translate-x-1/2 shadow-sm transition-all z-40">L,R</span>`;
-                if (isM && !isTargetFound) labels += `<span class="text-xs font-black text-white bg-amber-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm animate-bounce z-40">M</span>`;
-                if (isTargetFound) labels += `<span class="text-xs font-black text-white bg-rose-500 px-1.5 rounded absolute -top-3 left-1/2 -translate-x-1/2 shadow-sm z-40 flex items-center gap-1"><i data-lucide="target" class="w-3 h-3"></i>TARGET</span>`;
+                
+                if (isL && !isR) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">L</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
+                if (isR && !isL) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
+                if (isR && isL)  labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-600 px-1.5 py-0.5 rounded shadow-md leading-none">L,R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-600 -mt-0.5 drop-shadow-sm"></i></div>`;
+
+                if (isM && !isTargetFound) labels += `<div class="absolute -bottom-8 lg:-bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all animate-bounce"><i data-lucide="arrow-up" class="w-3 h-3 lg:w-4 lg:h-4 text-amber-500 -mb-0.5 drop-shadow-sm"></i><span class="text-[10px] lg:text-xs font-black text-white bg-amber-500 px-1.5 py-0.5 rounded shadow-md leading-none">Mid</span></div>`;
+                if (isTargetFound) labels += `<div class="absolute -bottom-8 lg:-bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><i data-lucide="arrow-up" class="w-3 h-3 lg:w-4 lg:h-4 text-rose-500 -mb-0.5 drop-shadow-sm"></i><span class="text-[10px] lg:text-xs font-black text-white bg-rose-500 px-1.5 py-0.5 rounded shadow-md flex items-center gap-1 leading-none"><i data-lucide="target" class="w-3 h-3"></i>TARGET</span></div>`;
+
+                let indexColor = (isL || isR) ? "text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded shadow-sm z-20" : "text-stone-400";
+                let indexHtml = `<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] ${indexColor} font-mono font-bold transition-all">${idx}</span>`;
 
                 return `
                     <div class="${wrapperClasses}">
-                        <span class="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] text-stone-400 font-mono font-bold">${idx}</span>
+                        ${indexHtml}
                         ${pingDiv}
                         <div id="custom-array-box-${idx}" onclick="handleCustomArrayClick(${idx})" class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-[3px] font-black transition-all duration-300 text-xl lg:text-2xl ${boxClasses} relative z-10 select-none">${num}</div>
                         ${labels}
@@ -3515,64 +3609,6 @@
             }).join('');
         }
 
-        function checkInputOrder(index) {
-            const currentInput = document.getElementById(`custom-input-arr-${index}`);
-            const errEl = document.getElementById('custom-setup-error');
-            
-            if (!currentInput || currentInput.value === '') {
-                if (errEl.innerText.includes(`第 ${index} 个框`)) {
-                    errEl.innerText = '';
-                }
-                return;
-            }
-            
-            const currentVal = Number(currentInput.value);
-            let isValid = true;
-            let errorMsg = '';
-
-            if (index > 0) {
-                const prevInput = document.getElementById(`custom-input-arr-${index - 1}`);
-                if (prevInput && prevInput.value !== '') {
-                    const prevVal = Number(prevInput.value);
-                    if (currentVal <= prevVal) {
-                        isValid = false;
-                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须大于前一个数字 (${prevVal})！`;
-                    }
-                }
-            }
-
-            if (isValid && index < 7) {
-                const nextInput = document.getElementById(`custom-input-arr-${index + 1}`);
-                if (nextInput && nextInput.value !== '') {
-                    const nextVal = Number(nextInput.value);
-                    if (currentVal >= nextVal) {
-                        isValid = false;
-                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须小于后一个数字 (${nextVal})！`;
-                    }
-                }
-            }
-
-            if (!isValid) {
-                errEl.innerText = errorMsg;
-                
-                triggerErrorShake(currentInput.parentElement);
-                
-                currentInput.classList.replace('border-stone-300', 'border-rose-500');
-                currentInput.classList.add('text-rose-500');
-                
-                currentInput.value = ''; 
-                
-                setTimeout(() => {
-                    currentInput.classList.replace('border-rose-500', 'border-stone-300');
-                    currentInput.classList.remove('text-rose-500');
-                }, 2000);
-            } else {
-                if (errEl.innerText.includes(`第 ${index} 个框`)) {
-                    errEl.innerText = '';
-                }
-            }
-        }        
-        
         function handleCustomArrayClick(idx) {
             const boxEl = document.getElementById(`custom-array-box-${idx}`);
             if (customSimGameState === 'FIND_MID') {
@@ -3633,6 +3669,8 @@
         }
 
         function handleCustomSimOutro(action) {
+            taskIntercepted[6] = true;
+
             const outro = document.getElementById('custom-sim-outro-bubble');
             if (outro) {
                 outro.classList.add('opacity-0', 'pointer-events-none');
@@ -3652,8 +3690,148 @@
                     hint.classList.remove('opacity-0');
                 }
             } else if (action === 'task') {
+                const hint = document.getElementById('custom-sim-next-hint');
+                if (hint) {
+                    hint.classList.remove('hidden');
+                    void hint.offsetWidth;
+                    hint.classList.remove('opacity-0');
+                }
+                
                 if (!isDrawerOpen) toggleTaskDrawer();
             }
+        }
+
+        function updateAllInputRanges() {
+            for (let i = 0; i < 8; i++) {
+                updateInputRange(i);
+            }
+            updateTargetRange();
+        }
+
+        function checkInputOrder(index) {
+            const currentInput = document.getElementById(`custom-input-arr-${index}`);
+            const errEl = document.getElementById('custom-setup-error');
+            
+            if (!currentInput || currentInput.value === '') {
+                if (errEl.innerText.includes(`第 ${index} 个框`)) {
+                    errEl.innerText = '';
+                }
+                updateAllInputRanges();
+                return;
+            }
+            
+            const currentVal = Number(currentInput.value);
+            let isValid = true;
+            let errorMsg = '';
+
+            if (index > 0) {
+                const prevInput = document.getElementById(`custom-input-arr-${index - 1}`);
+                if (prevInput && prevInput.value !== '') {
+                    const prevVal = Number(prevInput.value);
+                    if (currentVal <= prevVal) {
+                        isValid = false;
+                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须大于前一个数字 (${prevVal})！`;
+                    }
+                }
+            }
+
+            if (isValid && index < 7) {
+                const nextInput = document.getElementById(`custom-input-arr-${index + 1}`);
+                if (nextInput && nextInput.value !== '') {
+                    const nextVal = Number(nextInput.value);
+                    if (currentVal >= nextVal) {
+                        isValid = false;
+                        errorMsg = `输入错误！第 ${index} 个框的数字 (${currentVal}) 必须小于后一个数字 (${nextVal})！`;
+                    }
+                }
+            }
+
+            if (!isValid) {
+                errEl.innerText = errorMsg;
+                triggerErrorShake(currentInput.parentElement);
+                
+                currentInput.classList.replace('border-stone-300', 'border-rose-500');
+                currentInput.classList.add('text-rose-500');
+                currentInput.value = ''; 
+                
+                setTimeout(() => {
+                    currentInput.classList.replace('border-rose-500', 'border-stone-300');
+                    currentInput.classList.remove('text-rose-500');
+                }, 2000);
+            } else {
+                if (errEl.innerText.includes(`第 ${index} 个框`)) {
+                    errEl.innerText = '';
+                }
+            }
+
+            updateAllInputRanges();
+        }        
+
+        function updateInputRange(index) {
+            const currentInput = document.getElementById(`custom-input-arr-${index}`);
+            if (!currentInput) return;
+            
+            let minVal = '';
+            let maxVal = '';
+            
+            for (let i = index - 1; i >= 0; i--) {
+                const prevInput = document.getElementById(`custom-input-arr-${i}`);
+                if (prevInput && prevInput.value !== '') {
+                    minVal = Number(prevInput.value) + 1;
+                    break;
+                }
+            }
+            
+            for (let i = index + 1; i < 8; i++) {
+                const nextInput = document.getElementById(`custom-input-arr-${i}`);
+                if (nextInput && nextInput.value !== '') {
+                    maxVal = Number(nextInput.value) - 1; 
+                    break;
+                }
+            }
+            
+            if (minVal !== '') currentInput.min = minVal;
+            else currentInput.removeAttribute('min');
+            
+            if (maxVal !== '') currentInput.max = maxVal;
+            else currentInput.removeAttribute('max');
+
+            let rangeText = '';
+            if (minVal !== '' && maxVal !== '') {
+                if (minVal > maxVal) {
+                    rangeText = '冲突';
+                } else {
+                    rangeText = `${minVal}~${maxVal}`;
+                }
+            } else if (minVal !== '') {
+                rangeText = `≥${minVal}`;
+            } else if (maxVal !== '') {
+                rangeText = `≤${maxVal}`;
+            } else {
+                rangeText = `任意`;
+            }
+            
+            currentInput.placeholder = rangeText;
+        }
+
+        function updateTargetRange() {
+            const targetInput = document.getElementById('custom-input-target');
+            if (!targetInput) return;
+            
+            const arrInputs = [];
+            for (let i = 0; i < 8; i++) {
+                const el = document.getElementById(`custom-input-arr-${i}`);
+                if (el && el.value !== '') arrInputs.push(Number(el.value));
+            }
+            
+            if (arrInputs.length > 0) {
+                const minVal = Math.min(...arrInputs);
+                const maxVal = Math.max(...arrInputs);
+                targetInput.min = minVal;
+                targetInput.max = maxVal;
+            } 
+            
+            targetInput.placeholder = "请输入";
         }
 
         // ================= [5. 代码实操] =================
@@ -3795,25 +3973,25 @@
         }
 
         // ================= [6. 拓展：AI 调参、数学求根、查字典] =================
-        function closeAiIntro() {
-    const bubble = document.getElementById('ai-intro-bubble');
-    if (bubble) {
-        bubble.classList.add('opacity-0', 'pointer-events-none');
-    }
-}
-
+                
         // AI 模块
-        const AI_TARGET_LR = 45; 
+        let AI_TARGET_LR = Math.floor(Math.random() * 50) + 51; 
         let aiEpochs = 0; let aiGameWon = false; let aiLeftBound = 1; let aiRightBound = 100;
 
         function resetAIGame() {
+            AI_TARGET_LR = Math.floor(Math.random() * 50) + 51; 
+            
             aiEpochs = 0; aiGameWon = false; aiLeftBound = 1; aiRightBound = 100;
             document.getElementById('ai-epoch-count').innerText = "0";
-            const input = document.getElementById('ai-lr-input'); input.value = ''; input.disabled = false;
+            
+            const input = document.getElementById('ai-lr-input'); 
+            input.value = ''; 
+            input.disabled = false;
+            input.placeholder = "1-100";
             
             const btn = document.getElementById('btn-ai-train'); btn.disabled = false;
             btn.className = "px-6 py-3 bg-fuchsia-600 text-white rounded-xl shadow-[0_4px_15px_rgba(217,70,239,0.4)] hover:bg-fuchsia-700 transition-all font-black text-lg active:scale-95 flex items-center gap-2 breathing-light";
-            btn.innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i> 跑一个 Epoch`;
+            btn.innerHTML = `<i data-lucide="play-circle" class="w-5 h-5"></i> 测试`;
 
             const ball = document.getElementById('ai-model-ball');
             ball.style.transition = 'all 0.5s ease'; ball.style.left = '5%'; ball.style.top = '15%';
@@ -3823,6 +4001,17 @@
             const feedback = document.getElementById('ai-feedback');
             feedback.className = "mt-4 w-full p-3 lg:p-4 bg-stone-50 border border-stone-200 rounded-xl text-base lg:text-lg font-bold text-stone-500 flex items-center justify-center transition-all text-center";
             feedback.innerHTML = `<i data-lucide="cpu" class="w-5 h-5 mr-2"></i> 模型已重置。寻找极小值，建议使用折半思想！`;
+
+            const outroBubble = document.getElementById('ai-outro-bubble');
+            if (outroBubble) {
+                outroBubble.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                const content = document.getElementById('ai-outro-content');
+                if(content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+            }
+
             const nextHint = document.getElementById('slide7-next-hint');
             if (nextHint) {
                 nextHint.classList.add('hidden', 'opacity-0');
@@ -3840,11 +4029,19 @@
             const ball = document.getElementById('ai-model-ball');
 
             if(isNaN(lr) || lr < aiLeftBound || lr > aiRightBound) {
-                feedback.innerHTML = `<span class="text-rose-500"><i data-lucide="alert-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> 请输入 ${aiLeftBound} 到 ${aiRightBound} 之间的有效参数。</span>`;
+                input.classList.remove('shake-error');
+                void input.offsetWidth;
+                input.classList.add('shake-error');
+                
+                let errorMsg = isNaN(lr) 
+                    ? `请输入有效的数字！` 
+                    : `所查找的学习率 ${lr} 不在范围内（有效范围：${aiLeftBound}~${aiRightBound}）！`;
+                
+                feedback.innerHTML = `<span class="text-rose-500"><i data-lucide="alert-circle" class="w-5 h-5 inline mr-1 -mt-1"></i> ${errorMsg}</span>`;
                 if(typeof lucide !== 'undefined') lucide.createIcons();
                 input.value = ''; input.focus(); return;
             }
-
+            
             aiEpochs++; document.getElementById('ai-epoch-count').innerText = aiEpochs;
             ball.style.transition = 'none'; ball.style.left = '5%'; ball.style.top = '15%';
             void ball.offsetWidth; ball.style.transition = 'all 1s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -3861,29 +4058,42 @@
                 document.getElementById('btn-ai-train').className = "px-6 py-3 bg-stone-300 text-stone-500 rounded-xl font-black shadow-inner transition-all flex items-center gap-2 cursor-not-allowed";
                 
                 setTimeout(() => {
-                    const nextHint = document.getElementById('slide7-next-hint');
-                    if (nextHint) {
-                        nextHint.classList.remove('hidden');
-                        void nextHint.offsetWidth;
-                        nextHint.classList.remove('opacity-0');
+                    const outro = document.getElementById('ai-outro-bubble');
+                    if (outro) {
+                        outro.classList.remove('hidden');
+                        void outro.offsetWidth;
+                        outro.classList.remove('opacity-0', 'pointer-events-none');
+                        const content = document.getElementById('ai-outro-content');
+                        if (content) {
+                            content.classList.remove('scale-95');
+                            content.classList.add('scale-100');
+                        }
                     }
                 }, 2000);
 
             } else if (lr < AI_TARGET_LR) {
-                aiLeftBound = Math.max(aiLeftBound, lr);
+                aiLeftBound = Math.max(aiLeftBound, lr + 1); 
                 const progress = lr / AI_TARGET_LR; 
                 ball.style.left = `${5 + (40 * progress)}%`; ball.style.top = `${15 + (60 * progress)}%`;
                 feedback.className = "mt-4 w-full p-3 bg-amber-50 border border-amber-200 rounded-xl text-lg font-bold text-amber-700 flex items-center justify-center transition-all shadow-sm";
                 feedback.innerHTML = `参数 ${lr} 太小：陷入<b class="ml-1 text-amber-600">欠拟合</b>。范围缩小至 ${aiLeftBound}~${aiRightBound}。`;
             } else {
-                aiRightBound = Math.min(aiRightBound, lr);
+                aiRightBound = Math.min(aiRightBound, lr - 1); 
                 ball.style.left = '120%'; ball.style.top = '-20%';
                 setTimeout(() => { document.getElementById('ai-explosion').style.opacity = '1'; }, 400);
                 setTimeout(() => { document.getElementById('ai-explosion').style.opacity = '0'; }, 1000);
                 feedback.className = "mt-4 w-full p-3 bg-rose-50 border border-rose-200 rounded-xl text-lg font-bold text-rose-600 flex items-center justify-center transition-all shadow-sm";
                 feedback.innerHTML = `参数 ${lr} 太大：引发<b class="ml-1 text-rose-600">梯度爆炸</b>！范围缩小至 ${aiLeftBound}~${aiRightBound}。`;
             }
+            
             updateAIRangeVisual();
+            
+            if(!aiGameWon) {
+                input.placeholder = `${aiLeftBound}-${aiRightBound}`;
+            } else {
+                input.placeholder = `${AI_TARGET_LR}`;
+            }
+
             setTimeout(() => { if(!aiGameWon) { input.value = ''; input.focus(); } }, 1000);
             if(typeof lucide !== 'undefined') lucide.createIcons();
         }
@@ -3926,6 +4136,35 @@
         }
     }
 }
+
+        function closeAiIntro() {
+            const bubble = document.getElementById('ai-intro-bubble');
+            if (bubble) {
+                bubble.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function closeAiOutro(showHint = false) {
+            const outro = document.getElementById('ai-outro-bubble');
+            if (outro) {
+                outro.classList.add('opacity-0', 'pointer-events-none');
+                const content = document.getElementById('ai-outro-content');
+                if (content) {
+                    content.classList.remove('scale-100');
+                    content.classList.add('scale-95');
+                }
+                setTimeout(() => outro.classList.add('hidden'), 500);
+
+                if (showHint) {
+                    const hint = document.getElementById('slide7-next-hint');
+                    if (hint) {
+                        hint.classList.remove('hidden');
+                        void hint.offsetWidth;
+                        hint.classList.remove('opacity-0');
+                    }
+                }
+            }
+        }
 
         // ================= [数学求根模块] =================
         let mathRootL = 1.000; let mathRootR = 2.000; let mathRootMid = null; let mathRootVal = null; let mathRootState = 'IDLE';
@@ -4073,6 +4312,48 @@
             }
         }
         
+        function resetDictGame() {
+            dictL = 1; 
+            dictR = 1000; 
+            dictMid = 0; 
+            dictSteps = 0;
+            dictState = 'FIND_MID'; 
+            currentDictInfo = null;
+
+            document.getElementById('dict-l-val').innerText = dictL;
+            document.getElementById('dict-r-val').innerText = dictR;
+            const stepValEl = document.getElementById('dict-step-val');
+            if (stepValEl) stepValEl.innerText = '0';
+
+            ['left', 'right'].forEach(side => {
+                document.getElementById(`dict-content-${side}`).classList.remove('scale-100', 'opacity-100');
+                document.getElementById(`dict-content-${side}`).classList.add('scale-0', 'opacity-0');
+                document.getElementById(`dict-placeholder-${side}`).classList.remove('scale-0', 'opacity-0');
+                document.getElementById(`ui-page-${side}`).innerText = '--';
+                
+                document.getElementById(`dict-page-${side}`).classList.remove('bg-emerald-50');
+                document.getElementById(`ui-char-${side}`).classList.remove('text-emerald-600');
+                const pyEl = document.getElementById(`ui-pinyin-${side}`);
+                if (pyEl) pyEl.className = "text-sm lg:text-lg font-bold text-amber-600 font-mono bg-amber-50 px-2 py-0.5 lg:py-1 rounded-lg border border-amber-100";
+            });
+
+            document.getElementById('dict-step-1').classList.remove('hidden');
+            const step2 = document.getElementById('dict-step-2');
+            step2.classList.add('hidden');
+            step2.classList.remove('flex');
+            
+            const success = document.getElementById('dict-success-msg');
+            success.classList.add('hidden'); 
+            success.classList.remove('animate-bounce');
+
+            const hint = document.getElementById('slide9-next-hint');
+            if (hint) {
+                hint.classList.add('hidden', 'opacity-0');
+            }
+
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
         function calculateDictMid() {
             if (dictState === 'WON') return;
             dictSteps++;
