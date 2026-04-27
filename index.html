@@ -1587,7 +1587,7 @@ int search(int nums[], int size, int target) {
                     </div>
                 </div>
 
-                <div id="slide8-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
+                <div id="slide10-next-hint" class="absolute right-[4.5rem] lg:right-[0.5rem] top-1/2 -translate-y-1/2 z-[70] pointer-events-none opacity-0 transition-opacity duration-500 flex items-center gap-2 hidden">
                     <div class="bg-violet-50/90 text-violet-600 text-xs lg:text-sm font-black px-4 py-2 rounded-2xl border-2 border-violet-200 shadow-[0_5px_15px_rgba(139,92,246,0.2)] backdrop-blur-md whitespace-nowrap animate-pulse text-right">
                         破译成功啦！<br>请点击右侧箭头下一页
                     </div>
@@ -2557,7 +2557,7 @@ int search(int nums[], int size, int target) {
         let currentSlide = 0;
         let isDrawerOpen = false;
 
-        const taskIntercepted = { 2: false, 5: false, 6: false, 9: false };
+        const taskIntercepted = { 2: false, 6: false, 7: false, 11: false };
 
         function shouldInterceptForward(fromSlide, toSlide) {
             if (toSlide <= fromSlide) return false;
@@ -3518,9 +3518,19 @@ int search(int nums[], int size, int target) {
                 const isL = idx === currentL; const isR = idx === currentR; const isM = idx === currentM;
                 const isTargetFound = (simGameState === 'WON' && isM);
 
+                let isEliminated = false;
+                if (simGameState === 'MOVE_POINTER') {
+                    if (gameArray[currentM] < GAME_TARGET) {
+                        if (idx >= currentL && idx <= currentM) isEliminated = true;
+                    } else {
+                        if (idx >= currentM && idx <= currentR) isEliminated = true;
+                    }
+                }
+
                 let boxClasses = "bg-white border-stone-200 text-stone-800 hover:border-emerald-300 hover:shadow-md cursor-pointer active:scale-95";
                 let wrapperClasses = "relative transition-all duration-300 transform" + (isOutOfRange ? " dimmed-box" : "");
                 let pingDiv = "";
+                let eliminatedLine = "";
 
                 if (isTargetFound) {
                     boxClasses = "bg-emerald-500 text-white border-emerald-400 scale-110 shadow-[0_0_20px_rgba(16,185,129,0.5)] z-30 pointer-events-none";
@@ -3531,8 +3541,12 @@ int search(int nums[], int size, int target) {
                     boxClasses = "bg-blue-50 text-blue-800 border-blue-300 shadow-sm z-10 cursor-pointer hover:bg-blue-100";
                 }
 
+                if (isEliminated) {
+                    boxClasses += " opacity-40 grayscale scale-95";
+                    eliminatedLine = `<div class="absolute inset-0 flex items-center justify-center z-40 pointer-events-none transition-all duration-500 animate-[slideInRight_0.3s_ease-out]"><div class="w-[120%] h-1.5 lg:h-2 bg-rose-500/80 -rotate-45 rounded-full shadow-sm backdrop-blur-sm"></div></div>`;
+                }
+
                 let labels = '';
-                
                 if (isL && !isR) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">L</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
                 if (isR && !isL) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
                 if (isR && isL)  labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-600 px-1.5 py-0.5 rounded shadow-md leading-none">L,R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-600 -mt-0.5 drop-shadow-sm"></i></div>`;
@@ -3549,7 +3563,7 @@ int search(int nums[], int size, int target) {
                         ${pingDiv}
                         <div id="array-box-${idx}" onclick="handleArrayClick(${idx})" class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-[3px] font-black transition-all duration-300 text-xl lg:text-2xl ${boxClasses} relative z-10 select-none">${num}</div>
                         ${labels}
-                    </div>
+                        ${eliminatedLine} </div>
                 `;
             }).join('');
         }
@@ -3803,9 +3817,19 @@ int search(int nums[], int size, int target) {
                 const isL = idx === customCurrentL; const isR = idx === customCurrentR; const isM = idx === customCurrentM;
                 const isTargetFound = (customSimGameState === 'WON' && isM);
 
+                let isEliminated = false;
+                if (customSimGameState === 'MOVE_POINTER') {
+                    if (customGameArray[customCurrentM] < CUSTOM_GAME_TARGET) {
+                        if (idx >= customCurrentL && idx <= customCurrentM) isEliminated = true;
+                    } else {
+                        if (idx >= customCurrentM && idx <= customCurrentR) isEliminated = true;
+                    }
+                }
+
                 let boxClasses = "bg-white border-stone-200 text-stone-800 hover:border-emerald-300 hover:shadow-md cursor-pointer active:scale-95";
                 let wrapperClasses = "relative transition-all duration-300 transform" + (isOutOfRange ? " dimmed-box" : "");
                 let pingDiv = "";
+                let eliminatedLine = "";
 
                 if (isTargetFound) {
                     boxClasses = "bg-emerald-500 text-white border-emerald-400 scale-110 shadow-[0_0_20px_rgba(16,185,129,0.5)] z-30 pointer-events-none";
@@ -3816,8 +3840,12 @@ int search(int nums[], int size, int target) {
                     boxClasses = "bg-blue-50 text-blue-800 border-blue-300 shadow-sm z-10 cursor-pointer hover:bg-blue-100";
                 }
 
+                if (isEliminated) {
+                    boxClasses += " opacity-40 grayscale scale-95";
+                    eliminatedLine = `<div class="absolute inset-0 flex items-center justify-center z-40 pointer-events-none transition-all duration-500 animate-[slideInRight_0.3s_ease-out]"><div class="w-[120%] h-1.5 lg:h-2 bg-rose-500/80 -rotate-45 rounded-full shadow-sm backdrop-blur-sm"></div></div>`;
+                }
+
                 let labels = '';
-                
                 if (isL && !isR) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">L</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
                 if (isR && !isL) labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-500 px-1.5 py-0.5 rounded shadow-md leading-none">R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-500 -mt-0.5 drop-shadow-sm"></i></div>`;
                 if (isR && isL)  labels += `<div class="absolute -top-[3.2rem] lg:-top-[3.6rem] left-1/2 -translate-x-1/2 flex flex-col items-center z-50 transition-all"><span class="text-[10px] lg:text-xs font-black text-white bg-blue-600 px-1.5 py-0.5 rounded shadow-md leading-none">L,R</span><i data-lucide="arrow-down" class="w-3 h-3 lg:w-4 lg:h-4 text-blue-600 -mt-0.5 drop-shadow-sm"></i></div>`;
@@ -3834,11 +3862,11 @@ int search(int nums[], int size, int target) {
                         ${pingDiv}
                         <div id="custom-array-box-${idx}" onclick="handleCustomArrayClick(${idx})" class="w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center rounded-2xl border-[3px] font-black transition-all duration-300 text-xl lg:text-2xl ${boxClasses} relative z-10 select-none">${num}</div>
                         ${labels}
-                    </div>
+                        ${eliminatedLine} </div>
                 `;
             }).join('');
         }
-
+        
         function handleCustomArrayClick(idx) {
             const boxEl = document.getElementById(`custom-array-box-${idx}`);
             if (customSimGameState === 'FIND_MID') {
@@ -4234,10 +4262,10 @@ int search(int nums[], int size, int target) {
             if(typeof lucide !== 'undefined') lucide.createIcons();
 
             setTimeout(() => {
-                const hasWhile = code.includes('while');
-                const hasMid = code.includes('mid') && (code.includes('/ 2') || code.includes('>> 1') || code.includes('/2'));
-                const hasLeftUpdate = code.includes('left') && code.includes('mid') && code.includes('+');
-                const hasRightUpdate = code.includes('right') && code.includes('mid') && code.includes('-');
+                const hasWhile = /while\s*\(/.test(code);
+                const hasMid = /(mid|m)\s*=\s*.*(\/|>>)\s*2/.test(code);
+                const hasLeftUpdate = /(left|l)\s*=\s*(mid|m)\s*\+/.test(code);
+                const hasRightUpdate = /(right|r)\s*=\s*(mid|m)\s*-/.test(code);
                 
                 if (hasWhile && hasMid && hasLeftUpdate && hasRightUpdate) {
                     terminalBox.classList.remove('border-slate-700');
@@ -4593,7 +4621,7 @@ int search(int nums[], int size, int target) {
                 document.getElementById('math-pointer-l').classList.add('animate-pulse'); document.getElementById('math-pointer-r').classList.add('animate-pulse');
                 
                 setTimeout(() => {
-                    const hint = document.getElementById('slide8-next-hint');
+                    const hint = document.getElementById('slide10-next-hint');
                     if (hint) {
                         hint.classList.remove('hidden');
                         void hint.offsetWidth;
@@ -5419,7 +5447,7 @@ int search(int nums[], int size, int target) {
             });
             btn.className = "px-1.5 md:px-2 py-1.5 rounded-xl text-[10px] md:text-xs font-bold bg-cyan-500 border border-cyan-500 text-white shadow-md transition-all scale-105 z-10 whitespace-nowrap";
 
-            const allGroups = document.querySelectorAll('#slide-14 .eval-group');
+            const allGroups = document.querySelectorAll('#slide-15 .eval-group');
             let completedCount = 0;
             
             allGroups.forEach(g => {
